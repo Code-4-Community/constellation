@@ -22,8 +22,17 @@ Globals:
     TracingEnabled: true
 
 Resources:
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  
+  ProtectedApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: "'*'"
+      Auth:
+        DefaultAuthorizer: MyCognitoAuthorizer
+        Authorizers:
+          MyCognitoAuthorizer:
+            UserPoolArn: !GetAtt UserPool.Arn
 
   # This is a Lambda function config associated with the source code: get.js
   getFunction:
@@ -31,20 +40,17 @@ Resources:
     Properties:
       Handler: src/handlers/get.getHandler
       Runtime: nodejs18.x
-      Architectures:
-      - x86_64
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP get method that returns "Hello world!".
       Events:
-        Api:
+        Root:
           Type: Api
           Properties:
+            RestApiId: !Ref ProtectedApi
             Path: /
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-
+  
   # This is a Lambda function config associated with the source code: get-by-id.js
   getByIdFunction:
     Type: AWS::Serverless::Function
@@ -63,9 +69,7 @@ Resources:
           Properties:
             Path: /{id}
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-
+  
   # This is a Lambda function config associated with the source code: put-item.js
   putItemFunction:
     Type: AWS::Serverless::Function
@@ -84,6 +88,29 @@ Resources:
           Properties:
             Path: /
             Method: POST
+
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: ConstellationUserPool
+      UsernameAttributes:
+      - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+      Schema:
+      - AttributeDataType: String
+        Name: email
+        Required: false
+
+  UserPoolClient:
+     Type: AWS::Cognito::UserPoolClient
+     Properties:
+       UserPoolId: !Ref UserPool
+       ClientName: UserPoolClient
+       GenerateSecret: false
+       ExplicitAuthFlows:
+       - USER_PASSWORD_AUTH
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
