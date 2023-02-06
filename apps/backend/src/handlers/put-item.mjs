@@ -1,3 +1,4 @@
+import { qldbDriver, insertDocument } from "../qldb.mjs";
 // Create clients and set shared const values outside of the handler.
 
 /**
@@ -14,6 +15,11 @@ export const putItemHandler = async (event) => {
     const body = JSON.parse(event.body);
     const id = body.id;
     const name = body.name;
+
+    await qldbDriver.executeLambda(async (txn) => {
+        console.log("Insert document");
+        await insertDocument(txn);
+    });
 
     const response = {
         statusCode: 200,

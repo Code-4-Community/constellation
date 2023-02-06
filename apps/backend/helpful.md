@@ -11,4 +11,4 @@
 
 - `sam build` - build locally
 - `sam local start-api` - deploy locally (need Docker installed on your machine)
-- `aws cloud formation delete-stack --region <REGION DEPLOYED> --stack-name <STACK NAME>` - destroy deployed stack
+- `aws cloudformation delete-stack --region <REGION DEPLOYED> --stack-name <STACK NAME>` - destroy deployed stack

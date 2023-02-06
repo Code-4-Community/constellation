@@ -85,6 +85,30 @@ Resources:
             Path: /
             Method: POST
 
+  QLDBKey:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      KeySpec: SYMMETRIC_DEFAULT
+      KeyUsage: ENCRYPT_DECRYPT
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: key-policy-id
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+            Action: 'kms:*'
+            Resource: '*'
+
+  myQLDBLedger:
+    Type: AWS::QLDB::Ledger
+    Properties: 
+      DeletionProtection: false #TODO: change to true for prod
+      KmsKey: !Ref QLDBKey
+      Name: TestLedger
+      PermissionsMode: STANDARD
+
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties:
