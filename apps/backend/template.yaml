@@ -22,6 +22,36 @@ Globals:
     TracingEnabled: true
 
 Resources:
+  # Defines an IAM role for Lambdas that allows them to:
+  # 1. interact with the QLDB transactional data API
+  # 2. create CloudWatch logs (using an AWS managed IAM policy)
+  QLDBSendCommandRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: QLDBSendCommandRole 
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Description: Role to provide access to the QLDB transactional data API
+      Policies:
+        - PolicyName: QLDBSendCommandPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - "qldb:SendCommand"
+                  - "qldb:PartiQL*"
+                Resource: '*'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
@@ -36,6 +66,7 @@ Resources:
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP get method that returns "Hello world!".
+      Role: !GetAtt QLDBSendCommandRole.Arn
       Events:
         Api:
           Type: Api
@@ -57,6 +88,7 @@ Resources:
       Timeout: 100
       Description: A simple example includes a HTTP get method to get one item by
         id from a dummy nonexistent table.
+      Role: !GetAtt QLDBSendCommandRole.Arn
       Events:
         Api:
           Type: Api
@@ -78,13 +110,16 @@ Resources:
       Timeout: 100
       Description: A simple example includes a HTTP post method to add one item to
         a dummy nonexistent table.
+      Role: !GetAtt QLDBSendCommandRole.Arn
       Events:
         Api:
           Type: Api
           Properties:
             Path: /
             Method: POST
-
+  # Creates an AWS KMS key to encrypt/decrypt data in QLDB
+  # the key policy gives root account users key management permissions
+  # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)
   QLDBKey:
     Type: 'AWS::KMS::Key'
     Properties:
@@ -100,11 +135,17 @@ Resources:
               AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
             Action: 'kms:*'
             Resource: '*'
+          - Sid: Allow use of the key
+            Effect: Allow
+            Principal:
+              AWS: !GetAtt QLDBSendCommandRole.Arn
+            Action: 'kms:*'
+            Resource: '*'
 
   myQLDBLedger:
     Type: AWS::QLDB::Ledger
     Properties: 
-      DeletionProtection: false #TODO: change to true for prod
+      DeletionProtection: false #TODO: change to true for prod, set to false so we can delete the entire stack during the development process
       KmsKey: !Ref QLDBKey
       Name: TestLedger
       PermissionsMode: STANDARD
