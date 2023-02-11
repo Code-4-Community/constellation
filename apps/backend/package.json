@@ -18,7 +18,9 @@
     "jest": "^29.2.1"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "build": "sam build",
+    "dev-deploy": "sam deploy --guided --capabilities CAPABILITY_NAMED_IAM"
   },
   "jest": {
     "testMatch": [
