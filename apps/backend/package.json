@@ -9,17 +9,24 @@
     "@aws-sdk/client-qldb": "^3.264.0",
     "@aws-sdk/client-qldb-session": "^3.264.0",
     "@aws-sdk/lib-dynamodb": "^3.188.0",
+    "@aws-sdk/node-http-handler": "^3.267.0",
     "amazon-qldb-driver-nodejs": "^3.0.1",
     "ion-js": "^4.3.0",
-    "jsbi": "^3.2.5"
+    "jsbi": "^3.2.5",
+    "source-map-support": "^0.5.21"
   },
   "devDependencies": {
+    "@tsconfig/node18": "^1.0.1",
+    "@types/aws-lambda": "^8.10.110",
+    "@types/node": "^18.13.0",
     "aws-sdk-client-mock": "^2.0.0",
-    "jest": "^29.2.1"
+    "jest": "^29.2.1",
+    "quicktype": "^21.0.12",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-    "build": "sam build",
+    "build": "npx tsc && sam build",
     "dev-deploy": "sam deploy --guided --capabilities CAPABILITY_NAMED_IAM"
   },
   "jest": {

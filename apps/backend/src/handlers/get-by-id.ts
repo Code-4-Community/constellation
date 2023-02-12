@@ -1,11 +1,12 @@
-import { qldbDriver, fetchDocuments } from '../qldb.mjs';
-
+import { APIGatewayEvent } from 'aws-lambda';
+import { qldbDriver } from '../db/qldb.js';
+import { fetchDocuments } from '../db/utils.js';
 // Create clients and set shared const values outside of the handler.
 
 /**
  * A simple example includes a HTTP get method to get one item by id from a dummy nonexistent table.
  */
-export const getByIdHandler = async (event) => {
+export const getByIdHandler = async (event: APIGatewayEvent) => {
   if (event.httpMethod !== 'GET') {
     throw new Error(
       `getMethod only accept GET method, you tried: ${event.httpMethod}`
@@ -15,23 +16,19 @@ export const getByIdHandler = async (event) => {
   console.info('received:', event);
 
   // Get id from pathParameters from APIGateway because of `/{id}` at template.yaml
-  const id = event.pathParameters.id;
+  const id = event.pathParameters!.id;
 
   const response = {
     statusCode: 200,
     body: JSON.stringify(id),
   };
 
-  const resultList = await qldbDriver.executeLambda(async (txn) => {
-    console.log('Fetch document');
-    const result = await fetchDocuments(txn);
-    return result.getResultList();
-  });
+  const resultList = await fetchDocuments();
 
   // Pretty print the result list
   console.log('The result List is ', JSON.stringify(resultList, null, 2));
   // All log statements are written to CloudWatch
-  console.info(
+  console.log(
     `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`
   );
   return response;
