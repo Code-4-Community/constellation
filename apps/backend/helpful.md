@@ -8,7 +8,6 @@
 
 
 ## Helpful commands
-
-- `sam build` - build locally
 - `sam local start-api` - deploy locally (need Docker installed on your machine)
-- `aws cloud formation delete-stack --region <REGION DEPLOYED> --stack-name <STACK NAME>` - destroy deployed stack
+- `aws cloudformation delete-stack --region <REGION DEPLOYED> --stack-name <STACK NAME>` - destroy deployed stack
+- `sam sync --stack-name` - deploys your local changes to the AWS Cloud. Use sync to build, package, and deploy changes to your development environment as you iterate on your application. 
