@@ -11,9 +11,9 @@ const addressSchema = z.object({
 const guardianFormSchema = z.object({
     childsName: z.string(),
     ssn: z.number(),
-    dob: z.date(),
+    dob: z.string(),
     gender: z.string(),
-    gaurdianName: z.string(),
+    guardianName: z.string(),
     address: addressSchema,
     phone: z.number(),
     cellPhone: z.number(),
@@ -21,7 +21,7 @@ const guardianFormSchema = z.object({
     requestedGrantAmount: z.number(),
     intendedUseOfGrant: z.string(),
     signature: z.string(), // Not sure how this will be formated
-    date: z.date(),
+    date: z.string(),
 })
 
 // Part of form to be filled out by a medical professional
@@ -35,7 +35,7 @@ const medicalFormSchema = z.object({
     descriptionOfCondition: z.string(),
     nameAndTitle: z.string(),
     signature: z.string(),
-    date: z.date(),
+    date: z.string(),
     socialWorkersEmail: z.string().email(),
 })
 

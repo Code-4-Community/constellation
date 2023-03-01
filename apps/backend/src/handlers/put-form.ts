@@ -7,9 +7,10 @@ import { formSchema } from '../schema/schema.js';
  */
 export const putFormHandler = async (event: APIGatewayEvent) => {
     if (event.httpMethod !== 'POST') {
-        throw new Error(
-            `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`
-        );
+        return {
+            statusCode: 200,
+            body: `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`
+        }
     }
     // All log statements are written to CloudWatch
     console.info('received:', event);
@@ -20,7 +21,10 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
     try {
         form = formSchema.parse(JSONbody);
     } catch (error) {
-        throw new Error('Form body does not match schema')
+        return {
+            statusCode: 200,
+            body: 'Form body does not match schema. Error: ' + error
+        }
     }
 
 
