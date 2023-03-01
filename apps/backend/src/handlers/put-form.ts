@@ -8,25 +8,23 @@ import { formSchema } from '../schema/schema.js';
 export const putFormHandler = async (event: APIGatewayEvent) => {
     if (event.httpMethod !== 'POST') {
         return {
-            statusCode: 200,
+            statusCode: 400,
             body: `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`
         }
     }
     // All log statements are written to CloudWatch
     console.info('received:', event);
 
-    // Get id and name from the body of the request
     const JSONbody = JSON.parse(event.body!);
     let form;
     try {
         form = formSchema.parse(JSONbody);
     } catch (error) {
         return {
-            statusCode: 200,
+            statusCode: 400,
             body: 'Form body does not match schema. Error: ' + error
         }
     }
-
 
     await insertDocument(form);
 

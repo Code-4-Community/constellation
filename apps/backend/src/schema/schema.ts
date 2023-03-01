@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 const addressSchema = z.object({
     address: z.string(),
@@ -33,7 +33,7 @@ const medicalFormSchema = z.object({
     address: addressSchema,
     phone: z.number(),
     descriptionOfCondition: z.string(),
-    nameAndTitle: z.string(),
+    medicalProfessionalNameAndTitle: z.string(),
     signature: z.string(),
     date: z.string(),
     socialWorkersEmail: z.string().email(),
