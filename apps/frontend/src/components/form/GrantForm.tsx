@@ -6,7 +6,7 @@ import InputField from './InputField';
 interface GrantFormValues {
   childName: string;
   ssn: string;
-  dob: Date; 
+  dob: Date;
   gender: string;
   parentName: string;
   childAddress: string;
@@ -16,7 +16,7 @@ interface GrantFormValues {
   childPhone: string;
   childCellphone: string;
   childEmail: string;
-  grantDollarAmount: number; 
+  grantDollarAmount: number;
   useOfGrant: string;
   parentSignature: string;
   parentSignatureDate: Date;
@@ -29,58 +29,25 @@ interface ExampleFormProps {
 const alertOnSubmit = async (values: FormValues) => {
   // import and call method on api
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  // eslint-disable-next-line no-alert
   alert(JSON.stringify(values, null, 2));
 };
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   // eslint-disable-next-line no-alert
-  <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{ }}>
-    <InputField
-      isRequired
-      displayName="Child's Name:"
-      fieldName="childName"
-    />
-    <InputField
-      isRequired
-      displayName="SSN:"
-      fieldName="ssn"
-    />
-    <InputField
-      isRequired
-      displayName="Date of Birth:"
-      fieldName="dob"
-    />
-    <InputField
-      isRequired
-      displayName="Gender:"
-      fieldName="gender"
-    />
+  <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
+    <InputField isRequired displayName="Child's Name:" fieldName="childName" />
+    <InputField isRequired displayName="SSN:" fieldName="ssn" />
+    <InputField isRequired displayName="Date of Birth:" fieldName="dob" />
+    <InputField isRequired displayName="Gender:" fieldName="gender" />
     <InputField
       isRequired
       displayName="Parent/Legal Guardian Name:"
       fieldName="parentName"
     />
-    <InputField
-      isRequired
-      displayName="Address:"
-      fieldName="childAddress"
-    />
-    <InputField
-      isRequired
-      displayName="City:"
-      fieldName="childCity"
-    />
-    <InputField
-      isRequired
-      displayName="State:"
-      fieldName="childState"
-    />
-    <InputField
-      isRequired
-      displayName="Zip Code:"
-      fieldName="childZipcode"
-    />
+    <InputField isRequired displayName="Address:" fieldName="childAddress" />
+    <InputField isRequired displayName="City:" fieldName="childCity" />
+    <InputField isRequired displayName="State:" fieldName="childState" />
+    <InputField isRequired displayName="Zip Code:" fieldName="childZipcode" />
     <InputField
       isRequired
       displayName="Phone:"
@@ -110,7 +77,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
       isRequired
       displayName="Date:"
       fieldName="parentSignatureDate" // date picker
-    /> 
+    />
   </Form>
 );
 
