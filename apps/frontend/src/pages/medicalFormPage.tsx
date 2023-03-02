@@ -12,8 +12,8 @@ const MedicalFormPage: React.FC = () => (
           Information
         </Heading>
         <Text textAlign={"center"}>
-        (to be completed by medical professional)
-        </Text>
+        (to be completed by medical professional) 
+        </Text> 
         <MedicalForm />
       </Container>
     </Grid>

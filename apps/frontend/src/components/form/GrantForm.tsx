@@ -6,7 +6,7 @@ import InputField from './InputField';
 interface GrantFormValues {
   childName: string;
   ssn: string;
-  dob: string;
+  dob: Date; 
   gender: string;
   parentName: string;
   childAddress: string;
@@ -16,10 +16,10 @@ interface GrantFormValues {
   childPhone: string;
   childCellphone: string;
   childEmail: string;
-  grantAmount: string;
+  grantDollarAmount: number; 
   useOfGrant: string;
   parentSignature: string;
-  parentDate: string;
+  parentSignatureDate: Date;
 }
 
 interface ExampleFormProps {
@@ -84,17 +84,17 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <InputField
       isRequired
       displayName="Phone:"
-      fieldName="childPhone"
+      fieldName="childPhone" // chrkra prop to give field type="email"
     />
     <InputField
       isRequired
       displayName="E-mail Address:"
-      fieldName="childEmail"
+      fieldName="childEmail" // numberpicker
     />
     <InputField
       isRequired
-      displayName="Requested grant amount:"
-      fieldName="grantAmount"
+      displayName="Requested grant amount (in USD):"
+      fieldName="grantDollarAmount"
     />
     <InputField
       isRequired
@@ -109,8 +109,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <InputField
       isRequired
       displayName="Date:"
-      fieldName="parentDate"
-    />
+      fieldName="parentSignatureDate" // date picker
+    /> 
   </Form>
 );
 

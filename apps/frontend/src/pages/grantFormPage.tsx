@@ -12,7 +12,7 @@ const GrantFormPage: React.FC = () => (
           Application for Financial Assistance
         </Heading>
         <Text textAlign={"center"}>
-          (to be completed by child’s parent/legal guardia)
+          (to be completed by child’s parent/legal guardian)
         </Text>
         <GrantForm />
       </Container>

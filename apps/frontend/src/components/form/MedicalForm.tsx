@@ -5,18 +5,19 @@ import InputField from './InputField';
 
 interface MedicalFormValues {
   childDiagnosis: string;
-  diagnosisDate: string;
+  diagnosisDate: Date; 
   childPhysician: string;
-  hospital: string;
+  hospitalName: string;
   hospitalAddress: string;
   hospitalCity: string;
   hospitalState : string;
   hospitalZipcode: string;
   hospitalPhone: string;
   doctorsExplanation: string;
-  doctorPrintedNameTitle: string;
+  doctorName: string;
+  doctorTitle: string;
   doctorSignature: string;
-  doctorDate: string;
+  doctorSignatureDate: Date; 
   socialWorkerEmail: string;
 }
 
@@ -54,7 +55,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <InputField
       isRequired
       displayName="Hopsital:"
-      fieldName="hospital"
+      fieldName="hospitalName"
     />
     <InputField
       isRequired
@@ -89,19 +90,31 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
 
     <InputField
       isRequired
-      displayName="Name and Title:"
-      fieldName="doctorPrintedNameTitle"
+      displayName="Doctor's Name:"
+      fieldName="doctorName"
     />
 
     <InputField
       isRequired
-      displayName="Parent/Legal Guardian Signature:"
-      fieldName="parentSignature"
+      displayName="Doctor's Title:"
+      fieldName="doctorTitle"
+    />
+
+    <InputField
+      isRequired
+      displayName="Doctor's Signature:"
+      fieldName="doctorSignature"
+    />
+
+    <InputField
+      isRequired
+      displayName="Date Signed:"
+      fieldName="doctorSignatureDate"
     />
     <InputField
       isRequired
-      displayName="Date:"
-      fieldName="parentDate"
+      displayName="Social Worker's Email Address:"
+      fieldName="socialWorkerEmail"
     />
   </Form>
 );
