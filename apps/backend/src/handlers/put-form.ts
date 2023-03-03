@@ -29,13 +29,12 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
     await insertDocument(form);
 
     const response = {
-        statusCode: 200,
-        body: JSON.stringify(form),
+        statusCode: 201,
     };
 
     // All log statements are written to CloudWatch
     console.info(
-        `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`
+        `response from: ${event.path} statusCode: ${response.statusCode}`
     );
     return response;
 };
