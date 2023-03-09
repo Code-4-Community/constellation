@@ -1,7 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react';
 import Form, { FormValues } from './Form';
 import InputField from './InputField';
+import TimeInputField from './TimeInputField';
+import NumberInputField from './NumberInputField';
+import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+
+import EmailInputField from './EmailInputField';
 
 interface GrantFormValues {
   childName: string;
@@ -46,7 +52,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
       displayName="SSN:"
       fieldName="ssn"
     />
-    <InputField
+    <TimeInputField
       isRequired
       displayName="Date of Birth:"
       fieldName="dob"
@@ -84,14 +90,20 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <InputField
       isRequired
       displayName="Phone:"
-      fieldName="childPhone" // chrkra prop to give field type="email"
+      fieldName="childPhone"
     />
     <InputField
       isRequired
-      displayName="E-mail Address:"
-      fieldName="childEmail" // numberpicker
+      displayName="Cell Phone:"
+      fieldName="childCellphone"
     />
-    <InputField
+
+    <EmailInputField
+      isRequired
+      displayName="E-mail Address"
+      fieldName="childEmail"
+    />
+    <NumberInputField
       isRequired
       displayName="Requested grant amount (in USD):"
       fieldName="grantDollarAmount"
@@ -106,10 +118,10 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
       displayName="Parent/Legal Guardian Signature:"
       fieldName="parentSignature"
     />
-    <InputField
+    <TimeInputField
       isRequired
       displayName="Date:"
-      fieldName="parentSignatureDate" // date picker
+      fieldName="parentSignatureDate" 
     /> 
   </Form>
 );

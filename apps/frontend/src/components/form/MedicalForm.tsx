@@ -2,6 +2,8 @@
 import React from 'react';
 import Form, { FormValues } from './Form';
 import InputField from './InputField';
+import TimeInputField from './TimeInputField';
+import EmailInputField from './EmailInputField'
 
 interface MedicalFormValues {
   childDiagnosis: string;
@@ -38,32 +40,27 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{ }}>
 
     <InputField
-      isRequired
       displayName="Child's Diagnosis:"
       fieldName="childDiagnosis"
     />
-    <InputField
+    <TimeInputField
       isRequired
       displayName="Date of Diagnosis:"
       fieldName="diagnosisDate"
     />
     <InputField
-      isRequired
       displayName="Child's Physician:"
       fieldName="childPhysician"
     />
     <InputField
-      isRequired
       displayName="Hopsital:"
       fieldName="hospitalName"
     />
     <InputField
-      isRequired
       displayName="Address:"
       fieldName="hospitalAddress"
     />
     <InputField
-      isRequired
       displayName="City:"
       fieldName="hospitalCity"
     />
@@ -106,12 +103,12 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
       fieldName="doctorSignature"
     />
 
-    <InputField
+    <TimeInputField
       isRequired
       displayName="Date Signed:"
       fieldName="doctorSignatureDate"
     />
-    <InputField
+    <EmailInputField
       isRequired
       displayName="Social Worker's Email Address:"
       fieldName="socialWorkerEmail"
