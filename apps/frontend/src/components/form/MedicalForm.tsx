@@ -3,7 +3,7 @@ import React from 'react';
 import Form, { FormValues } from './Form';
 import InputField from './InputField';
 import TimeInputField from './TimeInputField';
-import EmailInputField from './EmailInputField'
+import EmailInputField from './EmailInputField';
 
 interface MedicalFormValues {
   childDiagnosis: string;
@@ -36,7 +36,6 @@ const alertOnSubmit = async (values: FormValues) => {
 
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
-  // eslint-disable-next-line no-alert
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{ }}>
 
     <InputField

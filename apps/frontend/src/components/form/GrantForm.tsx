@@ -5,7 +5,6 @@ import Form, { FormValues } from './Form';
 import InputField from './InputField';
 import TimeInputField from './TimeInputField';
 import NumberInputField from './NumberInputField';
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
 
 import EmailInputField from './EmailInputField';
 
@@ -33,14 +32,11 @@ interface ExampleFormProps {
 }
 
 const alertOnSubmit = async (values: FormValues) => {
-  // import and call method on api
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  // eslint-disable-next-line no-alert
   alert(JSON.stringify(values, null, 2));
 };
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
-  // eslint-disable-next-line no-alert
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{ }}>
     <InputField
       isRequired

@@ -25,7 +25,7 @@ const TimeInputField: React.FC<InputFieldProps> = ({
         isInvalid={Boolean(form.errors[fieldName] && form.touched[fieldName])}
         >
         <FormLabel htmlFor={fieldName}>{displayName ?? fieldName}</FormLabel>
-        <Input {...field} type='date'/>
+        <Input {...field} type='date' w={"100%"}/>
       </FormControl>
         )} 
     </Field>

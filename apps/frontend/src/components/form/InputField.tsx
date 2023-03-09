@@ -25,7 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
       isInvalid={Boolean(form.errors[fieldName] && form.touched[fieldName])}
       >
       <FormLabel htmlFor={fieldName}>{displayName ?? fieldName}</FormLabel>
-      <Input {...field}/>
+      <Input {...field} w={"100%"}/>
     </FormControl>
       )} 
   </Field>

@@ -26,7 +26,7 @@ const TimeInputField: React.FC<InputFieldProps> = ({
         isInvalid={Boolean(form.errors[fieldName] && form.touched[fieldName])}
       >
         <FormLabel htmlFor={fieldName}>{displayName ?? fieldName}</FormLabel>
-        <NumberInput {...field} min={0}>
+        <NumberInput {...field} min={0} w={"100%"}>
         <NumberInputField />
     </NumberInput>
       </FormControl>

@@ -26,7 +26,7 @@ const EmailInputField: React.FC<InputFieldProps> = ({
         isInvalid={Boolean(form.errors[fieldName] && form.touched[fieldName])}
         >
         <FormLabel htmlFor={fieldName}>{displayName ?? fieldName}</FormLabel>
-        <Input {...field} type='email'/>
+        <Input {...field} type='email' w={"100%"}/>
       </FormControl>
         )} 
     </Field>
