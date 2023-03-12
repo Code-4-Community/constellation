@@ -9,7 +9,7 @@ const GrantFormPage: React.FC = () => (
     <Heading size="md" textAlign="center">
       Application for Financial Assistance
     </Heading>
-    <Text textAlign={'center'}>
+    <Text textAlign={'center'} padding='10px'>
       (to be completed by child's parent/legal guardian)
     </Text>
     <GrantForm />

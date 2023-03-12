@@ -45,14 +45,13 @@ const alertOnSubmit = async (values: FormValues) => {
 };
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
-  // eslint-disable-next-line no-alert
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
     <Field name="childName">
       {({ field, form }: FieldProps) => (
         <FormControl
           isRequired
           isInvalid={Boolean(
-            form.errors['childName'] && form.touched['fieldName']
+            form.errors['childName'] && form.touched['childName']
           )}
         >
           <FormLabel htmlFor={'childName'}>Child Name</FormLabel>
