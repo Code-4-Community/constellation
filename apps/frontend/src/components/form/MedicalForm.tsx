@@ -5,7 +5,10 @@ import {
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
+import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
 
 interface MedicalFormValues {
@@ -158,7 +161,13 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
           )}
         >
           <FormLabel htmlFor={'hospitalPhone'}>Phone</FormLabel>
-          <Input {...field} id={'hospitalPhone'} />
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<PhoneIcon color="gray.300"/>}
+              />
+              <Input type="tel" />
+          </InputGroup>
         </FormControl>
       )}
     </Field>
