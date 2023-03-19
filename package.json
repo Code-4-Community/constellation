@@ -45,10 +45,13 @@
     "url-loader": "^4.1.1"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.1",
+    "@chakra-ui/select": "^2.0.18",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-router-dom": "^6.8.2",
     "tslib": "^2.3.0"
   }
 }
