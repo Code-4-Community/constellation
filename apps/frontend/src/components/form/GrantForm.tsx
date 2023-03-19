@@ -18,7 +18,6 @@ import { Field, FieldProps } from 'formik';
 
 interface GrantFormValues {
   childName: string;
-  ssn: string;
   dob: Date;
   gender: string;
   parentName: string;
@@ -59,21 +58,9 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
-    <Field name="ssn">
-      {({ field, form }: FieldProps) => (
-        <FormControl
-          isRequired
-          isInvalid={Boolean(form.errors['ssn'] && form.touched['ssn'])}
-        >
-          <FormLabel htmlFor={'ssn'}>SSN</FormLabel>
-          <Input {...field} id={'ssn'} />
-        </FormControl>
-      )}
-    </Field>
     <Field name="dob">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(form.errors['dob'] && form.touched['dob'])}
         >
           <FormLabel htmlFor={'dob'}>Date of Birth</FormLabel>
@@ -84,7 +71,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="gender">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(form.errors['gender'] && form.touched['gender'])}
         >
           <FormLabel htmlFor={'gender'}>Gender</FormLabel>
@@ -110,7 +96,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="addressStreet">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['addressStreet'] && form.touched['addressStreet']
           )}
@@ -123,7 +108,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="addressCity">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['addressCity'] && form.touched['addressCity']
           )}
@@ -136,7 +120,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="addressState">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['addressState'] && form.touched['addressState']
           )}
@@ -149,7 +132,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="addressZipcode">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['addressZipcode'] && form.touched['addressZipcode']
           )}
@@ -212,7 +194,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="requestedGrantAmount">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['requestedGrantAmount'] &&
               form.touched['requestedGrantAmount']
@@ -238,7 +219,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="useOfGrant">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['useOfGrant'] && form.touched['useOfGrant']
           )}
@@ -255,7 +235,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="parentSignature">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['parentSignature'] && form.touched['parentSignature']
           )}
@@ -270,7 +249,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="parentSignatureDate">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['parentSignatureDate'] &&
               form.touched['parentSignatureDate']

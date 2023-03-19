@@ -7,15 +7,16 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
 
 interface MedicalFormValues {
-  childDiagnosis: string;
+  // childDiagnosis: string;
   diagnosisDate: Date;
   childPhysician: string;
-  hospitalName: string;
+  // hospitalName: string;
   hospitalAddress: string;
   hospitalCity: string;
   hospitalState: string;
@@ -41,36 +42,20 @@ const alertOnSubmit = async (values: FormValues) => {
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
-    <Field name="childDiagnosis">
-      {({ field, form }: FieldProps) => (
-        <FormControl
-          isRequired
-          isInvalid={Boolean(
-            form.errors['childDiagnosis'] && form.touched["childDiagnosis"]
-          )}>
-            <FormLabel htmlFor={'childDiagnosis'}>Child's Diagnosis</FormLabel>
-            <Input {...field} id={'childDiagnosis'} />
-        </FormControl>
-      )}
-    </Field>
-    <Field name="diagnosisDate">
-      {({ field, form }: FieldProps) => (
-        <FormControl
-          isRequired
-          isInvalid={Boolean(
-            form.errors['diagnosisDate'] &&
-              form.touched['diagnosisDate']
-          )}
-        >
-          <FormLabel htmlFor={'diagnosisDate'}>Date of Diagnosis</FormLabel>
-          <Input {...field} type="date" id={'diagnosisDate'} />
-        </FormControl>
-      )}
-    </Field>
+
+    <Select placeholder="Select Child's Diagnosis" size='md'>
+      <option value='braincancers'> Brain Cancers </option>
+      <option value='leukemias'> Leukemias </option>
+      <option value='lymphomas'> Lymphomas </option>
+      <option value='thyroidCancer'> Thyroid Cancer </option>
+      <option value='germCellGonadalTumors'> Germ Cell & Gonadal Tumors </option>
+      <option value='neuroblastomas'> Neuroblastomas </option>
+      <option value='osteosarcoma'> Osteosarcoma </option>
+      <option value='otherCancers'> Other </option>
+    </Select>
     <Field name="childPhysician">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['childPhysician'] &&
               form.touched['childPhysician']
@@ -81,24 +66,23 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
-    <Field name="hospitalName">
-      {({ field, form }: FieldProps) => (
-        <FormControl
-          isRequired
-          isInvalid={Boolean(
-            form.errors['hospitalName'] &&
-              form.touched['hospitalName']
-          )}
-        >
-          <FormLabel htmlFor={'hospitalName'}>Hospital</FormLabel>
-          <Input {...field} id={'hospitalName'} />
-        </FormControl>
-      )}
-    </Field>
+
+    <Select placeholder="Hospital Name" size='md'>
+      <option value='bostonChildrenHospital'> Boston Children's Hospital </option>
+      <option value='connecticutChildrenHospital'> Connecticut Children's Hospital </option>
+      <option value='danaFarberHospital'> Dana-Farber Cancer Institute </option>
+      <option value='hasbroChildrenHospital'> Hasbro Children's Hospital </option>
+      <option value='hopeHealthHospital'> Hope Health Hospice </option>
+      <option value='massGeneralHospital'> Massachusetts General Hospital (MGH) </option>
+      <option value='tuftsMedicalHospital'> Tufts Medical Center </option>
+      <option value='umassHospital'> UMass Memorial Cancer Center </option>
+      <option value='universityOfVermontHospital'> University of Vermont Children's Hospital </option>
+      <option value='otherHospitals'> Other </option>
+    </Select>
+
     <Field name="hospitalAddress">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['hospitalAddress'] &&
               form.touched['hospitalAddress']
@@ -112,7 +96,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="hospitalCity">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['hospitalCity'] &&
               form.touched['hospitalCity']
@@ -126,7 +109,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="hospitalState">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['hospitalState'] &&
               form.touched['hospitalState']
@@ -140,7 +122,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="hospitalZipcode">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['hospitalZipcode'] &&
               form.touched['hospitalZipcode']
@@ -154,7 +135,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="hospitalPhone">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['hospitalPhone'] &&
               form.touched['hospitalPhone']
@@ -174,7 +154,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="doctorsExplanation">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['doctorsExplanation'] &&
               form.touched['doctorsExplanation']
@@ -188,7 +167,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="doctorName">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['doctorName'] &&
               form.touched['doctorName']
@@ -202,7 +180,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="doctorTitle">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['doctorTitle'] &&
               form.touched['doctorTitle']
@@ -216,7 +193,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="doctorSignature">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['doctorSignature'] &&
               form.touched['doctorSignature']
@@ -230,7 +206,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="doctorSignatureDate">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['doctorSignatureDate'] &&
               form.touched['doctorSignatureDate']
@@ -244,7 +219,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="socialWorkerEmail">
       {({ field, form }: FieldProps) => (
         <FormControl
-          isRequired
           isInvalid={Boolean(
             form.errors['socialWorkerEmail'] &&
               form.touched['socialWorkerEmail']
