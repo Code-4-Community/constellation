@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
+import { createTableIfNotExists } from '../db/createTable.js';
 import { insertDocument } from '../db/utils.js';
 import { formSchema } from '../schema/schema.js';
 
@@ -26,6 +27,7 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
         }
     }
 
+    await createTableIfNotExists();
     await insertDocument(form);
 
     const response = {

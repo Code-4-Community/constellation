@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
+import { createTableIfNotExists } from '../db/createTable.js';
 import { fetchDocuments } from '../db/utils.js';
 
 /**
@@ -14,10 +15,11 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
     // All log statements are written to CloudWatch
     console.info('received:', event);
 
+    await createTableIfNotExists();
     const allForms = await fetchDocuments();
 
     const response = {
-        statusCode: 201,
+        statusCode: 200,
         data: { allForms }
     };
 
