@@ -96,6 +96,25 @@ Resources:
           Properties:
             Path: /
             Method: POST
+    
+    # This is a Lambda function config associated with the source code: put-item.js
+  putFormFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/put-form.putFormHandler
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: An HTTP post method to add one form to the QLDB table.
+      Role: !GetAtt QLDBSendCommandRole.Arn
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /form
+            Method: POST
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)

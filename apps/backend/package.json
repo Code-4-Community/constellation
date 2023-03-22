@@ -13,7 +13,8 @@
     "amazon-qldb-driver-nodejs": "^3.0.1",
     "ion-js": "^4.3.0",
     "jsbi": "^3.2.5",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@tsconfig/node18": "^1.0.1",
