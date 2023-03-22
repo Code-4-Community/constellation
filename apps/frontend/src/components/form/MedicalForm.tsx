@@ -12,6 +12,27 @@ import {
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
 
+enum DropdownValues {
+  BRAINCANCERS = 'braincancers',
+  LEUKEMIAS='leukemias',
+  LYMPHOMAS='lymphomas',
+  THYROIDCANCER='thyroidCancer',
+  GERMCELLTUMORS='germCellGonadalTumors',
+  NEUROBLASTOMAS='neuroblastomas',
+  OSTEOSARCOMA='osteosarcoma',
+  OTHERCANCERS='otherCancers',
+
+  BOSHOSPITAL='bostonChildrenHospital',
+  CTHOPSITAL='connecticutChildrenHospital',
+  DANAHOSPITAL='danaFarberHospital',
+  HASBROHOSPITAL='hasbroChildrenHospital',
+  HOPEHOSPITAL='hopeHealthHospital',
+  MASSGENHOSPITAL='massGeneralHospital',
+  TUFTSHOSPITAL='tuftsMedicalHospital',
+  UMASSHOSPITAL='umassHospital',
+  VERMONTHOSPITAL='universityOfVermontHospital',
+  OTHERHOSPITALS='otherHospitals',
+}
 interface MedicalFormValues {
   // childDiagnosis: string;
   diagnosisDate: Date;
@@ -44,14 +65,14 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
 
     <Select placeholder="Select Child's Diagnosis" size='md'>
-      <option value='braincancers'> Brain Cancers </option>
-      <option value='leukemias'> Leukemias </option>
-      <option value='lymphomas'> Lymphomas </option>
-      <option value='thyroidCancer'> Thyroid Cancer </option>
-      <option value='germCellGonadalTumors'> Germ Cell & Gonadal Tumors </option>
-      <option value='neuroblastomas'> Neuroblastomas </option>
-      <option value='osteosarcoma'> Osteosarcoma </option>
-      <option value='otherCancers'> Other </option>
+      <option value= {DropdownValues.BRAINCANCERS}> Brain Cancers </option>
+      <option value={DropdownValues.LEUKEMIAS}> Leukemias </option>
+      <option value={DropdownValues.LYMPHOMAS}> Lymphomas </option>
+      <option value={DropdownValues.THYROIDCANCER}> Thyroid Cancer </option>
+      <option value={DropdownValues.GERMCELLTUMORS}> Germ Cell & Gonadal Tumors </option>
+      <option value={DropdownValues.NEUROBLASTOMAS}> Neuroblastomas </option>
+      <option value={DropdownValues.OSTEOSARCOMA}> Osteosarcoma </option>
+      <option value={DropdownValues.OTHERCANCERS}> Other </option>
     </Select>
     <Field name="childPhysician">
       {({ field, form }: FieldProps) => (
@@ -68,16 +89,16 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     </Field>
 
     <Select placeholder="Hospital Name" size='md'>
-      <option value='bostonChildrenHospital'> Boston Children's Hospital </option>
-      <option value='connecticutChildrenHospital'> Connecticut Children's Hospital </option>
-      <option value='danaFarberHospital'> Dana-Farber Cancer Institute </option>
-      <option value='hasbroChildrenHospital'> Hasbro Children's Hospital </option>
-      <option value='hopeHealthHospital'> Hope Health Hospice </option>
-      <option value='massGeneralHospital'> Massachusetts General Hospital (MGH) </option>
-      <option value='tuftsMedicalHospital'> Tufts Medical Center </option>
-      <option value='umassHospital'> UMass Memorial Cancer Center </option>
-      <option value='universityOfVermontHospital'> University of Vermont Children's Hospital </option>
-      <option value='otherHospitals'> Other </option>
+      <option value={DropdownValues.BOSHOSPITAL}> Boston Children's Hospital </option>
+      <option value={DropdownValues.CTHOPSITAL}> Connecticut Children's Hospital </option>
+      <option value={DropdownValues.DANAHOSPITAL}> Dana-Farber Cancer Institute </option>
+      <option value={DropdownValues.HASBROHOSPITAL}> Hasbro Children's Hospital </option>
+      <option value={DropdownValues.HOPEHOSPITAL}> Hope Health Hospice </option>
+      <option value={DropdownValues.MASSGENHOSPITAL}> Massachusetts General Hospital (MGH) </option>
+      <option value={DropdownValues.TUFTSHOSPITAL}> Tufts Medical Center </option>
+      <option value={DropdownValues.UMASSHOSPITAL}> UMass Memorial Cancer Center </option>
+      <option value={DropdownValues.VERMONTHOSPITAL}> University of Vermont Children's Hospital </option>
+      <option value={DropdownValues.OTHERHOSPITALS}> Other </option>
     </Select>
 
     <Field name="hospitalAddress">
