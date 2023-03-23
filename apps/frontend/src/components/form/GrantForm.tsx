@@ -32,6 +32,7 @@ interface GrantFormValues {
   useOfGrant: string;
   parentSignature: string;
   parentSignatureDate: Date;
+  notes: string;
 }
 
 interface ExampleFormProps {
@@ -256,6 +257,21 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         >
           <FormLabel htmlFor={'parentSignatureDate'}>Date</FormLabel>
           <Input {...field} type="date" id={'parentSignatureDate'} />
+        </FormControl>
+      )}
+    </Field>
+    <Field name="notes">
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isInvalid={Boolean(
+            form.errors['notes'] && form.touched['notes']
+          )}
+        >
+          <FormLabel htmlFor={'notes'}>Notes</FormLabel>
+          <Textarea {...field} id={'notes'} />
+          <FormHelperText>
+            This space is for recording any thoughts/questions you may have
+          </FormHelperText>
         </FormControl>
       )}
     </Field>
