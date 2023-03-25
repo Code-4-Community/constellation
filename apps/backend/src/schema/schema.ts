@@ -15,7 +15,6 @@ const phoneNumber = z.string().regex(phoneNumberRegex)
 // Part of form to be filled out by the child's parent/legal guardian
 const guardianFormSchema = z.object({
     childsName: z.string().min(1),
-    ssn: z.string(),
     dob: z.string().datetime(),
     gender: z.string().min(1),
     guardianName: z.string().min(1),
