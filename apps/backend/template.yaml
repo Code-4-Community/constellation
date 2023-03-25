@@ -78,7 +78,7 @@ Resources:
   putFormFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: dist/handlers/put-form.putFormHandler
+      Handler: dist/handlers/putForm.putFormHandler
       Runtime: nodejs18.x
       Architectures:
       - x86_64
@@ -92,7 +92,7 @@ Resources:
           Properties:
             Path: /form
             Method: POST
-            
+
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)

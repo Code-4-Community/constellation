@@ -20,7 +20,7 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
 
     const response = {
         statusCode: 200,
-        data: { allForms }
+        body: JSON.stringify(allForms)
     };
 
     // All log statements are written to CloudWatch
