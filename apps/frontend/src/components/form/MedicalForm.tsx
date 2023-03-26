@@ -37,9 +37,11 @@ enum HospitalsDropdownValues {
   OTHERHOSPITALS='otherHospitals',
 }
 interface MedicalFormValues {
+  childDiagnosis: string;
   otherCancer: string;
   diagnosisDate: Date;
   childPhysician: string;
+  hospitalName: string;
   otherHospital: string;
   hospitalAddress: string;
   hospitalCity: string;
@@ -68,16 +70,29 @@ const alertOnSubmit = async (values: FormValues) => {
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
 
-    <Select placeholder="Select Child's Diagnosis" size='md'>
-      <option value= {CancersDropdownValues.BRAINCANCERS}> Brain Cancers </option>
-      <option value={CancersDropdownValues.LEUKEMIAS}> Leukemias </option>
-      <option value={CancersDropdownValues.LYMPHOMAS}> Lymphomas </option>
-      <option value={CancersDropdownValues.THYROIDCANCER}> Thyroid Cancer </option>
-      <option value={CancersDropdownValues.GERMCELLTUMORS}> Germ Cell & Gonadal Tumors </option>
-      <option value={CancersDropdownValues.NEUROBLASTOMAS}> Neuroblastomas </option>
-      <option value={CancersDropdownValues.OSTEOSARCOMA}> Osteosarcoma </option>
-      <option value={CancersDropdownValues.OTHERCANCERS}> Other </option>
-    </Select>
+    <Field name="childDiagnosis">
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isRequired
+          isInvalid={Boolean(
+            form.errors['childDiagnosis'] &&
+              form.touched['childDiagnosis']
+          )}
+        >
+          <FormLabel htmlFor={'childDiagnosis'}>Child's Diagnosis</FormLabel>
+          <Select placeholder="Select Child's Diagnosis" size='md'>
+            <option value= {CancersDropdownValues.BRAINCANCERS}> Brain Cancers </option>
+            <option value={CancersDropdownValues.LEUKEMIAS}> Leukemias </option>
+            <option value={CancersDropdownValues.LYMPHOMAS}> Lymphomas </option>
+            <option value={CancersDropdownValues.THYROIDCANCER}> Thyroid Cancer </option>
+            <option value={CancersDropdownValues.GERMCELLTUMORS}> Germ Cell & Gonadal Tumors </option>
+            <option value={CancersDropdownValues.NEUROBLASTOMAS}> Neuroblastomas </option>
+            <option value={CancersDropdownValues.OSTEOSARCOMA}> Osteosarcoma </option>
+            <option value={CancersDropdownValues.OTHERCANCERS}> Other </option>
+          </Select>
+        </FormControl>
+      )}
+    </Field>
     <Field name="otherCancer">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -86,7 +101,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
               form.touched['otherCancer']
           )}
         >
-          <FormLabel htmlFor={'otherCancer'}>If selected "other", please specify the type of cancer</FormLabel>
+          <FormLabel htmlFor={'otherCancer'}>If Other, please specify the type of cancer</FormLabel>
           <Input {...field} id={'otherCancer'} />
         </FormControl>
       )}
@@ -104,18 +119,31 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
-    <Select placeholder="Hospital Name" size='md'>
-      <option value={HospitalsDropdownValues.BOSHOSPITAL}> Boston Children's Hospital </option>
-      <option value={HospitalsDropdownValues.CTHOPSITAL}> Connecticut Children's Hospital </option>
-      <option value={HospitalsDropdownValues.DANAHOSPITAL}> Dana-Farber Cancer Institute </option>
-      <option value={HospitalsDropdownValues.HASBROHOSPITAL}> Hasbro Children's Hospital </option>
-      <option value={HospitalsDropdownValues.HOPEHOSPITAL}> Hope Health Hospice </option>
-      <option value={HospitalsDropdownValues.MASSGENHOSPITAL}> Massachusetts General Hospital (MGH) </option>
-      <option value={HospitalsDropdownValues.TUFTSHOSPITAL}> Tufts Medical Center </option>
-      <option value={HospitalsDropdownValues.UMASSHOSPITAL}> UMass Memorial Cancer Center </option>
-      <option value={HospitalsDropdownValues.VERMONTHOSPITAL}> University of Vermont Children's Hospital </option>
-      <option value={HospitalsDropdownValues.OTHERHOSPITALS}> Other </option>
-    </Select>
+    <Field name="hospitalName">
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isRequired
+          isInvalid={Boolean(
+            form.errors['hospitalName'] &&
+              form.touched['hospitalName']
+          )}
+        >
+          <FormLabel htmlFor={'hospitalName'}>Hospital</FormLabel>
+          <Select placeholder="Hospital Name" size='md'>
+            <option value={HospitalsDropdownValues.BOSHOSPITAL}> Boston Children's Hospital </option>
+            <option value={HospitalsDropdownValues.CTHOPSITAL}> Connecticut Children's Hospital </option>
+            <option value={HospitalsDropdownValues.DANAHOSPITAL}> Dana-Farber Cancer Institute </option>
+            <option value={HospitalsDropdownValues.HASBROHOSPITAL}> Hasbro Children's Hospital </option>
+            <option value={HospitalsDropdownValues.HOPEHOSPITAL}> Hope Health Hospice </option>
+            <option value={HospitalsDropdownValues.MASSGENHOSPITAL}> Massachusetts General Hospital (MGH) </option>
+            <option value={HospitalsDropdownValues.TUFTSHOSPITAL}> Tufts Medical Center </option>
+            <option value={HospitalsDropdownValues.UMASSHOSPITAL}> UMass Memorial Cancer Center </option>
+            <option value={HospitalsDropdownValues.VERMONTHOSPITAL}> University of Vermont Children's Hospital </option>
+            <option value={HospitalsDropdownValues.OTHERHOSPITALS}> Other </option>
+          </Select>
+        </FormControl>
+      )}
+    </Field>
     <Field name="otherHospital">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -124,7 +152,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
               form.touched['otherHospital']
           )}
         >
-          <FormLabel htmlFor={'otherHospital'}>If selected "other", please specify the hospital's name</FormLabel>
+          <FormLabel htmlFor={'otherHospital'}>If Other, please specify the hospital name</FormLabel>
           <Input {...field} id={'otherHospital'} />
         </FormControl>
       )}

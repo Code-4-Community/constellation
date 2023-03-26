@@ -63,6 +63,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     <Field name="dob">
       {({ field, form }: FieldProps) => (
         <FormControl
+          isRequired
           isInvalid={Boolean(form.errors['dob'] && form.touched['dob'])}
         >
           <FormLabel htmlFor={'dob'}>Date of Birth</FormLabel>
