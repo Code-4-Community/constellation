@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
+// do we add notes section to both grant form and medical form or just one
 import React from 'react';
 import Form, { FormValues } from './Form';
 import {
@@ -32,7 +33,7 @@ interface GrantFormValues {
   useOfGrant: string;
   parentSignature: string;
   parentSignatureDate: Date;
-  notes: string;
+  grantFormNotes: string;
 }
 
 interface ExampleFormProps {
@@ -130,6 +131,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+
     <Field name="addressZipcode">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -260,15 +262,15 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
-    <Field name="notes">
+    <Field name="grantFormNotes">
       {({ field, form }: FieldProps) => (
         <FormControl
           isInvalid={Boolean(
-            form.errors['notes'] && form.touched['notes']
+            form.errors['grantFormNotes'] && form.touched['grantFormNotes']
           )}
         >
-          <FormLabel htmlFor={'notes'}>Notes</FormLabel>
-          <Textarea {...field} id={'notes'} />
+          <FormLabel htmlFor={'grantFormNotes'}>Notes</FormLabel>
+          <Textarea {...field} id={'grantFormNotes'} />
           <FormHelperText>
             This space is for recording any thoughts/questions you may have
           </FormHelperText>

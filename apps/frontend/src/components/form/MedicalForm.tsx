@@ -8,11 +8,13 @@ import {
   InputGroup,
   InputLeftElement,
   Select,
+  FormHelperText,
+  Textarea,
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
 
-enum DropdownValues {
+enum CancersDropdownValues {
   BRAINCANCERS = 'braincancers',
   LEUKEMIAS='leukemias',
   LYMPHOMAS='lymphomas',
@@ -21,7 +23,8 @@ enum DropdownValues {
   NEUROBLASTOMAS='neuroblastomas',
   OSTEOSARCOMA='osteosarcoma',
   OTHERCANCERS='otherCancers',
-
+}
+enum HospitalsDropdownValues {
   BOSHOSPITAL='bostonChildrenHospital',
   CTHOPSITAL='connecticutChildrenHospital',
   DANAHOSPITAL='danaFarberHospital',
@@ -49,6 +52,7 @@ interface MedicalFormValues {
   doctorSignature: string;
   doctorSignatureDate: Date;
   socialWorkerEmail: string;
+  medicalFormNotes: string;
 }
 
 interface ExampleFormProps {
@@ -65,14 +69,14 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
 
     <Select placeholder="Select Child's Diagnosis" size='md'>
-      <option value= {DropdownValues.BRAINCANCERS}> Brain Cancers </option>
-      <option value={DropdownValues.LEUKEMIAS}> Leukemias </option>
-      <option value={DropdownValues.LYMPHOMAS}> Lymphomas </option>
-      <option value={DropdownValues.THYROIDCANCER}> Thyroid Cancer </option>
-      <option value={DropdownValues.GERMCELLTUMORS}> Germ Cell & Gonadal Tumors </option>
-      <option value={DropdownValues.NEUROBLASTOMAS}> Neuroblastomas </option>
-      <option value={DropdownValues.OSTEOSARCOMA}> Osteosarcoma </option>
-      <option value={DropdownValues.OTHERCANCERS}> Other </option>
+      <option value= {CancersDropdownValues.BRAINCANCERS}> Brain Cancers </option>
+      <option value={CancersDropdownValues.LEUKEMIAS}> Leukemias </option>
+      <option value={CancersDropdownValues.LYMPHOMAS}> Lymphomas </option>
+      <option value={CancersDropdownValues.THYROIDCANCER}> Thyroid Cancer </option>
+      <option value={CancersDropdownValues.GERMCELLTUMORS}> Germ Cell & Gonadal Tumors </option>
+      <option value={CancersDropdownValues.NEUROBLASTOMAS}> Neuroblastomas </option>
+      <option value={CancersDropdownValues.OSTEOSARCOMA}> Osteosarcoma </option>
+      <option value={CancersDropdownValues.OTHERCANCERS}> Other </option>
     </Select>
     <Field name="childPhysician">
       {({ field, form }: FieldProps) => (
@@ -89,16 +93,16 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
     </Field>
 
     <Select placeholder="Hospital Name" size='md'>
-      <option value={DropdownValues.BOSHOSPITAL}> Boston Children's Hospital </option>
-      <option value={DropdownValues.CTHOPSITAL}> Connecticut Children's Hospital </option>
-      <option value={DropdownValues.DANAHOSPITAL}> Dana-Farber Cancer Institute </option>
-      <option value={DropdownValues.HASBROHOSPITAL}> Hasbro Children's Hospital </option>
-      <option value={DropdownValues.HOPEHOSPITAL}> Hope Health Hospice </option>
-      <option value={DropdownValues.MASSGENHOSPITAL}> Massachusetts General Hospital (MGH) </option>
-      <option value={DropdownValues.TUFTSHOSPITAL}> Tufts Medical Center </option>
-      <option value={DropdownValues.UMASSHOSPITAL}> UMass Memorial Cancer Center </option>
-      <option value={DropdownValues.VERMONTHOSPITAL}> University of Vermont Children's Hospital </option>
-      <option value={DropdownValues.OTHERHOSPITALS}> Other </option>
+      <option value={HospitalsDropdownValues.BOSHOSPITAL}> Boston Children's Hospital </option>
+      <option value={HospitalsDropdownValues.CTHOPSITAL}> Connecticut Children's Hospital </option>
+      <option value={HospitalsDropdownValues.DANAHOSPITAL}> Dana-Farber Cancer Institute </option>
+      <option value={HospitalsDropdownValues.HASBROHOSPITAL}> Hasbro Children's Hospital </option>
+      <option value={HospitalsDropdownValues.HOPEHOSPITAL}> Hope Health Hospice </option>
+      <option value={HospitalsDropdownValues.MASSGENHOSPITAL}> Massachusetts General Hospital (MGH) </option>
+      <option value={HospitalsDropdownValues.TUFTSHOSPITAL}> Tufts Medical Center </option>
+      <option value={HospitalsDropdownValues.UMASSHOSPITAL}> UMass Memorial Cancer Center </option>
+      <option value={HospitalsDropdownValues.VERMONTHOSPITAL}> University of Vermont Children's Hospital </option>
+      <option value={HospitalsDropdownValues.OTHERHOSPITALS}> Other </option>
     </Select>
 
     <Field name="hospitalAddress">
@@ -247,6 +251,21 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         >
           <FormLabel htmlFor={'socialWorkerEmail'}>Social Worker's Email Address</FormLabel>
           <Input {...field} type="email" id={'socialWorkerEmail'} />
+        </FormControl>
+      )}
+    </Field>
+    <Field name="medicalFormNotes">
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isInvalid={Boolean(
+            form.errors['medicalFormNotes'] && form.touched['medicalFormNotes']
+          )}
+        >
+          <FormLabel htmlFor={'medicalFormNotes'}>Notes</FormLabel>
+          <Textarea {...field} id={'medicalFormNotes'} />
+          <FormHelperText>
+            This space is for recording any thoughts/questions you may have
+          </FormHelperText>
         </FormControl>
       )}
     </Field>
