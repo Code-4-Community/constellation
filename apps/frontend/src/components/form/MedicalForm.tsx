@@ -37,10 +37,10 @@ enum HospitalsDropdownValues {
   OTHERHOSPITALS='otherHospitals',
 }
 interface MedicalFormValues {
-  // childDiagnosis: string;
+  otherCancer: string;
   diagnosisDate: Date;
   childPhysician: string;
-  // hospitalName: string;
+  otherHospital: string;
   hospitalAddress: string;
   hospitalCity: string;
   hospitalState: string;
@@ -78,6 +78,19 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
       <option value={CancersDropdownValues.OSTEOSARCOMA}> Osteosarcoma </option>
       <option value={CancersDropdownValues.OTHERCANCERS}> Other </option>
     </Select>
+    <Field name="otherCancer">
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isInvalid={Boolean(
+            form.errors['otherCancer'] &&
+              form.touched['otherCancer']
+          )}
+        >
+          <FormLabel htmlFor={'otherCancer'}>If selected "other", please specify the type of cancer</FormLabel>
+          <Input {...field} id={'otherCancer'} />
+        </FormControl>
+      )}
+    </Field>
     <Field name="childPhysician">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -91,7 +104,6 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
-
     <Select placeholder="Hospital Name" size='md'>
       <option value={HospitalsDropdownValues.BOSHOSPITAL}> Boston Children's Hospital </option>
       <option value={HospitalsDropdownValues.CTHOPSITAL}> Connecticut Children's Hospital </option>
@@ -104,7 +116,19 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
       <option value={HospitalsDropdownValues.VERMONTHOSPITAL}> University of Vermont Children's Hospital </option>
       <option value={HospitalsDropdownValues.OTHERHOSPITALS}> Other </option>
     </Select>
-
+    <Field name="otherHospital">
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isInvalid={Boolean(
+            form.errors['otherHospital'] &&
+              form.touched['otherHospital']
+          )}
+        >
+          <FormLabel htmlFor={'otherHospital'}>If selected "other", please specify the hospital's name</FormLabel>
+          <Input {...field} id={'otherHospital'} />
+        </FormControl>
+      )}
+    </Field>
     <Field name="hospitalAddress">
       {({ field, form }: FieldProps) => (
         <FormControl
