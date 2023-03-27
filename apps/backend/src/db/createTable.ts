@@ -5,23 +5,23 @@ import { qldbDriver, tableName } from './qldb.js';
 // the table in the AWS console so the rest of the application code can assume the
 // table exists.
 export async function createTableIfNotExists() {
-    const tableNames = await qldbDriver.getTableNames();
-    if (!tableNames.includes(tableName)) {
-        await qldbDriver.executeLambda(async (txn) => {
-            await createTable(txn);
-            // await createIndex(txn);
-        });
-    }
+  const tableNames = await qldbDriver.getTableNames();
+  if (!tableNames.includes(tableName)) {
+    await qldbDriver.executeLambda(async (txn) => {
+      await createTable(txn);
+      // await createIndex(txn);
+    });
+  }
 }
 
 async function createTable(txn: TransactionExecutor): Promise<void> {
-    console.log(`Creating table ${tableName}.`);
-    await txn.execute(`CREATE TABLE ${tableName}`);
+  console.log(`Creating table ${tableName}.`);
+  await txn.execute(`CREATE TABLE ${tableName}`);
 }
 
 // this is just an example of creating an indexed field
 // TODO: adjust logic depending on which fields will be searched on
 async function createIndex(txn: TransactionExecutor): Promise<void> {
-    console.log('Creating index on testField');
-    await txn.execute(`CREATE INDEX ON ${tableName} (testField)`);
+  console.log('Creating index on testField');
+  await txn.execute(`CREATE INDEX ON ${tableName} (testField)`);
 }
