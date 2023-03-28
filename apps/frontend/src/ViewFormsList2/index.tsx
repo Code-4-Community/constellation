@@ -34,7 +34,7 @@ export default function ViewFormsList2 () {
         <Tbody>
           {
             childData.map(child =>
-              <Tr key={child.childsName}>
+              <Tr key={child.id}>
                 <Td>{new Date(child.date).toLocaleDateString()}</Td>
                 <Td>{child.childsName}</Td>
                 <Td>{new Date(child.dob).toLocaleDateString()}</Td>
