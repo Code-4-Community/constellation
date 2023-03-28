@@ -73,56 +73,31 @@ Resources:
           Properties:
             Path: /
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: get-by-id.js
-  getByIdFunction:
+  # This is a Lambda function config associated with the source code: getAllForms.ts
+  getFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: dist/handlers/get-by-id.getByIdHandler
+      Handler: dist/handlers/getAllForms.getAllFormsHandler
       Runtime: nodejs18.x
       Architectures:
       - x86_64
       MemorySize: 128
       Timeout: 100
-      Description: A simple example includes a HTTP get method to get one item by
-        id from a dummy nonexistent table.
+      Description: An http get method to get all forms.
       Role: !GetAtt QLDBSendCommandRole.Arn
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /{id}
+            Path: /forms
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-
-  # This is a Lambda function config associated with the source code: put-item.js
-  putItemFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: dist/handlers/put-item.putItemHandler
-      Runtime: nodejs18.x
-      Architectures:
-      - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP post method to add one item to
-        a dummy nonexistent table.
-      Role: !GetAtt QLDBSendCommandRole.Arn
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /
-            Method: POST
     
-    # This is a Lambda function config associated with the source code: put-item.js
+  # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: dist/handlers/put-form.putFormHandler
+      Handler: dist/handlers/putForm.putFormHandler
       Runtime: nodejs18.x
       Architectures:
       - x86_64
@@ -136,6 +111,7 @@ Resources:
           Properties:
             Path: /form
             Method: POST
+
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)
