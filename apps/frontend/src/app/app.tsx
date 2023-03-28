@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import NxWelcome from './nx-welcome';
+import { ChakraProvider } from '@chakra-ui/react';
+import GrantFormPage from '../pages/grantFormPage';
+import MedicalFormPage from '../pages/medicalFormPage';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import ViewFormsList2 from '../ViewFormsList2';
-import {ChakraProvider} from "@chakra-ui/react";
 
 const StyledApp = styled.div`
   // Your style here
@@ -11,10 +12,11 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <ChakraProvider>
+      <GrantFormPage></GrantFormPage>
+      <MedicalFormPage></MedicalFormPage>
       <BrowserRouter>
         <StyledApp>
           <Routes>
-            <Route path="/" element={<NxWelcome title="frontend" />} />
             <Route path="/viewForms" element={<ViewFormsList2 />} />
           </Routes>
         </StyledApp>
