@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-constellation-dev-163741-authRole",
+      "UnauthRoleArn": "arn:aws:iam::489881683177:role/amplify-constellation-dev-163741-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::489881683177:role/amplify-constellation-dev-163741-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-constellation-dev-163741-deployment",
+      "UnauthRoleName": "amplify-constellation-dev-163741-unauthRole",
+      "StackName": "amplify-constellation-dev-163741",
+      "StackId": "arn:aws:cloudformation:us-east-1:489881683177:stack/amplify-constellation-dev-163741/0e93d6b0-cc16-11ed-8e28-0a7acb903487",
+      "AmplifyAppId": "d1d22z6rnypinz"
+    },
+    "categories": {
+      "auth": {
+        "constellatione5df22ed": {
+          "userPoolId": "us-east-1_iMLqMkGwO",
+          "userPoolName": "constellation-userpool",
+          "webClientId": "5cims7h18lp09ha9v1nnd9t537",
+          "nativeClientId": "5cims7h18lp09ha9v1nnd9t537"
+        }
+      }
+    }
+  }
+}

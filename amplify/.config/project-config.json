@@ -1,0 +1,17 @@
+{
+  "projectName": "constellation",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": "apps/frontend/src",
+      "DistributionDir": "build",
+      "BuildCommand": "npm run-script build",
+      "StartCommand": "nx serve frontend"
+    }
+  },
+  "providers": [
+    "awscloudformation"
+  ]
+}
