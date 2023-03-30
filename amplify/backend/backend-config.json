@@ -1,6 +1,6 @@
 {
   "auth": {
-    "constellatione5df22ed": {
+    "constellationtestdb3db1c5": {
       "customAuth": false,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -9,35 +9,35 @@
     }
   },
   "parameters": {
-    "AMPLIFY_auth_constellatione5df22ed_nativeClientId": {
+    "AMPLIFY_auth_constellationtestdb3db1c5_nativeClientId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "constellatione5df22ed"
+          "resourceName": "constellationtestdb3db1c5"
         }
       ]
     },
-    "AMPLIFY_auth_constellatione5df22ed_userPoolId": {
+    "AMPLIFY_auth_constellationtestdb3db1c5_userPoolId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "constellatione5df22ed"
+          "resourceName": "constellationtestdb3db1c5"
         }
       ]
     },
-    "AMPLIFY_auth_constellatione5df22ed_userPoolName": {
+    "AMPLIFY_auth_constellationtestdb3db1c5_userPoolName": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "constellatione5df22ed"
+          "resourceName": "constellationtestdb3db1c5"
         }
       ]
     },
-    "AMPLIFY_auth_constellatione5df22ed_webClientId": {
+    "AMPLIFY_auth_constellationtestdb3db1c5_webClientId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "constellatione5df22ed"
+          "resourceName": "constellationtestdb3db1c5"
         }
       ]
     }

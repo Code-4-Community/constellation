@@ -9,7 +9,8 @@ import {
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from '../aws-exports';
-Amplify.configure({ awsExports });
+
+Amplify.configure(awsExports);
 
 interface Props extends WithAuthenticatorProps {
   isPassedToWithAuthenticator: boolean;
@@ -25,19 +26,11 @@ export function App({ isPassedToWithAuthenticator, signOut, user }: Props) {
   }
   return (
     <StyledApp>
-      <NxWelcome title="frontend" />
       <h1>Hello {user?.username}</h1>
       <button onClick={signOut}>Sign out</button>
+      <NxWelcome title="frontend" />
     </StyledApp>
   );
 }
 
 export default withAuthenticator(App);
-
-export async function getStaticProps() {
-  return {
-    props: {
-      isPassedToWithAuthenticator: true,
-    },
-  };
-}

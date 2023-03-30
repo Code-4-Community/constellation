@@ -1,12 +1,11 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "constellatione5df22ed",
+  "resourceName": "constellationtestdb3db1c5",
   "serviceType": "imported",
   "region": "us-east-1",
   "usernameAttributes": [
     "email"
   ],
-  "authProvidersUserPool": [],
   "requiredAttributes": [
     "email"
   ],
