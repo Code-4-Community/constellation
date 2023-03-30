@@ -12,4 +12,7 @@ export type Options = {
       value: FormData[keyof FormData];
     }[];
   };
+  searching?: {
+    searchTerm: string;
+  };
 };

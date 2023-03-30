@@ -16,17 +16,8 @@ const useSortingAndFiltering = (list: FormData[], options: Options) => {
 };
 
 const reduceData = (list: FormData[], options: Options) => {
-  const { sorting, filtering } = options;
+  const { sorting, filtering, searching } = options;
   let newData = [...list];
-
-  if (sorting) {
-    const { field, sortOrder } = sorting;
-    if (sortOrder === SortOrder.ASC) {
-      newData.sort((a, b) => (b[field] > a[field] ? -1 : 1));
-    } else {
-      newData.sort((a, b) => (a[field] > b[field] ? -1 : 1));
-    }
-  }
 
   if (filtering) {
     const { filters } = filtering;
@@ -34,6 +25,28 @@ const reduceData = (list: FormData[], options: Options) => {
       const { field, value } = filter;
 
       newData = list.filter((formEntry) => formEntry[field] === value);
+    }
+  }
+
+  if (searching) {
+    const { searchTerm } = searching;
+    newData = newData.filter((form) => {
+      const formValues = Object.values(form);
+      for (const val of formValues) {
+        if (typeof val === 'string' && val.includes(searchTerm)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  if (sorting) {
+    const { field, sortOrder } = sorting;
+    if (sortOrder === SortOrder.ASC) {
+      newData.sort((a, b) => (b[field] > a[field] ? -1 : 1));
+    } else {
+      newData.sort((a, b) => (a[field] > b[field] ? -1 : 1));
     }
   }
 
