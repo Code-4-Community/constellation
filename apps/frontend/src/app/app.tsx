@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import GrantFormPage from '../pages/grantFormPage';
 import MedicalFormPage from '../pages/medicalFormPage';
-import ViewFormsList2 from '../ViewFormsList2';
+import ViewFormsList from '../components/ViewFormsList';
 
 
 export function App() {
@@ -9,7 +9,7 @@ export function App() {
     <ChakraProvider>
       <GrantFormPage></GrantFormPage>
       <MedicalFormPage></MedicalFormPage>
-      <ViewFormsList2 />
+      <ViewFormsList />
     </ChakraProvider>
   );
 }
