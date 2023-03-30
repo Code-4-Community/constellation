@@ -1,9 +1,5 @@
 import FormData from './FormData';
-
-export enum SortOrder {
-  'ASC',
-  'DESC',
-}
+import SortOrder from '../enums/SortOrder';
 
 export type Options = {
   sorting?: {

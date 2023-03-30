@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import SortOrder from '../enums/SortOrder';
 import type FormData from '../types/FormData';
-import { Options, SortOrder } from '../types/SortAndFilter';
+import { Options } from '../types/SortAndFilter';
 
 const useSortingAndFiltering = (list: FormData[], options: Options) => {
   const [listState, setListState] = useState(list);
