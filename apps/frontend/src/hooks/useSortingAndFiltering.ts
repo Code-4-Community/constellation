@@ -22,13 +22,10 @@ type Options = {
 };
 
 const useSortingAndFiltering = (list: FormData[], options: Options) => {
-  const [optionsState, setOptionsState] = useState(options);
   const [listState, setListState] = useState(list);
 
   useEffect(() => {
-    setOptionsState(options);
-    setListState(list);
-    const newData = reduceData(listState, optionsState);
+    const newData = reduceData(list, options);
     setListState(newData);
   }, [list, options]);
 
@@ -45,7 +42,7 @@ const reduceData = (list: FormData[], options: Options) => {
   if (filtering) {
     for (const [key, value] of Object.entries(filtering)) {
       // TODO: Do filtering algorithm here
-      list.filter((formEntry) => {
+      list = list.filter((formEntry) => {
         /**
          * This is gross! Here are the stackoverflows I used for reference:
          * https://stackoverflow.com/questions/455338/how-do-i-check-if-an-object-has-a-key-in-javascript
@@ -57,4 +54,7 @@ const reduceData = (list: FormData[], options: Options) => {
       });
     }
   }
+  return list;
 };
+
+export default useSortingAndFiltering;
