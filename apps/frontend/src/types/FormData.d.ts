@@ -1,3 +1,4 @@
+// This will need to be updated to match the shape of the data we receive from the backend
 type FormData = {
   id: number;
   date: string;
