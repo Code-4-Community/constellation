@@ -5,15 +5,19 @@ import {
 } from '../components/form/MedicalForm';
 import type FormData from '../types/FormData';
 
-enum SortOrder {
+export enum SortField {
+  NAME = 'childsName',
+  DATE = 'date',
+}
+export enum SortOrder {
   'ASC',
   'DESC',
 }
 
 type Options = {
   sorting?: {
-    name?: SortOrder;
-    date?: SortOrder;
+    field: keyof FormData;
+    sortOrder: SortOrder;
   };
   filtering?: {
     hospital?: HospitalsDropdownValues;
@@ -34,14 +38,8 @@ const useSortingAndFiltering = (list: FormData[], options: Options) => {
 
 const reduceData = (list: FormData[], options: Options) => {
   const { sorting, filtering } = options;
-  if (sorting) {
-    for (const [key, value] of Object.entries(sorting)) {
-      // TODO: Do sorting algorithm here
-    }
-  }
   if (filtering) {
     for (const [key, value] of Object.entries(filtering)) {
-      // TODO: Do filtering algorithm here
       list = list.filter((formEntry) => {
         /**
          * This is gross! Here are the stackoverflows I used for reference:
@@ -52,6 +50,14 @@ const reduceData = (list: FormData[], options: Options) => {
           return formEntry[key as keyof FormData] === value;
         } else return false;
       });
+    }
+  }
+  if (sorting) {
+    const { field, sortOrder } = sorting;
+    if (sortOrder === SortOrder.ASC) {
+      list.sort((a, b) => (b[field] > a[field] ? -1 : 1));
+    } else {
+      list.sort((a, b) => (a[field] > b[field] ? -1 : 1));
     }
   }
   return list;
