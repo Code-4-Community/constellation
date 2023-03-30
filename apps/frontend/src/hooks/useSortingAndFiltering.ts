@@ -32,8 +32,13 @@ const reduceData = (list: FormData[], options: Options) => {
     const { searchTerm } = searching;
     newData = newData.filter((form) => {
       const formValues = Object.values(form);
-      for (const val of formValues) {
-        if (typeof val === 'string' && val.includes(searchTerm)) {
+      const lowercaseFormValues = formValues.map((value) => {
+        if (typeof value === 'string') return value.toLowerCase();
+        return value;
+      });
+
+      for (const val of lowercaseFormValues) {
+        if (typeof val === 'string' && val.includes(searchTerm.toLowerCase())) {
           return true;
         }
       }
