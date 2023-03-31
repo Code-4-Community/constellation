@@ -13,6 +13,7 @@ import {
   InputLeftElement,
   FormHelperText,
   Textarea,
+  Box,
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
@@ -47,6 +48,7 @@ const alertOnSubmit = async (values: FormValues) => {
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
+    <Box py="2">
     <Field name="childName">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -60,6 +62,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="dob">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -71,6 +75,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="gender">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -81,6 +87,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="parentName">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -96,6 +104,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="addressStreet">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -108,6 +118,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="addressCity">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -120,6 +132,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="addressState">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -132,7 +146,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
-
+    </Box>
+    <Box py="2">
     <Field name="addressZipcode">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -147,6 +162,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="phoneNumber">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -166,6 +183,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="cellPhoneNumber">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -184,6 +203,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="email">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -195,6 +216,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="requestedGrantAmount">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -220,6 +243,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="useOfGrant">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -236,6 +261,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="parentSignature">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -250,6 +277,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="parentSignatureDate">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -263,6 +292,8 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
     <Field name="grantFormNotes">
       {({ field, form }: FieldProps) => (
         <FormControl
@@ -278,6 +309,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
   </Form>
 );
 
