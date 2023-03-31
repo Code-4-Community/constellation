@@ -1,5 +1,4 @@
 import { APIGatewayEvent } from 'aws-lambda';
-import { createTableIfNotExists } from '../db/createTable.js';
 
 // Create clients and set shared const values outside of the handler.
 /**
@@ -13,7 +12,6 @@ export const getHandler = async (event: APIGatewayEvent) => {
   }
   // All log statements are written to CloudWatch
   console.info('received:', event);
-  await createTableIfNotExists();
 
   const response = {
     statusCode: 200,
