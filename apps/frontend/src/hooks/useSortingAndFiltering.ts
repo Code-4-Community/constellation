@@ -30,21 +30,22 @@ const useSortingAndFiltering = (list: FormData[], options: Options) => {
 const reduceData = (list: FormData[], options: Options): FormData[] => {
   const { sorting, filtering, searching } = options;
 
+  let reducedList = [...list];
+
   if (filtering) {
-    const filteredList = filterData(list, { filtering });
-    if (filteredList) return filteredList;
+    reducedList = filterData(reducedList, { filtering });
   }
 
   // TODO: Make searching work with numbers and recursively through all child objects
   if (searching) {
-    const searchedList = searchData(list, { searching });
+    reducedList = searchData(reducedList, { searching });
   }
 
   if (sorting) {
-    const sortedList = sortData(list, { sorting });
+    reducedList = sortData(reducedList, { sorting });
   }
 
-  return list;
+  return reducedList;
 };
 
 /**
@@ -69,21 +70,7 @@ const filterData = (
 
     return filteredList;
   }
-
-  //   if (filteringObject.filtering) {
-  //     const { filters } = filteringObject.filtering;
-  //     let newData: FormData[] = [];
-
-  //     for (const filter of filters) {
-  //       const { field, value } = filter;
-
-  //       const filteredData = list.filter(
-  //         (formEntry) => formEntry[field] === value
-  //       );
-  //       newData = [...filteredData];
-  //     }
-  //     return newData;
-  //   }
+  return list;
 };
 
 /**
@@ -98,16 +85,14 @@ const sortData = (
   sortingObject: Pick<Options, 'sorting'>
 ) => {
   if (sortingObject.sorting) {
-    const newData = [...list];
     const { field, sortOrder } = sortingObject.sorting;
     if (sortOrder === SortOrder.ASC) {
-      newData.sort((a, b) => (b[field] > a[field] ? -1 : 1));
+      list.sort((a, b) => (b[field] > a[field] ? -1 : 1));
     } else {
-      newData.sort((a, b) => (a[field] > b[field] ? -1 : 1));
+      list.sort((a, b) => (a[field] > b[field] ? -1 : 1));
     }
-
-    return newData;
   }
+  return list;
 };
 
 /**
@@ -122,8 +107,7 @@ const searchData = (
 ) => {
   if (searchingObject.searching) {
     const { searchTerm } = searchingObject.searching;
-    let newData: FormData[] = [];
-    newData = newData.filter((form) => {
+    const searchedList = list.filter((form) => {
       const formValues = Object.values(form);
       const lowercaseFormValues = formValues.map((value) => {
         if (typeof value === 'string') return value.toLowerCase();
@@ -138,8 +122,9 @@ const searchData = (
       return false;
     });
 
-    return newData;
+    return searchedList;
   }
+  return list;
 };
 
 export default useSortingAndFiltering;
