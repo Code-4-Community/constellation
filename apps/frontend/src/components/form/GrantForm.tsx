@@ -2,7 +2,7 @@
 
 // do we add notes section to both grant form and medical form or just one
 import React from 'react';
-import Form, { FormValues } from './Form';
+import Form from './Form';
 import {
   Input,
   NumberInputField,
@@ -14,8 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import FormField from './FormField';
-import axios from 'axios';
-import { POST_FORM_URL } from '../../constants/endpoints';
+import { submitForm } from '../../utils/sendRequest';
 
 interface GrantFormValues {
   childName: string;
@@ -36,18 +35,9 @@ interface GrantFormValues {
   grantFormNotes: string;
 }
 
-interface GrantFormProps {
-  onSubmit?: (values: Partial<GrantFormValues>) => Promise<void>;
-}
-
-const alertOnSubmit = async (values: FormValues) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  alert(JSON.stringify(values, null, 2));
-};
-
-const GrantForm: React.FC<GrantFormProps> = ({ onSubmit }) => {
+const GrantForm: React.FC = () => {
   return (
-    <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
+    <Form onSubmit={submitForm} initialValues={{}}>
       <FormField name="childName" isRequired displayName="Child Name">
         {(field) => <Input {...field} id={'childName'} />}
       </FormField>
@@ -85,25 +75,25 @@ const GrantForm: React.FC<GrantFormProps> = ({ onSubmit }) => {
       </FormField>
 
       <FormField name="phoneNumber" displayName="Phone Number" isRequired>
-        {() => (
+        {(field) => (
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
               children={<PhoneIcon color="gray.300" />}
             />
-            <Input type="tel" />
+            <Input type="tel" {...field} />
           </InputGroup>
         )}
       </FormField>
 
       <FormField name="cellPhoneNumber" displayName="Cell Phone Number">
-        {() => (
+        {(field) => (
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
               children={<PhoneIcon color="gray.300" />}
             />
-            <Input type="tel" />
+            <Input type="tel" {...field} />
           </InputGroup>
         )}
       </FormField>
