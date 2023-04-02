@@ -6,9 +6,9 @@ import { Options } from '../types/SortAndFilter';
 /**
  * This hook is for sorting, filtering, and searching an array of form data.
  * Currently, you can filter by any number of fields, sort on any field, and searching by most fields
- * @param list
- * @param options
- * @returns
+ * @param list a list of form entries
+ * @param options an object representing the different ways the user wants to sort, filter, and search the data
+ * @returns a piece of state representing the list that is reduced to the user's preferences.
  */
 const useSortingAndFiltering = (list: FormData[], options: Options) => {
   const [listState, setListState] = useState(list);
