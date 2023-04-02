@@ -14,6 +14,7 @@ import {
   FormHelperText,
   Textarea,
   Box,
+  Text,
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
@@ -309,6 +310,14 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
+    <Text as="i" fontSize={"xs"}>
+    By signing this application, you are giving TSWGO permission to publicize your child’s name and medical
+    condition. Additionally, by signing this, you are giving your medical professionals and TSWGO permission to share
+    medical information about your child’s case as well as to share your application with other organizations in an effort
+    to, potentially, gain additional funds for you.
+    </Text>
     </Box>
   </Form>
 );

@@ -11,6 +11,7 @@ import {
   FormHelperText,
   Textarea,
   Box,
+  Text,
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Field, FieldProps } from 'formik';
@@ -354,6 +355,14 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         </FormControl>
       )}
     </Field>
+    </Box>
+    <Box py="2">
+    <Text as="i" fontSize={"xs"}>
+    By signing this application, you are attesting to the accuracy of the information on both pages,
+    to the best of your knowledge. Fraudulent applications may result in your institution being
+    deemed ineligible for this program. Please be sure that the entire application is complete before
+    submitting it.
+    </Text>
     </Box>
   </Form>
 );
