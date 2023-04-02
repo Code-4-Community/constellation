@@ -4,7 +4,8 @@ import type FormData from '../types/FormData';
 import { Options } from '../types/SortAndFilter';
 
 /**
- * This hook is for sorting, filtering, and searching an array of form data. Currently, you can filter by any number of
+ * This hook is for sorting, filtering, and searching an array of form data.
+ * Currently, you can filter by any number of fields, sort on any field, and searching by most fields
  * @param list
  * @param options
  * @returns
