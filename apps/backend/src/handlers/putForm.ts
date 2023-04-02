@@ -7,11 +7,18 @@ import { formSchema } from '../schema/schema.js';
  * An HTTP post method to add one form to the QLDB table.
  */
 export const putFormHandler = async (event: APIGatewayEvent) => {
+  const headers = {
+    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST',
+  };
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 400,
-      body: `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`
-    }
+      headers,
+      body: `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`,
+    };
   }
   // All log statements are written to CloudWatch
   console.info('received:', event);
@@ -23,8 +30,9 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
   } catch (error) {
     return {
       statusCode: 400,
-      body: 'Form body does not match schema. Error: ' + error
-    }
+      headers,
+      body: 'Form body does not match schema. Error: ' + error,
+    };
   }
 
   await createTableIfNotExists();
@@ -32,6 +40,7 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
 
   const response = {
     statusCode: 201,
+    headers,
   };
 
   // All log statements are written to CloudWatch

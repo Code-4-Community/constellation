@@ -20,6 +20,10 @@ Globals:
     Tracing: Active
   Api:
     TracingEnabled: true
+    Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'content-type, Access-Control-Allow-Origin'"
+        AllowOrigin: "'*'"
 
 Resources:
   # Defines an IAM role for Lambdas that allows them to:
@@ -52,6 +56,11 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
@@ -73,6 +82,7 @@ Resources:
           Properties:
             Path: /
             Method: GET
+            RestApiId: !Ref MyApi
 
   # This is a Lambda function config associated with the source code: getAllForms.ts
   getFunction:
@@ -92,6 +102,7 @@ Resources:
           Properties:
             Path: /forms
             Method: GET
+            RestApiId: !Ref MyApi
     
   # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
@@ -111,6 +122,7 @@ Resources:
           Properties:
             Path: /form
             Method: POST
+            RestApiId: !Ref MyApi
 
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
