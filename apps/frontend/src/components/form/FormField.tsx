@@ -1,19 +1,24 @@
 import { FormControl, FormLabel } from '@chakra-ui/react';
 import { Field, FieldInputProps, FieldProps } from 'formik';
 import { ReactNode } from 'react';
+import FormInput, { InputVariant } from './FormInput';
 
 interface FormFieldProps {
+  inputVariant: InputVariant;
   name: string;
   displayName: string;
+  description?: string;
   isRequired?: boolean;
-  children: (field: FieldInputProps<any>) => ReactNode;
+  selectList?: string[][];
 }
 
 const FormField: React.FC<FormFieldProps> = ({
+  inputVariant,
   name,
   displayName,
+  description,
   isRequired,
-  children,
+  selectList,
 }) => {
   return (
     <Field name={name}>
@@ -23,7 +28,13 @@ const FormField: React.FC<FormFieldProps> = ({
           isInvalid={Boolean(form.errors[name] && form.touched[name])}
         >
           <FormLabel htmlFor={name}>{displayName}</FormLabel>
-          {children(field)}
+          <FormInput
+            variant={inputVariant}
+            field={field}
+            id={name}
+            description={description}
+            selectList={selectList}
+          />
         </FormControl>
       )}
     </Field>

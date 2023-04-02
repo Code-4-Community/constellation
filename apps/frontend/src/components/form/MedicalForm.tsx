@@ -17,148 +17,109 @@ import {
   HospitalsDropdownValues,
 } from '../../types/form';
 
-interface MedicalFormValues {
-  childDiagnosis: string;
-  otherCancer: string;
-  diagnosisDate: Date;
-  childPhysician: string;
-  hospitalName: string;
-  otherHospital: string;
-  hospitalAddress: string;
-  hospitalCity: string;
-  hospitalState: string;
-  hospitalZipcode: string;
-  hospitalPhone: string;
-  doctorsExplanation: string;
-  doctorName: string;
-  doctorTitle: string;
-  doctorSignature: string;
-  doctorSignatureDate: Date;
-  socialWorkerEmail: string;
-  medicalFormNotes: string;
-}
-
 const MedicalForm: React.FC = () => {
   return (
     <Form onSubmit={submitForm} initialValues={{}}>
       <FormField
+        inputVariant="select"
         name="childDiagnosis"
         displayName="Child's Diagnosis"
         isRequired
-      >
-        {(field) => (
-          <Select placeholder="Select Child's Diagnosis" size="md" {...field}>
-            {Object.entries(CancersDropdownValues).map(([key, value]) => {
-              return (
-                <option value={key} key={key}>
-                  {value}
-                </option>
-              );
-            })}
-          </Select>
-        )}
-      </FormField>
+        description="Select Child's Diagnosis"
+        selectList={Object.entries(CancersDropdownValues)}
+      />
 
       <FormField
+        inputVariant="text"
         name="otherCancer"
         displayName="If Other, please specify the type of cancer"
-      >
-        {(field) => <Input {...field} id={'otherCancer'} />}
-      </FormField>
-
-      <FormField name="childPhysician" displayName="Child's Physician">
-        {(field) => <Input {...field} id={'childPhysician'} />}
-      </FormField>
-
-      <FormField name="hospitalName" displayName="Hospital" isRequired>
-        {(field) => (
-          <Select placeholder="Hospital Name" size="md" {...field}>
-            {Object.entries(HospitalsDropdownValues).map(([key, value]) => {
-              return (
-                <option value={key} key={key}>
-                  {value}
-                </option>
-              );
-            })}
-          </Select>
-        )}
-      </FormField>
+      />
 
       <FormField
+        inputVariant="text"
+        name="childPhysician"
+        displayName="Child's Physician"
+      />
+
+      <FormField
+        inputVariant="select"
+        name="hospitalName"
+        displayName="Hospital"
+        isRequired
+        description="Hospital Name"
+        selectList={Object.entries(HospitalsDropdownValues)}
+      />
+
+      <FormField
+        inputVariant="text"
         name="otherHospital"
         displayName="If Other, please specify the hospital name"
-      >
-        {(field) => <Input {...field} id={'otherHospital'} />}
-      </FormField>
-
-      <FormField name="hospitalAddress" displayName="Address">
-        {(field) => <Input {...field} id={'hospitalAddress'} />}
-      </FormField>
-
-      <FormField name="hospitalCity" displayName="City">
-        {(field) => <Input {...field} id={'hospitalCity'} />}
-      </FormField>
-
-      <FormField name="hospitalState" displayName="State">
-        {(field) => <Input {...field} id={'hospitalState'} />}
-      </FormField>
-
-      <FormField name="hospitalZipcode" displayName="Zip Code">
-        {(field) => <Input {...field} id={'hospitalZipcode'} />}
-      </FormField>
-
-      <FormField name="hospitalPhone" displayName="Phone">
-        {(field) => (
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<PhoneIcon color="gray.300" />}
-            />
-            <Input type="tel" {...field} />
-          </InputGroup>
-        )}
-      </FormField>
+      />
 
       <FormField
+        inputVariant="text"
+        name="hospitalAddress"
+        displayName="Address"
+      />
+
+      <FormField inputVariant="text" name="hospitalCity" displayName="City" />
+
+      <FormField inputVariant="text" name="hospitalState" displayName="State" />
+
+      <FormField
+        inputVariant="text"
+        name="hospitalZipcode"
+        displayName="Zip Code"
+      />
+
+      <FormField
+        inputVariant="phoneNumber"
+        name="hospitalPhone"
+        displayName="Phone"
+      />
+
+      <FormField
+        inputVariant="text"
         name="doctorsExplanation"
         displayName="Please describe the child's medical condition and anticipated hospital stay"
-      >
-        {(field) => <Input {...field} id={'doctorsExplanation'} />}
-      </FormField>
-
-      <FormField name="doctorName" displayName="Doctor's Name">
-        {(field) => <Input {...field} id={'doctorName'} />}
-      </FormField>
-
-      <FormField name="doctorTitle" displayName="Doctor's Title">
-        {(field) => <Input {...field} id={'doctorTitle'} />}
-      </FormField>
-
-      <FormField name="doctorSignature" displayName="Doctor's Signature">
-        {(field) => <Input {...field} id={'doctorSignature'} />}
-      </FormField>
-
-      <FormField name="doctorSignatureDate" displayName="Date Signed">
-        {(field) => <Input {...field} type="date" id={'doctorSignatureDate'} />}
-      </FormField>
+      />
 
       <FormField
+        inputVariant="text"
+        name="doctorName"
+        displayName="Doctor's Name"
+      />
+
+      <FormField
+        inputVariant="text"
+        name="doctorTitle"
+        displayName="Doctor's Title"
+      />
+
+      <FormField
+        inputVariant="text"
+        name="doctorSignature"
+        displayName="Doctor's Signature"
+      />
+
+      <FormField
+        inputVariant="date"
+        name="doctorSignatureDate"
+        displayName="Date Signed"
+      />
+
+      <FormField
+        inputVariant="email"
         name="socialWorkerEmail"
         displayName="Social Worker's Email Address"
-      >
-        {(field) => <Input {...field} type="email" id={'socialWorkerEmail'} />}
-      </FormField>
+      />
 
-      <FormField name="medicalFormNotes" displayName="Notes">
-        {(field) => (
-          <>
-            <Textarea {...field} id={'medicalFormNotes'} />
-            <FormHelperText>
-              This space is for recording any thoughts/questions you may have
-            </FormHelperText>
-          </>
-        )}
-      </FormField>
+      <FormField
+        inputVariant="textArea"
+        name="medicalFormNotes"
+        displayName="Notes"
+        description="This space is for recording any thoughts/questions you may have"
+      />
     </Form>
   );
 };

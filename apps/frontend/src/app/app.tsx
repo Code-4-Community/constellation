@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import GrantFormPage from '../pages/grantFormPage';
-import MedicalFormPage from '../pages/medicalFormPage';
+import GrantFormPage from '../pages/GrantFormPage';
+import MedicalFormPage from '../pages/MedicalFormPage';
 
 export function App() {
   return (
