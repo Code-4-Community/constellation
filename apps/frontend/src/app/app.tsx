@@ -1,17 +1,20 @@
 import styled from '@emotion/styled';
+import NxWelcome from './nx-welcome';
+import { Amplify } from 'aws-amplify';
 import { ChakraProvider } from '@chakra-ui/react';
 import GrantFormPage from '../pages/grantFormPage';
 import MedicalFormPage from '../pages/medicalFormPage';
+import AuthedPage from '../pages/AuthedPage';
 
-const StyledApp = styled.div`
-  // Your style here
-`;
+import awsExports from '../aws-exports';
+Amplify.configure(awsExports);
 
 export function App() {
   return (
     <ChakraProvider>
       <GrantFormPage></GrantFormPage>
       <MedicalFormPage></MedicalFormPage>
+      <AuthedPage />
     </ChakraProvider>
   );
 }
