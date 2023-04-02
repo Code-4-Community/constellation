@@ -1,15 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Form from './Form';
-import {
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Select,
-  FormHelperText,
-  Textarea,
-} from '@chakra-ui/react';
-import { PhoneIcon } from '@chakra-ui/icons';
 import FormField from './FormField';
 import { submitForm } from '../../utils/sendRequest';
 import {
