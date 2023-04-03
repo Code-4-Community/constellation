@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Heading, Text } from '@chakra-ui/react';
+import { Container, Heading, Text } from '@chakra-ui/react';
 import * as React from 'react';
 import GrantForm from '../components/form/GrantForm';
 import Header from '../components/header/Header';
