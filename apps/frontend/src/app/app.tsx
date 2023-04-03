@@ -4,6 +4,7 @@ import { Amplify } from 'aws-amplify';
 import { ChakraProvider } from '@chakra-ui/react';
 import GrantFormPage from '../pages/grantFormPage';
 import MedicalFormPage from '../pages/medicalFormPage';
+import ViewFormsList from '../components/ViewFormsList';
 import AuthedPage from '../pages/AuthedPage';
 
 import awsExports from '../aws-exports';
@@ -14,6 +15,7 @@ export function App() {
     <ChakraProvider>
       <GrantFormPage></GrantFormPage>
       <MedicalFormPage></MedicalFormPage>
+      <ViewFormsList />
       <AuthedPage />
     </ChakraProvider>
   );
