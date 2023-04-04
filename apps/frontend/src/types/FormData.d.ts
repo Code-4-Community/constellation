@@ -11,4 +11,12 @@ type FormData = {
   };
 };
 
+export enum FormDataToEnglish {
+  date = 'Last Updated',
+  childsName = 'Child Name',
+  dob = 'Date of Birth',
+  hospital = 'Hospital',
+  address = 'Location',
+}
+
 export default FormData;
