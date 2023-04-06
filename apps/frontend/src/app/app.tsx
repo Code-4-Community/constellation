@@ -1,11 +1,12 @@
 import { Authenticator } from '@aws-amplify/ui-react';
-import { ChakraProvider, Heading } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { Amplify } from 'aws-amplify';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import awsExports from '../aws-exports';
 import { Login } from '../components/auth/Login';
 import { RequireAuth } from '../components/auth/RequireAuth';
 import ViewFormsList from '../components/ViewFormsList';
+import NotFoundPage from '../pages/404';
 import GrantFormPage from '../pages/grantFormPage';
 import MedicalFormPage from '../pages/medicalFormPage';
 
@@ -33,6 +34,7 @@ function ConstellationRoutes() {
             </RequireAuth>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
