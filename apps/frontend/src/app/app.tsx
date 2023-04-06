@@ -15,7 +15,6 @@ function ConstellationRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<Heading size="xl">Home page stub</Heading>} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/form"
