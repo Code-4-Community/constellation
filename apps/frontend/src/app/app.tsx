@@ -1,23 +1,51 @@
-import styled from '@emotion/styled';
-import NxWelcome from './nx-welcome';
 import { Amplify } from 'aws-amplify';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Heading } from '@chakra-ui/react';
 import GrantFormPage from '../pages/grantFormPage';
 import MedicalFormPage from '../pages/medicalFormPage';
 import ViewFormsList from '../components/ViewFormsList';
-import AuthedPage from '../pages/AuthedPage';
-
+import { Authenticator } from '@aws-amplify/ui-react';
+import { RequireAuth } from '../components/auth/RequireAuth';
+import { Login } from '../components/auth/Login';
 import awsExports from '../aws-exports';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 Amplify.configure(awsExports);
+
+function ConstellationRoutes() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Heading size="xl">Home page stub</Heading>} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/form"
+          element={
+            <>
+              <GrantFormPage />
+              <MedicalFormPage />
+            </>
+          }
+        />
+        <Route
+          path="/all-forms"
+          element={
+            <RequireAuth>
+              <ViewFormsList />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 export function App() {
   return (
-    <ChakraProvider>
-      <GrantFormPage></GrantFormPage>
-      <MedicalFormPage></MedicalFormPage>
-      <ViewFormsList />
-      <AuthedPage />
-    </ChakraProvider>
+    <Authenticator.Provider>
+      <ChakraProvider>
+        <ConstellationRoutes />
+      </ChakraProvider>
+    </Authenticator.Provider>
   );
 }
 
