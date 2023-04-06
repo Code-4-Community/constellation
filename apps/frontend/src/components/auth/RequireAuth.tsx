@@ -1,6 +1,6 @@
-import { useLocation, Navigate } from 'react-router-dom';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { Box, Heading, Button } from '@chakra-ui/react';
+import { Box, Button, Heading } from '@chakra-ui/react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
   const location = useLocation();

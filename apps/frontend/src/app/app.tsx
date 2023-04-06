@@ -1,13 +1,13 @@
-import { Amplify } from 'aws-amplify';
+import { Authenticator } from '@aws-amplify/ui-react';
 import { ChakraProvider, Heading } from '@chakra-ui/react';
+import { Amplify } from 'aws-amplify';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import awsExports from '../aws-exports';
+import { Login } from '../components/auth/Login';
+import { RequireAuth } from '../components/auth/RequireAuth';
+import ViewFormsList from '../components/ViewFormsList';
 import GrantFormPage from '../pages/grantFormPage';
 import MedicalFormPage from '../pages/medicalFormPage';
-import ViewFormsList from '../components/ViewFormsList';
-import { Authenticator } from '@aws-amplify/ui-react';
-import { RequireAuth } from '../components/auth/RequireAuth';
-import { Login } from '../components/auth/Login';
-import awsExports from '../aws-exports';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 Amplify.configure(awsExports);
 

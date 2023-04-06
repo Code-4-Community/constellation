@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Authenticator, useAuthenticator, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import { useNavigate, useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 export function Login() {
   const { route } = useAuthenticator((context) => [context.route]);
