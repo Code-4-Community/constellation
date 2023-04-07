@@ -12,7 +12,7 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   return (
     <>
       <Box display="flex" padding="8" justifyContent="space-between">
-        <Heading size="l">Logged in as: {user.username}</Heading>
+        <Heading size="l">Logged in as: {user.attributes?.email}</Heading>
         <Button onClick={signOut}>Sign Out</Button>
       </Box>
       {children}
