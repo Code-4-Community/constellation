@@ -5,13 +5,13 @@ import Header from '../components/header/Header';
 
 const MedicalFormPage: React.FC = () => (
   <Box>
-    <Grid minH="100vh" p="3">
+    <Grid minH="100vh" padding="3">
       <Container maxW="xl">
         <Header></Header>
         <Heading size="md" textAlign="center">
           Information
         </Heading>
-        <Text textAlign="center" p="2">
+        <Text textAlign="center" padding="2">
           (to be completed by medical professional)
         </Text>
         <MedicalForm />

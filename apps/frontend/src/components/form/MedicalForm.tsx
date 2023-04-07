@@ -53,7 +53,7 @@ const alertOnSubmit = async (values: FormValues) => {
 
 const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
   <Form onSubmit={onSubmit ?? alertOnSubmit} initialValues={{}}>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="childDiagnosis">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -101,7 +101,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="otherCancer">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -117,7 +117,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="childPhysician">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -131,7 +131,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="hospitalName">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -187,7 +187,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="otherHospital">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -203,7 +203,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="hospitalAddress">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -217,7 +217,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="hospitalCity">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -231,7 +231,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="hospitalState">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -245,7 +245,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="hospitalZipcode">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -259,7 +259,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="hospitalPhone">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -279,7 +279,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="doctorsExplanation">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -297,7 +297,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="doctorName">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -311,7 +311,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="doctorTitle">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -325,7 +325,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="doctorSignature">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -341,7 +341,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="doctorSignatureDate">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -356,7 +356,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="socialWorkerEmail">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -373,7 +373,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Field name="medicalFormNotes">
         {({ field, form }: FieldProps) => (
           <FormControl
@@ -391,7 +391,7 @@ const ExampleForm: React.FC<ExampleFormProps> = ({ onSubmit }) => (
         )}
       </Field>
     </Box>
-    <Box py="2">
+    <Box paddingY="2">
       <Text as="i" fontSize="xs">
         By signing this application, you are attesting to the accuracy of the
         information on both pages, to the best of your knowledge. Fraudulent
