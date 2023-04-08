@@ -34,30 +34,35 @@ const GrantForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
         inputVariant="text"
         name="guardianForm.guardianName"
         displayName="Parent/Legal Guardian Name"
+        isRequired
       />
 
       <FormField
         inputVariant="text"
         name="guardianForm.address.street"
         displayName="Address"
+        isRequired
       />
 
       <FormField
         inputVariant="text"
         name="guardianForm.address.city"
         displayName="City"
+        isRequired
       />
 
       <FormField
         inputVariant="text"
         name="guardianForm.address.state"
         displayName="State"
+        isRequired
       />
 
       <FormField
         inputVariant="number"
         name="guardianForm.address.zipcode"
         displayName="Zip Code"
+        isRequired
       />
 
       <FormField
@@ -97,12 +102,14 @@ const GrantForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
         inputVariant="text"
         name="guardianForm.signature"
         displayName="Parent/Legal Guardian Signature"
+        isRequired
       />
 
       <FormField
         inputVariant="date"
         name="guardianForm.date"
         displayName="Date"
+        isRequired
       />
 
       <FormField

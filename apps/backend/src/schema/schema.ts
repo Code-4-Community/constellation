@@ -24,7 +24,7 @@ const guardianFormSchema = z.object({
   address: addressSchema,
   phone: phoneNumber,
   cellPhone: phoneNumber.optional(),
-  email: z.string().email().optional(),
+  email: z.string().email(),
   requestedGrantAmount: z.number().positive().optional(),
   intendedUseOfGrant: z.string().optional(),
   signature: z.string().min(1), // Not sure how this will be formated
@@ -43,7 +43,7 @@ const medicalFormSchema = z.object({
   address: addressSchema,
   phone: phoneNumber,
   descriptionOfCondition: z.string().optional(),
-  medicalProfessionalName: z.string().min(1),
+  medicalProfessionalName: z.string().min(1).optional(),
   medicalProfessionalTitle: z.string().min(1).optional(),
   signature: z.string().min(1),
   date: dateSchema,

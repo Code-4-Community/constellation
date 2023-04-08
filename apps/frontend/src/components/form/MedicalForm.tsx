@@ -31,12 +31,14 @@ const MedicalForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
         inputVariant="date"
         name="medicalForm.dateOfDiagnosis"
         displayName="Date of Diagnosis"
+        isRequired
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.childsPhysician"
         displayName="Child's Physician"
+        isRequired
       />
 
       <FormField
@@ -58,30 +60,35 @@ const MedicalForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
         inputVariant="text"
         name="medicalForm.address.street"
         displayName="Address"
+        isRequired
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.address.city"
         displayName="City"
+        isRequired
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.address.state"
         displayName="State"
+        isRequired
       />
 
       <FormField
         inputVariant="number"
         name="medicalForm.address.zipcode"
         displayName="Zip Code"
+        isRequired
       />
 
       <FormField
         inputVariant="phoneNumber"
         name="medicalForm.phone"
         displayName="Phone"
+        isRequired
       />
 
       <FormField
@@ -106,18 +113,21 @@ const MedicalForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
         inputVariant="text"
         name="medicalForm.signature"
         displayName="Doctor's Signature"
+        isRequired
       />
 
       <FormField
         inputVariant="date"
         name="medicalForm.date"
         displayName="Date Signed"
+        isRequired
       />
 
       <FormField
         inputVariant="email"
         name="medicalForm.socialWorkersEmail"
         displayName="Social Worker's Email Address"
+        isRequired
       />
 
       <FormField
