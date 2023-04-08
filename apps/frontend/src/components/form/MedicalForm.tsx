@@ -4,7 +4,7 @@ import FormField from './FormField';
 import {
   CancersDropdownValues,
   HospitalsDropdownValues,
-} from '../../types/form';
+} from '../../enums/DropdownValues';
 import { Form } from 'formik';
 
 const MedicalForm: React.FC = () => {

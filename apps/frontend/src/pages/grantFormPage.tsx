@@ -1,5 +1,4 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
-import { FormikBag, FormikProps } from 'formik';
 import React from 'react';
 import GrantForm from '../components/form/GrantForm';
 import Header from '../components/header/Header';

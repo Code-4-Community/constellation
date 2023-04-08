@@ -4,8 +4,8 @@ import {
   NumberInput,
   NumberInputField,
 } from '@chakra-ui/react';
+import { InputVariant } from '../../../types/input';
 import { FieldInputProps } from 'formik';
-import { InputVariant } from '../FormInput';
 
 interface NumberInputProps {
   inputVariant: InputVariant;

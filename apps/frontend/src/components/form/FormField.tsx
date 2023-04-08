@@ -1,6 +1,7 @@
 import { FormControl, FormLabel } from '@chakra-ui/react';
 import { Field, FieldProps } from 'formik';
-import FormInput, { InputVariant } from './FormInput';
+import { InputVariant } from '../../types/input';
+import FormInput from './FormInput';
 
 interface FormFieldProps {
   inputVariant: InputVariant;
