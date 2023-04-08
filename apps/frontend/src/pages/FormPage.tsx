@@ -48,25 +48,19 @@ const schema = Yup.object().shape({
 });
 
 const FormPage: React.FC = () => {
-  const onSubmit = async (
-    values: FormValues,
-    actions: FormikHelpers<{}>
-  ): Promise<void> => {
-    console.log(values);
-
+  const onSubmit = async (values: FormValues): Promise<void> => {
     await submitForm(values);
   };
 
   return (
     <Formik onSubmit={onSubmit} initialValues={{}} validationSchema={schema}>
       {(form) => (
-        // <Form onSubmit={onSubmit} initialValues={{}}>
         <>
-          <GrantFormPage form={form} />
+          <GrantFormPage />
 
           <Spacer height={16} />
 
-          <MedicalFormPage form={form} />
+          <MedicalFormPage />
 
           <Center>
             <Button
@@ -79,7 +73,6 @@ const FormPage: React.FC = () => {
             </Button>
           </Center>
         </>
-        // </Form>
       )}
     </Formik>
   );

@@ -1,10 +1,9 @@
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
-import { FormikBag, FormikProps } from 'formik';
 import React from 'react';
 import MedicalForm from '../components/form/MedicalForm';
 import Header from '../components/header/Header';
 
-const MedicalFormPage: React.FC<{ form: FormikProps<{}> }> = ({ form }) => (
+const MedicalFormPage: React.FC = () => (
   <Box>
     <Container maxW="xl">
       <Header />
@@ -17,7 +16,7 @@ const MedicalFormPage: React.FC<{ form: FormikProps<{}> }> = ({ form }) => (
         (to be completed by medical professional)
       </Text>
 
-      <MedicalForm form={form} />
+      <MedicalForm />
     </Container>
   </Box>
 );

@@ -1,15 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-// import Form from './Form';
 import FormField from './FormField';
-import { submitForm } from '../../utils/sendRequest';
 import {
   CancersDropdownValues,
   HospitalsDropdownValues,
 } from '../../types/form';
-import { FormikBag, FormikProps, Form } from 'formik';
+import { Form } from 'formik';
 
-const MedicalForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
+const MedicalForm: React.FC = () => {
   return (
     <Form>
       <FormField

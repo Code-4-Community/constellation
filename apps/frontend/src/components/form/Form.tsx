@@ -1,4 +1,3 @@
-import { Button, Center } from '@chakra-ui/react';
 import { Form as FormBody, Formik, FormikProps } from 'formik';
 import React, { PropsWithoutRef, ReactNode } from 'react';
 
@@ -41,7 +40,7 @@ const Form: React.FC<FormProps> = ({
       }
     }}
   >
-    {(props) => <FormBody>{children}</FormBody>}
+    <FormBody>{children}</FormBody>
   </Formik>
 );
 

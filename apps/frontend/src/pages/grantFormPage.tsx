@@ -4,7 +4,7 @@ import React from 'react';
 import GrantForm from '../components/form/GrantForm';
 import Header from '../components/header/Header';
 
-const GrantFormPage: React.FC<{ form: FormikProps<{}> }> = ({ form }) => (
+const GrantFormPage: React.FC = () => (
   <Container>
     <Header />
 
@@ -16,7 +16,7 @@ const GrantFormPage: React.FC<{ form: FormikProps<{}> }> = ({ form }) => (
       (to be completed by child's parent/legal guardian)
     </Text>
 
-    <GrantForm form={form} />
+    <GrantForm />
   </Container>
 );
 

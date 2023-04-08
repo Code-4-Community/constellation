@@ -6,25 +6,14 @@ import {
   InputLeftElement,
   Textarea,
 } from '@chakra-ui/react';
-import { FieldInputProps, FormikProps } from 'formik';
-import DateInput from './inputTypes/DateInput';
+import { FieldInputProps } from 'formik';
+import { InputVariant } from '../../types/input';
 import FormSelect from './inputTypes/FormSelect';
 import NumberInput from './inputTypes/NumberInput';
-
-export type InputVariant =
-  | 'text'
-  | 'date'
-  | 'number'
-  | 'phoneNumber'
-  | 'email'
-  | 'money'
-  | 'textArea'
-  | 'select';
 
 interface FormInputProps {
   variant: InputVariant;
   field: FieldInputProps<any>;
-  form: FormikProps<any>;
   id: string;
   description?: string;
   selectList?: string[][];
@@ -33,17 +22,12 @@ interface FormInputProps {
 const FormInput: React.FC<FormInputProps> = ({
   variant,
   field,
-  form,
   id,
   description,
   selectList,
 }) => {
-  if (variant === 'text') {
-    return <Input {...field} id={id} type="text" />;
-  } else if (variant === 'email') {
-    return <Input {...field} id={id} type="email" />;
-  } else if (variant === 'date') {
-    return <Input {...field} id={id} type="date" />;
+  if (variant === 'text' || variant === 'email' || variant === 'date') {
+    return <Input {...field} id={id} type={variant} />;
   } else if (variant === 'number' || variant === 'money') {
     return <NumberInput inputVariant={variant} field={field} id={id} />;
   } else if (variant === 'phoneNumber') {
@@ -72,9 +56,8 @@ const FormInput: React.FC<FormInputProps> = ({
         field={field}
       />
     );
-  } else {
-    return null;
   }
+  return null;
 };
 
 export default FormInput;

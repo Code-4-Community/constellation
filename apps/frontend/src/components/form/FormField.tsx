@@ -40,7 +40,6 @@ const FormField: React.FC<FormFieldProps> = ({
           <FormInput
             variant={inputVariant}
             field={field}
-            form={form}
             id={name}
             description={description}
             selectList={selectList}
