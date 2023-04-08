@@ -19,8 +19,18 @@ const FormField: React.FC<FormFieldProps> = ({
   isRequired,
   selectList,
 }) => {
+  const fieldType = (() => {
+    if (inputVariant === 'money' || inputVariant === 'number') {
+      return 'number';
+    } else if (inputVariant === 'email') {
+      return 'email';
+    } else {
+      return 'text';
+    }
+  })();
+
   return (
-    <Field name={name}>
+    <Field name={name} type={fieldType}>
       {({ field, form }: FieldProps) => (
         <FormControl
           isRequired={isRequired}
@@ -30,6 +40,7 @@ const FormField: React.FC<FormFieldProps> = ({
           <FormInput
             variant={inputVariant}
             field={field}
+            form={form}
             id={name}
             description={description}
             selectList={selectList}

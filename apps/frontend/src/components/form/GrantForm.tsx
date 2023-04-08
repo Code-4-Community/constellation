@@ -2,99 +2,112 @@
 
 // do we add notes section to both grant form and medical form or just one
 import React from 'react';
-import Form from './Form';
+// import Form from './Form';
 import FormField from './FormField';
 import { submitForm } from '../../utils/sendRequest';
+import { FormikBag, FormikProps, Form } from 'formik';
 
-const GrantForm: React.FC = () => {
+const GrantForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
   return (
-    <Form onSubmit={submitForm} initialValues={{}}>
+    <Form>
       <FormField
         inputVariant="text"
-        name="childName"
+        name="guardianForm.childsName"
         isRequired
         displayName="Child Name"
       />
 
       <FormField
         inputVariant="date"
-        name="dob"
+        name="guardianForm.dob"
         isRequired
         displayName="Date of Birth"
       />
 
-      <FormField inputVariant="text" name="gender" displayName="Gender" />
+      <FormField
+        inputVariant="text"
+        name="guardianForm.gender"
+        displayName="Gender"
+      />
 
       <FormField
         inputVariant="text"
-        name="parentName"
+        name="guardianForm.guardianName"
         displayName="Parent/Legal Guardian Name"
       />
 
       <FormField
         inputVariant="text"
-        name="addressStreet"
+        name="guardianForm.address.street"
         displayName="Address"
       />
 
-      <FormField inputVariant="text" name="addressCity" displayName="City" />
+      <FormField
+        inputVariant="text"
+        name="guardianForm.address.city"
+        displayName="City"
+      />
 
-      <FormField inputVariant="text" name="addressState" displayName="State" />
+      <FormField
+        inputVariant="text"
+        name="guardianForm.address.state"
+        displayName="State"
+      />
 
       <FormField
         inputVariant="number"
-        name="addressZipcode"
+        name="guardianForm.address.zipcode"
         displayName="Zip Code"
       />
 
       <FormField
         inputVariant="phoneNumber"
-        name="phoneNumber"
+        name="guardianForm.phone"
         displayName="Phone Number"
         isRequired
       />
 
       <FormField
         inputVariant="phoneNumber"
-        name="cellPhoneNumber"
+        name="guardianForm.cellPhone"
         displayName="Cell Phone Number"
       />
 
       <FormField
         inputVariant="email"
-        name="email"
+        name="guardianForm.email"
         displayName="Email Address"
         isRequired
       />
 
       <FormField
         inputVariant="money"
-        name="requestedGrantAmount"
+        name="guardianForm.requestedGrantAmount"
         displayName="Requested Grant Amount (in USD)"
       />
 
       <FormField
         inputVariant="textArea"
-        name="useOfGrant"
+        name="guardianForm.intendedUseOfGrant"
         displayName="Intended use of grant"
         description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
       />
 
       <FormField
         inputVariant="text"
-        name="parentSignature"
+        name="guardianForm.signature"
         displayName="Parent/Legal Guardian Signature"
       />
 
       <FormField
         inputVariant="date"
-        name="parentSignatureDate"
+        name="guardianForm.date"
         displayName="Date"
       />
 
       <FormField
         inputVariant="textArea"
-        name="grantFormNotes"
+        name="guardianForm.notes"
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
       />

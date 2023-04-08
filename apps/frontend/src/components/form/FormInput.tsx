@@ -6,7 +6,8 @@ import {
   InputLeftElement,
   Textarea,
 } from '@chakra-ui/react';
-import { FieldInputProps } from 'formik';
+import { FieldInputProps, FormikProps } from 'formik';
+import DateInput from './inputTypes/DateInput';
 import FormSelect from './inputTypes/FormSelect';
 import NumberInput from './inputTypes/NumberInput';
 
@@ -23,6 +24,7 @@ export type InputVariant =
 interface FormInputProps {
   variant: InputVariant;
   field: FieldInputProps<any>;
+  form: FormikProps<any>;
   id: string;
   description?: string;
   selectList?: string[][];
@@ -31,12 +33,17 @@ interface FormInputProps {
 const FormInput: React.FC<FormInputProps> = ({
   variant,
   field,
+  form,
   id,
   description,
   selectList,
 }) => {
   if (variant === 'text') {
     return <Input {...field} id={id} type="text" />;
+  } else if (variant === 'email') {
+    return <Input {...field} id={id} type="email" />;
+  } else if (variant === 'date') {
+    return <Input {...field} id={id} type="date" />;
   } else if (variant === 'number' || variant === 'money') {
     return <NumberInput inputVariant={variant} field={field} id={id} />;
   } else if (variant === 'phoneNumber') {
@@ -46,7 +53,7 @@ const FormInput: React.FC<FormInputProps> = ({
           pointerEvents="none"
           children={<PhoneIcon color="gray.300" />}
         />
-        <Input type="tel" {...field} />
+        <Input type="text" {...field} id={id} />
       </InputGroup>
     );
   } else if (variant === 'textArea') {
@@ -66,8 +73,7 @@ const FormInput: React.FC<FormInputProps> = ({
       />
     );
   } else {
-    // handles email and date types
-    return <Input {...field} type={variant} id={id} />;
+    return null;
   }
 };
 

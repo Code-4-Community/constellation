@@ -1,19 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import Form from './Form';
+// import Form from './Form';
 import FormField from './FormField';
 import { submitForm } from '../../utils/sendRequest';
 import {
   CancersDropdownValues,
   HospitalsDropdownValues,
 } from '../../types/form';
+import { FormikBag, FormikProps, Form } from 'formik';
 
-const MedicalForm: React.FC = () => {
+const MedicalForm: React.FC<{ form: FormikProps<{}> }> = ({ form }) => {
   return (
-    <Form onSubmit={submitForm} initialValues={{}}>
+    <Form>
       <FormField
         inputVariant="select"
-        name="childDiagnosis"
+        name="medicalForm.childsDiagnosis"
         displayName="Child's Diagnosis"
         isRequired
         description="Select Child's Diagnosis"
@@ -22,19 +23,25 @@ const MedicalForm: React.FC = () => {
 
       <FormField
         inputVariant="text"
-        name="otherCancer"
+        name="medicalForm.otherDiagnosis"
         displayName="If Other, please specify the type of cancer"
       />
 
       <FormField
+        inputVariant="date"
+        name="medicalForm.dateOfDiagnosis"
+        displayName="Date of Diagnosis"
+      />
+
+      <FormField
         inputVariant="text"
-        name="childPhysician"
+        name="medicalForm.childsPhysician"
         displayName="Child's Physician"
       />
 
       <FormField
         inputVariant="select"
-        name="hospitalName"
+        name="medicalForm.hospital"
         displayName="Hospital"
         isRequired
         description="Hospital Name"
@@ -43,71 +50,79 @@ const MedicalForm: React.FC = () => {
 
       <FormField
         inputVariant="text"
-        name="otherHospital"
+        name="medicalForm.otherHospital"
         displayName="If Other, please specify the hospital name"
       />
 
       <FormField
         inputVariant="text"
-        name="hospitalAddress"
+        name="medicalForm.address.street"
         displayName="Address"
       />
 
-      <FormField inputVariant="text" name="hospitalCity" displayName="City" />
-
-      <FormField inputVariant="text" name="hospitalState" displayName="State" />
+      <FormField
+        inputVariant="text"
+        name="medicalForm.address.city"
+        displayName="City"
+      />
 
       <FormField
         inputVariant="text"
-        name="hospitalZipcode"
+        name="medicalForm.address.state"
+        displayName="State"
+      />
+
+      <FormField
+        inputVariant="number"
+        name="medicalForm.address.zipcode"
         displayName="Zip Code"
       />
 
       <FormField
         inputVariant="phoneNumber"
-        name="hospitalPhone"
+        name="medicalForm.phone"
         displayName="Phone"
       />
 
       <FormField
         inputVariant="text"
-        name="doctorsExplanation"
+        name="medicalForm.descriptionOfCondition"
         displayName="Please describe the child's medical condition and anticipated hospital stay"
       />
 
       <FormField
         inputVariant="text"
-        name="doctorName"
+        name="medicalForm.medicalProfessionalName"
         displayName="Doctor's Name"
       />
 
       <FormField
         inputVariant="text"
-        name="doctorTitle"
+        name="medicalForm.medicalProfessionalTitle"
         displayName="Doctor's Title"
       />
 
       <FormField
         inputVariant="text"
-        name="doctorSignature"
+        name="medicalForm.signature"
         displayName="Doctor's Signature"
       />
 
       <FormField
         inputVariant="date"
-        name="doctorSignatureDate"
+        name="medicalForm.date"
         displayName="Date Signed"
       />
 
       <FormField
         inputVariant="email"
-        name="socialWorkerEmail"
+        name="medicalForm.socialWorkersEmail"
         displayName="Social Worker's Email Address"
       />
 
       <FormField
         inputVariant="textArea"
-        name="medicalFormNotes"
+        name="medicalForm.notes"
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
       />

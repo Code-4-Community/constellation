@@ -1,9 +1,10 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
+import { FormikBag, FormikProps } from 'formik';
 import React from 'react';
 import GrantForm from '../components/form/GrantForm';
 import Header from '../components/header/Header';
 
-const GrantFormPage: React.FC = () => (
+const GrantFormPage: React.FC<{ form: FormikProps<{}> }> = ({ form }) => (
   <Container>
     <Header />
 
@@ -15,7 +16,7 @@ const GrantFormPage: React.FC = () => (
       (to be completed by child's parent/legal guardian)
     </Text>
 
-    <GrantForm />
+    <GrantForm form={form} />
   </Container>
 );
 
