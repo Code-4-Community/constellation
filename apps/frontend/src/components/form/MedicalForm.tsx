@@ -9,7 +9,7 @@ import { Form } from 'formik';
 
 const MedicalForm: React.FC = () => {
   return (
-    <Form>
+    <>
       <FormField
         inputVariant="select"
         name="medicalForm.childsDiagnosis"
@@ -134,7 +134,7 @@ const MedicalForm: React.FC = () => {
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
       />
-    </Form>
+    </>
   );
 };
 

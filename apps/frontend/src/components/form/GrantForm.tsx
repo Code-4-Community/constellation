@@ -7,7 +7,7 @@ import { Form } from 'formik';
 
 const GrantForm: React.FC = () => {
   return (
-    <Form>
+    <>
       <FormField
         inputVariant="text"
         name="guardianForm.childsName"
@@ -116,7 +116,7 @@ const GrantForm: React.FC = () => {
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
       />
-    </Form>
+    </>
   );
 };
 
