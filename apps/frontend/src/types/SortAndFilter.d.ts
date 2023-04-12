@@ -1,4 +1,4 @@
-import FormData from './FormData';
+import { FormData } from './formData';
 import SortOrder from '../enums/SortOrder';
 
 export type Options = {

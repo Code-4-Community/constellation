@@ -8,6 +8,7 @@ import { RequireAuth } from '../components/auth/RequireAuth';
 import ViewFormsList from '../components/ViewFormsList';
 import NotFoundPage from '../pages/404';
 import FormPage from '../pages/FormPage';
+import OneFormPage from '../pages/OneFormPage';
 
 Amplify.configure(awsExports);
 
@@ -22,6 +23,14 @@ function ConstellationRoutes() {
           element={
             <RequireAuth>
               <ViewFormsList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/form/:id"
+          element={
+            <RequireAuth>
+              <OneFormPage />
             </RequireAuth>
           }
         />
