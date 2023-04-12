@@ -39,7 +39,7 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
 
     return response;
   } catch (error) {
-    console.log('error accessing database');
+    console.error('error accessing database');
     return {
       statusCode: 400,
       headers,
