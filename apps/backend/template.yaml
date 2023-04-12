@@ -75,7 +75,7 @@ Resources:
             Method: GET
 
   # This is a Lambda function config associated with the source code: getAllForms.ts
-  getFunction:
+  getFormsFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: dist/handlers/getAllForms.getAllFormsHandler
