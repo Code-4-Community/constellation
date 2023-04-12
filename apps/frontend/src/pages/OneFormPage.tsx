@@ -12,7 +12,7 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { GuardianForm } from '../components/viewForm/guardianForm';
+import { GuardianForm } from '../components/viewForm/GuardianForm';
 import { MedicalForm } from '../components/viewForm/MedicalForm';
 
 const OneFormPage: React.FC = () => {
