@@ -5,7 +5,6 @@ import {
   CancersDropdownValues,
   HospitalsDropdownValues,
 } from '../../enums/DropdownValues';
-import { Form } from 'formik';
 
 const MedicalForm: React.FC = () => {
   return (

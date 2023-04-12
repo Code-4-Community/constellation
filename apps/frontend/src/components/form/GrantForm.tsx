@@ -3,7 +3,6 @@
 // do we add notes section to both grant form and medical form or just one
 import React from 'react';
 import FormField from './FormField';
-import { Form } from 'formik';
 
 const GrantForm: React.FC = () => {
   return (

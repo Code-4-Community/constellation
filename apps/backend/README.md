@@ -7,24 +7,7 @@ This project contains source code and supporting files for a serverless applicat
 - `__tests__` - Unit tests for the application code. 
 - `template.yaml` - A template that defines the application's AWS resources.
 
-The application uses several AWS resources, including Lambda functions, an API Gateway API, and Amazon DynamoDB tables. These resources are defined in the `template.yaml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
-
-If you prefer to use an integrated development environment (IDE) to build and test your application, you can use the AWS Toolkit.  
-The AWS Toolkit is an open-source plugin for popular IDEs that uses the AWS SAM CLI to build and deploy serverless applications on AWS. The AWS Toolkit also adds step-through debugging for Lambda function code. 
-
-To get started, see the following:
-
-* [CLion](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [GoLand](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [IntelliJ](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [WebStorm](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [Rider](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [PhpStorm](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [PyCharm](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [RubyMine](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [DataGrip](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
-* [VS Code](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/welcome.html)
-* [Visual Studio](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/welcome.html)
+The application uses several AWS resources, including Lambda functions, an API Gateway API, and Amazon QLDB. These resources are defined in the `template.yaml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
 
 ## Deploy the sample application
 
@@ -34,16 +17,16 @@ To use the AWS SAM CLI, you need the following tools:
 
 * AWS SAM CLI - [Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html).
 * Node.js - [Install Node.js 18](https://nodejs.org/en/), including the npm package management tool.
-* Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community).
+* Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community) (optional, only if you want to try deploying locally but this doesn't work well with QLDB)
 
 To build and deploy your application for the first time, run the following in your shell:
 
 ```bash
-sam build
-sam deploy --guided
+npm run build
+sam deploy --guided --capabilities CAPABILITY_NAMED_IAM
 ```
 
-The first command will build the source of your application. The second command will package and deploy your application to AWS, with a series of prompts:
+The first command will build the source of your application. Since we're using TypeScript, we need to use a custom build command (defined in `package.json` instead of the built-in `sam build` command) in order to compile our TypeScript into JavaScript in `/dist`. The second command will package and deploy your application to AWS, with a series of prompts:
 
 * **Stack Name**: The name of the stack to deploy to CloudFormation. This should be unique to your account and region, and a good starting point would be something matching your project name.
 * **AWS Region**: The AWS region you want to deploy your app to.
@@ -53,12 +36,24 @@ The first command will build the source of your application. The second command 
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete.
 
-## Use the AWS SAM CLI to build and test locally
+### Syncing the stack
 
-Build your application by using the `sam build` command.
+After you've deployed for the first time, you can run the command `sam sync --stack-name <STACK NAME>` to deploy local changes to the AWS Cloud. Use sync to build, package, and deploy changes to your development environment as you iterate on your application. 
+
+## Cleanup
+
+To delete the sample application that you created, use the AWS CLI.
 
 ```bash
-my-application$ sam build
+aws cloudformation delete-stack --region <REGION DEPLOYED> --stack-name <STACK NAME>
+```
+
+## Use the AWS SAM CLI to build and test locally
+
+Build your application by using the `npm run build` command.
+
+```bash
+my-application$ npm run build
 ```
 
 The AWS SAM CLI installs dependencies that are defined in `package.json`, creates a deployment package, and saves it in the `.aws-sam/build` folder.
@@ -143,14 +138,6 @@ Tests are defined in the `__tests__` folder in this project. Use `npm` to instal
 ```bash
 my-application$ npm install
 my-application$ npm run test
-```
-
-## Cleanup
-
-To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
-
-```bash
-aws cloudformation delete-stack --stack-name backend
 ```
 
 ## Resources

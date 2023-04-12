@@ -1,5 +1,5 @@
 import { FormControl, FormLabel } from '@chakra-ui/react';
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { Field, FieldProps } from 'formik';
 import { InputVariant } from '../../types/input';
 import FormInput from './FormInput';
 
@@ -31,7 +31,7 @@ const FormField: React.FC<FormFieldProps> = ({
   })();
 
   return (
-    <Field name={name} type={fieldType}>
+    <Field name={name} type={fieldType} paddingY="2">
       {({ field, form }: FieldProps) => (
         <FormControl
           isRequired={isRequired}
