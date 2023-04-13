@@ -121,6 +121,7 @@ Resources:
           Properties:
             Path: /form/{id}
             Method: GET
+            RestApiId: !Ref ApiGateway 
   # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
     Type: AWS::Serverless::Function
