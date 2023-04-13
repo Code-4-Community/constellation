@@ -15,6 +15,11 @@ const phoneNumber = z.string().regex(phoneNumberRegex);
 // Schema to convert input to javascript date object
 const dateSchema = z.coerce.date();
 
+const adminNoteSchema = z.object({
+  note: z.string(),
+  updatedAt: dateSchema,
+});
+
 // Part of form to be filled out by the child's parent/legal guardian
 const guardianFormSchema = z.object({
   childsName: z.string().min(1),
@@ -52,6 +57,8 @@ const medicalFormSchema = z.object({
 });
 
 export const formSchema = z.object({
+  id: z.string(),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
+  adminNotes: adminNoteSchema.array(),
 });

@@ -5,10 +5,11 @@ import {
   GET_FORM_BY_ID_URL,
   POST_FORM_URL,
 } from '../constants/endpoints';
+import { formSchema } from '../types/formSchema';
 
 export const submitForm = async (body: FormValues): Promise<void> => {
   try {
-    await axios.post(POST_FORM_URL, body);
+    await axios.post(POST_FORM_URL, formSchema.cast(body));
     alert('Form submitted successfully');
   } catch (error) {
     console.log('axios error making post request', error);

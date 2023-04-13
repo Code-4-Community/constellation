@@ -1,22 +1,15 @@
+import { Container, Flex, Heading, Spacer, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { getFormById } from '../utils/sendRequest';
 import { useParams } from 'react-router-dom';
-import { FormDataWithId } from '../types/formData';
-import { formSchema } from '../types/formSchema';
-import {
-  Container,
-  Flex,
-  Heading,
-  Text,
-  Spinner,
-  Spacer,
-} from '@chakra-ui/react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { GuardianForm } from '../components/viewForm/GuardianForm';
 import { MedicalForm } from '../components/viewForm/MedicalForm';
+import { FormData } from '../types/formData';
+import { formSchema } from '../types/formSchema';
+import { getFormById } from '../utils/sendRequest';
 
 const OneFormPage: React.FC = () => {
-  const [formData, setFormData] = useState<null | FormDataWithId>(null);
+  const [formData, setFormData] = useState<null | FormData>(null);
   const [error, setError] = useState<null | string>(null);
   const { id } = useParams();
 
@@ -24,10 +17,7 @@ const OneFormPage: React.FC = () => {
     const fetchData = async () => {
       if (id) {
         const result = await getFormById(id);
-        const formData: FormDataWithId = {
-          id: result.data[0].id,
-          data: formSchema.validateSync(result.data[0].data),
-        };
+        const formData: FormData = formSchema.validateSync(result.data[0]);
         setFormData(formData);
       } else {
         setError('No form ID.');
@@ -59,8 +49,8 @@ const OneFormPage: React.FC = () => {
             <Spacer />
           </Flex>
         )}
-        {formData && <GuardianForm guardianForm={formData.data.guardianForm} />}
-        {formData && <MedicalForm medicalForm={formData.data.medicalForm} />}
+        {formData && <GuardianForm guardianForm={formData.guardianForm} />}
+        {formData && <MedicalForm medicalForm={formData.medicalForm} />}
       </Container>
     );
   }

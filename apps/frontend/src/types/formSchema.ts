@@ -7,6 +7,13 @@ const addressSchema = Yup.object({
   zipcode: Yup.string().length(5).required(),
 });
 
+const adminNoteSchema = Yup.object().shape({
+  note: Yup.string().required(),
+  updatedAt: Yup.date()
+    .default(() => new Date())
+    .required(),
+});
+
 export const guardianFormSchema = Yup.object().shape({
   childsName: Yup.string().min(1).required(),
   dob: Yup.date()
@@ -49,6 +56,11 @@ export const medicalFormSchema = Yup.object().shape({
 });
 
 export const formSchema = Yup.object().shape({
+  id: Yup.string().default(''),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
+  adminNotes: Yup.array()
+    .of(adminNoteSchema)
+    .required()
+    .default(() => []),
 });
