@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import SortOrder from '../enums/SortOrder';
-import type FormData from '../types/FormData';
+import { FormData } from '../types/formData';
 import { Options } from '../types/SortAndFilter';
 
 /**
@@ -109,7 +109,10 @@ const searchData = (
   if (searchingObject.searching) {
     const { searchTerm } = searchingObject.searching;
     const searchedList = list.filter((form) => {
-      const formValues = Object.values(form);
+      const formValues = Object.values({
+        ...form.guardianForm,
+        ...form.medicalForm,
+      });
       const lowercaseFormValues = formValues.map((value) => {
         if (typeof value === 'string') return value.toLowerCase();
         return value;

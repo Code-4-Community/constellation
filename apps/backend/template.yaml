@@ -104,6 +104,24 @@ Resources:
             Method: GET
             RestApiId: !Ref ApiGateway
 
+  getFormByIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/getFormById.getFormByIdHandler
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: An http get method to get a form with a certain ID.
+      Role: !GetAtt QLDBSendCommandRole.Arn
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /form/{id}
+            Method: GET
+            RestApiId: !Ref ApiGateway 
   # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
     Type: AWS::Serverless::Function

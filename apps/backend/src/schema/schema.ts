@@ -4,7 +4,7 @@ const addressSchema = z.object({
   street: z.string().min(1),
   city: z.string().min(1),
   state: z.string().min(1),
-  zipcode: z.number(),
+  zipcode: z.string().length(5),
 });
 
 // Regex to check for phone numbers formatted with `-`, ' ', and '.' separators,
@@ -14,6 +14,11 @@ const phoneNumber = z.string().regex(phoneNumberRegex);
 
 // Schema to convert input to javascript date object
 const dateSchema = z.coerce.date();
+
+const adminNoteSchema = z.object({
+  note: z.string(),
+  updatedAt: dateSchema,
+});
 
 // Part of form to be filled out by the child's parent/legal guardian
 const guardianFormSchema = z.object({
@@ -52,6 +57,8 @@ const medicalFormSchema = z.object({
 });
 
 export const formSchema = z.object({
+  id: z.string(),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
+  adminNotes: adminNoteSchema.array(),
 });

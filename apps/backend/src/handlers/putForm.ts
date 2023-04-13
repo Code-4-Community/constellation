@@ -2,7 +2,7 @@ import { APIGatewayEvent } from 'aws-lambda';
 import { createTableIfNotExists } from '../db/createTable.js';
 import { insertDocument } from '../db/utils.js';
 import { formSchema } from '../schema/schema.js';
-
+import { v4 as uuidv4 } from 'uuid';
 /**
  * An HTTP post method to add one form to the QLDB table.
  */
@@ -27,6 +27,7 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
   let form;
   try {
     form = formSchema.parse(JSONbody);
+    form.id = uuidv4();
   } catch (error) {
     return {
       statusCode: 400,
