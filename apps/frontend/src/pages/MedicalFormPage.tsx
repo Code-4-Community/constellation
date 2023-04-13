@@ -12,7 +12,7 @@ const MedicalFormPage: React.FC = () => (
         Information
       </Heading>
 
-      <Text textAlign={'center'} padding="10px">
+      <Text textAlign={'center'} padding="2">
         (to be completed by medical professional)
       </Text>
 
