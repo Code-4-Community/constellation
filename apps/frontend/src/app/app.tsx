@@ -7,8 +7,7 @@ import { Login } from '../components/auth/Login';
 import { RequireAuth } from '../components/auth/RequireAuth';
 import ViewFormsList from '../components/ViewFormsList';
 import NotFoundPage from '../pages/404';
-import GrantFormPage from '../pages/grantFormPage';
-import MedicalFormPage from '../pages/medicalFormPage';
+import FormPage from '../pages/FormPage';
 
 Amplify.configure(awsExports);
 
@@ -17,15 +16,7 @@ function ConstellationRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/form"
-          element={
-            <>
-              <GrantFormPage />
-              <MedicalFormPage />
-            </>
-          }
-        />
+        <Route path="/form" element={<FormPage />} />
         <Route
           path="/all-forms"
           element={
