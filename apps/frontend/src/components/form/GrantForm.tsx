@@ -56,7 +56,7 @@ const GrantForm: React.FC = () => {
       />
 
       <FormField
-        inputVariant="number"
+        inputVariant="text"
         name="guardianForm.address.zipcode"
         displayName="Zip Code"
         isRequired

@@ -33,12 +33,7 @@ const FormPage: React.FC = () => {
           <MedicalFormPage />
 
           <Center>
-            <Button
-              mt={4}
-              colorScheme="teal"
-              type="submit"
-              onClick={form.submitForm}
-            >
+            <Button mt={4} colorScheme="teal" onClick={form.submitForm}>
               Submit
             </Button>
           </Center>

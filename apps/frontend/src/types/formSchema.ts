@@ -38,8 +38,8 @@ export const medicalFormSchema = Yup.object().shape({
   address: addressSchema,
   phone: Yup.string().required(),
   descriptionOfCondition: Yup.string(),
-  medicalProfessionalName: Yup.string().min(1),
-  medicalProfessionalTitle: Yup.string().min(1),
+  medicalProfessionalName: Yup.string(),
+  medicalProfessionalTitle: Yup.string(),
   signature: Yup.string().min(1).required(),
   date: Yup.date()
     .default(() => new Date())

@@ -75,7 +75,7 @@ const MedicalForm: React.FC = () => {
       />
 
       <FormField
-        inputVariant="number"
+        inputVariant="text"
         name="medicalForm.address.zipcode"
         displayName="Zip Code"
         isRequired

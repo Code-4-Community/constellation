@@ -1,6 +1,6 @@
 // TODO: For testing locally, replace with aws api gateway url
 export const BASE_URL =
-  'https://kbpreaqzyb.execute-api.us-east-1.amazonaws.com/Prod/';
+  'https://kzb52qra7k.execute-api.us-east-1.amazonaws.com/Prod/';
 
 export const GET_ALL_FORMS_URL = `${BASE_URL}/forms`;
 
