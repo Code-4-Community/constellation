@@ -40,7 +40,7 @@ const OneFormPage: React.FC = () => {
           padding="16px"
           marginBottom="24px"
         >
-          Form: {formData?.guardianForm.childsName}
+          Form: {formData?.guardianForm.childsName || id}
         </Heading>
         {formData == null && (
           <Flex>
