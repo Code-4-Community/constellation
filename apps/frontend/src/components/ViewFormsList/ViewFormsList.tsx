@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Center, Heading, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Select, Spacer, Spinner,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr
+} from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 
 export default function ViewFormsList () {
-  const [forms, setForms] = useState<FormData[]>([]);
+  const [forms, setForms] = useState<FormData[] | null>(null);
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -34,19 +46,27 @@ export default function ViewFormsList () {
             <Th>Location</Th>
           </Tr>
         </Thead>
-        <Tbody>
-          {
-            forms.map(form =>
-              <Tr key={form.id}>
-                <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
-                <Td>{form.guardianForm.childsName}</Td>
-                <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
-                <Td>{form.medicalForm.hospital}</Td>
-                <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
-              </Tr>
-            )
-          }
-        </Tbody>
+        {
+          forms === null ?
+            <Flex>
+              <Spacer />
+              <Spinner size="xl" />
+              <Spacer />
+            </Flex> :
+            <Tbody>
+              {
+                forms.map(form =>
+                  <Tr key={form.id}>
+                    <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
+                    <Td>{form.guardianForm.childsName}</Td>
+                    <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
+                    <Td>{form.medicalForm.hospital}</Td>
+                    <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
+                  </Tr>
+                )
+              }
+            </Tbody>
+        }
       </Table>
     </Box>
   )
