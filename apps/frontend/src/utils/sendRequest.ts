@@ -6,6 +6,7 @@ import {
   POST_FORM_URL,
 } from '../constants/endpoints';
 import { formSchema } from '../types/formSchema';
+import { FormData } from '../types/formData';
 
 export const submitForm = async (body: FormValues): Promise<void> => {
   try {
@@ -17,12 +18,13 @@ export const submitForm = async (body: FormValues): Promise<void> => {
   }
 };
 
-export const getAllForms = async (): Promise<AxiosResponse | void> => {
+export const getAllForms = async (): Promise<FormData[]> => {
   try {
-    return await axios.get(GET_ALL_FORMS_URL);
+    return (await axios.get(GET_ALL_FORMS_URL)).data;
   } catch (error) {
     console.log('axios error making get request', error);
     alert('Error getting data');
+    return [];
   }
 };
 

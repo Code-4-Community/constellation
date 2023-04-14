@@ -1,8 +1,20 @@
-import React from 'react';
-import {Box, Center, Heading, Select, Table, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/react';
-import testData from '../../testData.json';
+import React, { useState, useEffect } from 'react';
+import { Box, Center, Heading, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { getAllForms } from '../../utils/sendRequest';
+import { FormData } from '../../types/formData';
 
 export default function ViewFormsList () {
+  const [forms, setForms] = useState<FormData[]>([]);
+
+  const getForms = async () => {
+    const allForms = await getAllForms();
+    setForms(allForms);
+  }
+
+  useEffect(() => {
+    getForms();
+  }, []);
+
   return (
     <Box p={1}>
       <Center mb={1}>
@@ -24,13 +36,13 @@ export default function ViewFormsList () {
         </Thead>
         <Tbody>
           {
-            testData.map(child =>
-              <Tr key={child.id}>
-                <Td>{new Date(child.date).toLocaleDateString()}</Td>
-                <Td>{child.childsName}</Td>
-                <Td>{new Date(child.dob).toLocaleDateString()}</Td>
-                <Td>{child.hospital}</Td>
-                <Td>{`${child.address.city}, ${child.address.state}`}</Td>
+            forms.map(form =>
+              <Tr key={form.id}>
+                <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
+                <Td>{form.guardianForm.childsName}</Td>
+                <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
+                <Td>{form.medicalForm.hospital}</Td>
+                <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
               </Tr>
             )
           }
