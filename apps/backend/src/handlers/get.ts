@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
+import { createResponse } from '../utils/createResponse.js';
 
 // Create clients and set shared const values outside of the handler.
 /**
@@ -13,16 +14,8 @@ export const getHandler = async (event: APIGatewayEvent) => {
   // All log statements are written to CloudWatch
   console.info('received:', event);
 
-  const response = {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Headers':
-        'Content-Type, Access-Control-Allow-Origin',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET',
-    },
-    body: JSON.stringify('Hello world!'),
-  };
+  const response = createResponse(200, JSON.stringify('Hello world!'));
+
   // All log statements are written to CloudWatch
   console.log(
     `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`

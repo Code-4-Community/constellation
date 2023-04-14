@@ -3,22 +3,16 @@ import { createTableIfNotExists } from '../db/createTable.js';
 import { insertDocument } from '../db/utils.js';
 import { formSchema } from '../schema/schema.js';
 import { v4 as uuidv4 } from 'uuid';
+import { createResponse } from '../utils/createResponse.js';
 /**
  * An HTTP post method to add one form to the QLDB table.
  */
 export const putFormHandler = async (event: APIGatewayEvent) => {
-  const headers = {
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST',
-  };
-
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 400,
-      headers,
-      body: `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`,
-    };
+    return createResponse(
+      400,
+      `postMethod only accepts POST method, you tried: ${event.httpMethod} method.`
+    );
   }
   // All log statements are written to CloudWatch
   console.info('received:', event);
@@ -29,20 +23,16 @@ export const putFormHandler = async (event: APIGatewayEvent) => {
     form = formSchema.parse(JSONbody);
     form.id = uuidv4();
   } catch (error) {
-    return {
-      statusCode: 400,
-      headers,
-      body: 'Form body does not match schema. Error: ' + error,
-    };
+    return createResponse(
+      400,
+      `Form body does not match schema. Error: ${error}`
+    );
   }
 
   await createTableIfNotExists();
   await insertDocument(form);
 
-  const response = {
-    statusCode: 201,
-    headers,
-  };
+  const response = createResponse(200);
 
   // All log statements are written to CloudWatch
   console.info(
