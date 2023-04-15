@@ -13,6 +13,7 @@ import {
   Th,
   Thead,
   Tr,
+  Link,
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
@@ -59,7 +60,11 @@ export default function ViewFormsList() {
             {forms.map((form) => (
               <Tr key={form.id}>
                 <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
-                <Td>{form.guardianForm.childsName}</Td>
+                <Td>
+                  <Link href={`/form/${form.id}`}>
+                    {form.guardianForm.childsName}
+                  </Link>
+                </Td>
                 <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
                 <Td>{form.medicalForm.hospital}</Td>
                 <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
