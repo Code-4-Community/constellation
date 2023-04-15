@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import awsExports from '../aws-exports';
 import { Login } from '../components/auth/Login';
 import { RequireAuth } from '../components/auth/RequireAuth';
-import ViewFormsList from '../components/ViewFormsList';
+import ViewFormsList from '../components/ViewFormsList/ViewFormsList';
 import NotFoundPage from '../pages/404';
 import FormPage from '../pages/FormPage';
 import OneFormPage from '../pages/OneFormPage';
