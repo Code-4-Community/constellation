@@ -1,6 +1,7 @@
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Box, Button, Heading } from '@chakra-ui/react';
 import { Navigate, useLocation } from 'react-router-dom';
+import PortalHeader from '../header/PortalHeader';
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
   const location = useLocation();
@@ -12,8 +13,21 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   return (
     <>
       <Box display="flex" padding="8" justifyContent="space-between">
-        <Heading size="l">Logged in as: {user.attributes?.email}</Heading>
-        <Button onClick={signOut}>Sign Out</Button>
+        <PortalHeader />
+        <Box
+          display="flex"
+          flexDirection="column"
+          pr="8"
+          pl="8"
+          py="4"
+          justifyContent="space-between"
+          alignItems="end"
+        >
+          <Button height="45.8px" onClick={signOut}>
+            Sign Out
+          </Button>
+          <Heading size="m">Logged in as: {user.attributes?.email}</Heading>
+        </Box>
       </Box>
       {children}
     </>
