@@ -1,10 +1,6 @@
 import { QLDBSessionClientConfig } from '@aws-sdk/client-qldb-session';
 import { NodeHttpHandlerOptions } from '@aws-sdk/node-http-handler';
-import {
-  QldbDriver,
-  RetryConfig,
-  TransactionExecutor,
-} from 'amazon-qldb-driver-nodejs';
+import { QldbDriver, RetryConfig } from 'amazon-qldb-driver-nodejs';
 import { Agent } from 'https';
 
 // IMPORTANT: this must match the ledger name defined in template.yaml
