@@ -10,8 +10,16 @@ export async function insertDocument(
 
 export async function fetchDocuments() {
   return await qldbDriver.executeLambda(async (txn) => {
+    const result = await txn.execute(`SELECT * from ${tableName}`);
+    return result.getResultList();
+  });
+}
+
+export async function fetchDocumentById(id: string) {
+  return await qldbDriver.executeLambda(async (txn) => {
     const result = await txn.execute(
-      `SELECT * FROM ${tableName}`
+      `SELECT * FROM ${tableName} where id = ?`,
+      id
     );
     return result.getResultList();
   });

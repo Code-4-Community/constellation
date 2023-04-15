@@ -1,23 +1,52 @@
-import styled from '@emotion/styled';
-import NxWelcome from './nx-welcome';
-import { Amplify } from 'aws-amplify';
+import { Authenticator } from '@aws-amplify/ui-react';
 import { ChakraProvider } from '@chakra-ui/react';
-import GrantFormPage from '../pages/grantFormPage';
-import MedicalFormPage from '../pages/medicalFormPage';
-import ViewFormsList from '../components/ViewFormsList';
-import AuthedPage from '../pages/AuthedPage';
-
+import { Amplify } from 'aws-amplify';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import awsExports from '../aws-exports';
+import { Login } from '../components/auth/Login';
+import { RequireAuth } from '../components/auth/RequireAuth';
+import ViewFormsList from '../components/ViewFormsList/ViewFormsList';
+import NotFoundPage from '../pages/404';
+import FormPage from '../pages/FormPage';
+import OneFormPage from '../pages/OneFormPage';
+
 Amplify.configure(awsExports);
+
+function ConstellationRoutes() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/form" element={<FormPage />} />
+        <Route
+          path="/all-forms"
+          element={
+            <RequireAuth>
+              <ViewFormsList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/form/:id"
+          element={
+            <RequireAuth>
+              <OneFormPage />
+            </RequireAuth>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 export function App() {
   return (
-    <ChakraProvider>
-      <GrantFormPage></GrantFormPage>
-      <MedicalFormPage></MedicalFormPage>
-      <ViewFormsList />
-      <AuthedPage />
-    </ChakraProvider>
+    <Authenticator.Provider>
+      <ChakraProvider>
+        <ConstellationRoutes />
+      </ChakraProvider>
+    </Authenticator.Provider>
   );
 }
 

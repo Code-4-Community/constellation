@@ -1,11 +1,11 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import { createTableIfNotExists } from '../db/createTable.js';
-import { fetchDocuments } from '../db/utils.js';
+import { fetchDocumentById } from '../db/utils.js';
 
 /**
  * An HTTP get method to get all forms from the QLDB table.
  */
-export const getAllFormsHandler = async (event: APIGatewayEvent) => {
+export const getFormByIdHandler = async (event: APIGatewayEvent) => {
   const headers = {
     'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin',
     'Access-Control-Allow-Origin': '*',
@@ -24,12 +24,13 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
 
   try {
     await createTableIfNotExists();
-    const allForms = await fetchDocuments();
+    const id = event.pathParameters!.id!;
+    const form = await fetchDocumentById(id);
 
     const response = {
       statusCode: 200,
       headers,
-      body: JSON.stringify(allForms),
+      body: JSON.stringify(form),
     };
 
     // All log statements are written to CloudWatch
@@ -40,7 +41,6 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
     return response;
   } catch (error) {
     console.error('error accessing database', error);
-
     return {
       statusCode: 400,
       headers,

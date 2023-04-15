@@ -15,6 +15,12 @@ export const getHandler = async (event: APIGatewayEvent) => {
 
   const response = {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Headers':
+        'Content-Type, Access-Control-Allow-Origin',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+    },
     body: JSON.stringify('Hello world!'),
   };
   // All log statements are written to CloudWatch
