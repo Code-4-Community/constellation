@@ -1,13 +1,15 @@
 import { Checkbox, Heading, Input, VStack } from '@chakra-ui/react';
-import { FormDataToEnglish } from '.';
-import { FormData } from '../../types/formData';
+import { FormData, FormDataNestedKeys } from '../../types/formData';
 import { Options } from '../../types/SortAndFilter';
 import FormListFilterCheck from './FormListFilterCheck';
+import { FormDataToEnglish } from './ViewFormsList';
 
 const FormListFilter = ({
+  dataField,
   dataLabel,
   filterValues,
 }: {
+  dataField: FormDataNestedKeys;
   dataLabel: FormDataToEnglish;
   filterValues: Array<FormData[keyof FormData]>;
 }) => {

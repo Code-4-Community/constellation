@@ -1,7 +1,7 @@
 import { Checkbox } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSortingAndFiltering from '../../hooks/useSortingAndFiltering';
-import { FormData } from '../../types/formData';
+import { FormData, FormDataNestedKeys } from '../../types/formData';
 import { Options } from '../../types/SortAndFilter';
 
 const FormListFilterCheck = ({ label }: { label: string }) => {
@@ -13,7 +13,7 @@ const FormListFilterCheck = ({ label }: { label: string }) => {
 
   return (
     <Checkbox isChecked={isChecked} onChange={handleCheckboxChange}>
-      {label}
+      {dataValue.toString()}
     </Checkbox>
   );
 };
