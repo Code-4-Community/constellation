@@ -7,7 +7,7 @@ export const addressSchema = Yup.object({
   zipcode: Yup.string().length(5).required(),
 });
 
-const adminNoteSchema = Yup.object().shape({
+export const adminNoteSchema = Yup.object().shape({
   note: Yup.string().required(),
   updatedAt: Yup.date()
     .default(() => new Date())

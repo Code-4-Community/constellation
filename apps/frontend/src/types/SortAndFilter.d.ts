@@ -1,4 +1,4 @@
-import { FormData } from './formData';
+import { FormData, FormDataNestedKeys } from './formData';
 import SortOrder from '../enums/SortOrder';
 
 export type Options = {
@@ -17,7 +17,7 @@ export type Filtering = {
 };
 
 export type Filter = {
-  field: keyof FormData;
+  field: FormDataNestedKeys;
   value: FormData[keyof FormData];
 };
 
