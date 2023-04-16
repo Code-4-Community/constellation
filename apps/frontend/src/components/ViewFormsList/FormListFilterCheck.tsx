@@ -5,15 +5,9 @@ import { FormData } from '../../types/formData';
 import { Options } from '../../types/SortAndFilter';
 
 const FormListFilterCheck = ({ label }: { label: string }) => {
-  const { addFilter, removeFilter } = useSortingAndFiltering(null);
   const [isChecked, setIsChecked] = useState(false);
 
   function handleCheckboxChange() {
-    if (isChecked) {
-      removeFilter();
-    } else {
-      addFilter();
-    }
     setIsChecked(!isChecked);
   }
 
