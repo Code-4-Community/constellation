@@ -91,7 +91,7 @@ const GrantForm: React.FC = () => {
       <FormField
         inputVariant="textArea"
         name="guardianForm.intendedUseOfGrant"
-        displayName="Intended use of grant"
+        displayName="Intended Use of Grant"
         description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
       />
 
