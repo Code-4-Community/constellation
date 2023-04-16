@@ -1,3 +1,4 @@
+import { AdminNotes } from '../schema/schema.js';
 import { qldbDriver, tableName } from './qldb.js';
 
 export async function insertDocument(
@@ -22,5 +23,15 @@ export async function fetchDocumentById(id: string) {
       id
     );
     return result.getResultList();
+  });
+}
+
+export async function updateDocumentAdminNotes(id: string, notes: AdminNotes) {
+  return await qldbDriver.executeLambda(async (txn) => {
+    return await txn.execute(
+      `UPDATE ${tableName} as f SET f.adminNotes = ? where f.id = ?`,
+      notes,
+      id
+    );
   });
 }
