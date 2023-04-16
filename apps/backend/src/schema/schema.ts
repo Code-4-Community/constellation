@@ -20,6 +20,9 @@ const adminNoteSchema = z.object({
   updatedAt: dateSchema,
 });
 
+export const adminNotesSchema = adminNoteSchema.array();
+export type AdminNotes = z.infer<typeof adminNotesSchema>;
+
 // Part of form to be filled out by the child's parent/legal guardian
 const guardianFormSchema = z.object({
   childsName: z.string().min(1),
@@ -60,5 +63,5 @@ export const formSchema = z.object({
   id: z.string(),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
-  adminNotes: adminNoteSchema.array(),
+  adminNotes: adminNotesSchema,
 });
