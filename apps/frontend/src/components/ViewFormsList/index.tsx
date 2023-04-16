@@ -16,11 +16,10 @@ import {
   VStack,
   Checkbox,
 } from '@chakra-ui/react';
-import testData from '../../testData.json';
 import useSortingAndFiltering from '../../hooks/useSortingAndFiltering';
 import { Filter, Filtering, Options } from '../../types/SortAndFilter';
 import SortOrder from '../../enums/SortOrder';
-import FormData from '../../types/FormData';
+import { FormData } from '../../types/formData';
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 
 export enum FormDataToEnglish {
@@ -31,9 +30,10 @@ export enum FormDataToEnglish {
   address = 'Location',
 }
 
+const reducedData: FormData[] = [];
 export default function ViewFormsList() {
   const [options, setOptions] = useState<Options>({});
-  const reducedData = useSortingAndFiltering(testData, options);
+  // const reducedData = useSortingAndFiltering(testData, options);
 
   function updateSortOptions(field: keyof FormData): Options {
     const isSortingFieldSet = options.sorting?.field === field;
@@ -160,7 +160,7 @@ export default function ViewFormsList() {
           </Tr>
         </Thead>
         <Tbody>
-          {reducedData.map((child) => (
+          {/* {reducedData.map((child) => (
             <Tr key={child.id}>
               <Td>{new Date(child.date).toLocaleDateString()}</Td>
               <Td>{child.childsName}</Td>
@@ -168,7 +168,7 @@ export default function ViewFormsList() {
               <Td>{child.hospital}</Td>
               <Td>{`${child.address.city}, ${child.address.state}`}</Td>
             </Tr>
-          ))}
+          ))} */}
         </Tbody>
       </Table>
     </Box>

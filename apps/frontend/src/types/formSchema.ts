@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const addressSchema = Yup.object({
+export const addressSchema = Yup.object({
   street: Yup.string().min(1).required(),
   city: Yup.string().min(1).required(),
   state: Yup.string().min(1).required(),

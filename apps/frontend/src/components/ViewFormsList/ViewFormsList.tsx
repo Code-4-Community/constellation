@@ -17,9 +17,15 @@ import {
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
+import useSortingAndFiltering from '../../hooks/useSortingAndFiltering';
+import { Options } from '../../types/SortAndFilter';
+import FormListRow from './FormListRow';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[] | null>(null);
+  const [options, setOptions] = useState<Options>({});
+
+  const filteredForms = useSortingAndFiltering(forms, options);
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -49,7 +55,7 @@ export default function ViewFormsList() {
             <Th>Location</Th>
           </Tr>
         </Thead>
-        {forms === null ? (
+        {filteredForms === null || filteredForms.length === 0 ? (
           <Flex>
             <Spacer />
             <Spinner size="xl" />
@@ -57,18 +63,15 @@ export default function ViewFormsList() {
           </Flex>
         ) : (
           <Tbody>
-            {forms.map((form) => (
-              <Tr key={form.id}>
-                <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
-                <Td>
-                  <Link href={`/form/${form.id}`}>
-                    {form.guardianForm.childsName}
-                  </Link>
-                </Td>
-                <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
-                <Td>{form.medicalForm.hospital}</Td>
-                <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
-              </Tr>
+            {filteredForms.map((form) => (
+              <FormListRow
+                id={form.id}
+                date={form.guardianForm.date}
+                childsName={form.guardianForm.childsName}
+                dob={form.guardianForm.dob}
+                hospital={form.medicalForm.hospital}
+                address={form.guardianForm.address}
+              />
             ))}
           </Tbody>
         )}
