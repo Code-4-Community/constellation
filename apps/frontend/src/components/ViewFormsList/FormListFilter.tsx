@@ -14,7 +14,10 @@ const FormListFilter = ({
   return (
     <VStack>
       <Heading size="md">{dataLabel}</Heading>
-      <Input size="sm" placeholder={dataLabel} />
+      {
+        // Input to search for specific filter values could be added here
+        /* <Input size="sm" placeholder={dataLabel} /> */
+      }
       {filterValues.map((value) => {
         if (typeof value === 'string' || typeof value === 'number') {
           return <FormListFilterCheck label={value.toString()} />;
