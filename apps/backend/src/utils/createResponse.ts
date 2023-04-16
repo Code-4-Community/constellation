@@ -1,3 +1,14 @@
+export type HTTPResponse = {
+  statusCode: number;
+  headers: {
+    'Access-Control-Allow-Headers': string;
+    'Access-Control-Allow-Origin': string;
+    'Access-Control-Allow-Methods': string;
+  };
+  body?: string;
+};
+
+/** Takes in a status code and optional body, and returns an http response with headers */
 export const createResponse = (statusCode: number, body?: string) => {
   return {
     statusCode,
