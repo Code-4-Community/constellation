@@ -1,3 +1,4 @@
+import type { Asserts } from 'yup';
 import * as Yup from 'yup';
 
 export const addressSchema = Yup.object({
@@ -13,6 +14,13 @@ const adminNoteSchema = Yup.object().shape({
     .default(() => new Date())
     .required(),
 });
+
+export const adminNotesSchema = Yup.array()
+  .of(adminNoteSchema)
+  .required()
+  .default(() => []);
+
+export type AdminNotes = Asserts<typeof adminNotesSchema>;
 
 export const guardianFormSchema = Yup.object().shape({
   childsName: Yup.string().min(1).required(),
@@ -59,8 +67,5 @@ export const formSchema = Yup.object().shape({
   id: Yup.string().default(''),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
-  adminNotes: Yup.array()
-    .of(adminNoteSchema)
-    .required()
-    .default(() => []),
+  adminNotes: adminNotesSchema,
 });

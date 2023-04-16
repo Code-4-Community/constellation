@@ -21,7 +21,7 @@ Globals:
   Api:
     TracingEnabled: true
     Cors:
-      AllowMethods: "'GET,POST,OPTIONS'"
+      AllowMethods: "'GET,POST,PATCH,OPTIONS'"
       AllowHeaders: "'content-type, Access-Control-Allow-Origin'"
       AllowOrigin: "'*'"
 
@@ -142,6 +142,24 @@ Resources:
             Method: POST
             RestApiId: !Ref ApiGateway
 
+  patchFormFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/patchForm.patchFormHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: An HTTP patch method to update a document in the QLDB table.
+      Role: !GetAtt QLDBSendCommandRole.Arn
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /form/{id}/notes
+            Method: PATCH
+            RestApiId: !Ref ApiGateway
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)

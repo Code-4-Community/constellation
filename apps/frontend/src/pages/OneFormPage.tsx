@@ -1,6 +1,7 @@
 import { Container, Flex, Heading, Spacer, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { ViewAdminNotes } from '../components/adminNotes/AdminNotes';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { GuardianForm } from '../components/viewForm/GuardianForm';
 import { MedicalForm } from '../components/viewForm/MedicalForm';
@@ -33,7 +34,7 @@ const OneFormPage: React.FC = () => {
     return <ErrorMessage message={error} />;
   } else {
     return (
-      <Container maxWidth="90ch" padding="0px 32px 32px">
+      <Container maxWidth="90ch" padding="0px 32px 80px">
         <Heading
           size="lg"
           textAlign="center"
@@ -51,6 +52,7 @@ const OneFormPage: React.FC = () => {
         )}
         {formData && <GuardianForm guardianForm={formData.guardianForm} />}
         {formData && <MedicalForm medicalForm={formData.medicalForm} />}
+        {formData && <ViewAdminNotes notes={formData.adminNotes} />}
       </Container>
     );
   }
