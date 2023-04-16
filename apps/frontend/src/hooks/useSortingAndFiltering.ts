@@ -10,7 +10,7 @@ import { Options } from '../types/SortAndFilter';
  * @param options an object representing the different ways the user wants to sort, filter, and search the data
  * @returns a piece of state representing the list that is reduced to the user's preferences.
  */
-const useSortingAndFiltering = (list: FormData[], options: Options) => {
+const useSortingAndFiltering = (list: FormData[] | null, options: Options) => {
   const [listState, setListState] = useState(list);
 
   const reducedData = useMemo(() => reduceData(list, options), [list, options]);
@@ -28,10 +28,10 @@ const useSortingAndFiltering = (list: FormData[], options: Options) => {
  * @param options An object that represents every sorting, filtering, and searching option that the user wants
  * @returns A list of form entries that pass all filtering, sorting, and searching conditions
  */
-const reduceData = (list: FormData[], options: Options): FormData[] => {
+const reduceData = (list: FormData[] | null, options: Options): FormData[] => {
   const { sorting, filtering, searching } = options;
 
-  let reducedList = [...list];
+  let reducedList = list ? [...list] : [];
 
   if (filtering) {
     reducedList = filterData(reducedList, { filtering });
