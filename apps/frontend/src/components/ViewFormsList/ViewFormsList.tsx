@@ -35,7 +35,7 @@ export enum FormDataToEnglish {
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[] | null>(null);
 
-  const { listState: filteredForms } = useSortingAndFiltering();
+  const filteredForms = useSortingAndFiltering(forms, {});
 
   const getForms = async () => {
     const allForms = await getAllForms();

@@ -13,7 +13,7 @@ const FormListFilterCheck = ({ label }: { label: string }) => {
 
   return (
     <Checkbox isChecked={isChecked} onChange={handleCheckboxChange}>
-      {dataValue.toString()}
+      {label.toString()}
     </Checkbox>
   );
 };
