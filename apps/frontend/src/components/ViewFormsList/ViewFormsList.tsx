@@ -33,7 +33,7 @@ export default function ViewFormsList() {
   };
 
   // sort forms
-  useMemo(() => {
+  useEffect(() => {
     if (sortBy === SortOptions.NAME) {
       forms.sort((a, b) =>
         a.guardianForm.childsName.localeCompare(b.guardianForm.childsName)
@@ -52,7 +52,7 @@ export default function ViewFormsList() {
   }, [sortBy, forms]);
 
   // filter forms by search term
-  useMemo(() => {
+  useEffect(() => {
     if (searchTerm.length > 0) {
       setForms(
         forms.filter((form) => {
