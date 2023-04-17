@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import SortOrder from '../enums/SortOrder';
 import { FormData } from '../types/formData';
 import { Options } from '../types/SortAndFilter';
+import { getValueFromNestedKey } from '../utils/nestedKeys';
 
 /**
  * This hook is for sorting, filtering, and searching an array of form data.
@@ -64,7 +65,8 @@ const filterData = (
     const filteredList = list.filter((formEntry) => {
       for (const filter of filters) {
         const { field: filterField, value: filterValue } = filter;
-        if (formEntry[filterField] === filterValue) return true;
+        if (getValueFromNestedKey(formEntry, filterField) === filterValue)
+          return true;
       }
       return false;
     });

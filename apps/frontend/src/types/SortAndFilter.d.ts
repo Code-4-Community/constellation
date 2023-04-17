@@ -8,7 +8,7 @@ export type Options = {
 };
 
 export type Sorting = {
-  field: keyof FormData;
+  field: FormDataNestedKeys;
   sortOrder: SortOrder;
 };
 
