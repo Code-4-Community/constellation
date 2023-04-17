@@ -22,7 +22,12 @@ const FormListFilter = ({
       }
       {filterValues.map((value) => {
         if (typeof value === 'string' || typeof value === 'number') {
-          return <FormListFilterCheck label={value.toString()} />;
+          return (
+            <FormListFilterCheck
+              filter={{ field: dataField, value }}
+              label={value.toString()}
+            />
+          );
         }
         return null;
       })}
