@@ -74,7 +74,6 @@ export default function ViewFormsList() {
           return false;
         })
       );
-      console.log(forms);
     } else {
       setForms(allForms);
     }
