@@ -1,6 +1,9 @@
-enum SortOrder {
+export enum SortOrder {
   'ASC',
   'DESC',
 }
 
-export default SortOrder;
+export enum SortOptions {
+  NAME = 'name',
+  LASTUPDATED = 'lastUpdated',
+}

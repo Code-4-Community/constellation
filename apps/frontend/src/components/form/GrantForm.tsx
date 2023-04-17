@@ -51,7 +51,7 @@ const GrantForm: React.FC = () => {
       <FormField
         inputVariant="text"
         name="guardianForm.address.state"
-        displayName="State"
+        displayName="State (Abbreviation)"
         isRequired
       />
 

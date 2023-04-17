@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import SortOrder from '../enums/SortOrder';
+import { SortOrder } from '../enums/SortOrder';
 import { FormData } from '../types/formData';
 import { Options } from '../types/SortAndFilter';
 
