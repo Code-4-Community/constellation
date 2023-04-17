@@ -36,8 +36,12 @@ export default function ViewFormsList() {
     } else if (sortBy === SortOptions.LASTUPDATED) {
       forms.sort(
         (a, b) =>
-          new Date(b.adminNotes[0].updatedAt).getTime() -
-          new Date(a.adminNotes[0].updatedAt).getTime()
+          (b.adminNotes.length > 0
+            ? new Date(b.adminNotes[0].updatedAt).getTime()
+            : new Date(b.guardianForm.date).getTime()) -
+          (a.adminNotes.length > 0
+            ? new Date(a.adminNotes[0].updatedAt).getTime()
+            : new Date(a.guardianForm.date).getTime())
       );
     }
     console.log('sorted forms', forms);
@@ -82,7 +86,11 @@ export default function ViewFormsList() {
             {forms.map((form) => (
               <Tr key={form.id}>
                 <Td>
-                  {new Date(form.adminNotes[0].updatedAt).toLocaleDateString()}
+                  {form.adminNotes.length > 0
+                    ? new Date(
+                        form.adminNotes[0].updatedAt
+                      ).toLocaleDateString()
+                    : new Date(form.guardianForm.date).toLocaleDateString()}
                 </Td>
                 <Td>
                   <Link href={`/form/${form.id}`}>
