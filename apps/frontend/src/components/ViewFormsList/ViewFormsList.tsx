@@ -14,6 +14,7 @@ import {
   Thead,
   Tr,
   Link,
+  Input,
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
@@ -21,13 +22,17 @@ import { SortOptions } from '../../enums/SortOrder';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
+  const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const getForms = async () => {
     const allForms = await getAllForms();
     setForms(allForms);
+    setAllForms(allForms);
   };
 
+  // sort forms
   useMemo(() => {
     if (sortBy === SortOptions.NAME) {
       forms.sort((a, b) =>
@@ -44,8 +49,36 @@ export default function ViewFormsList() {
             : new Date(a.guardianForm.date).getTime())
       );
     }
-    console.log('sorted forms', forms);
   }, [sortBy, forms]);
+
+  // filter forms by search term
+  useMemo(() => {
+    if (searchTerm.length > 0) {
+      setForms(
+        forms.filter((form) => {
+          const formValues = Object.values({
+            ...form.guardianForm,
+            ...form.medicalForm,
+            ...form.guardianForm.address,
+          });
+          console.log(formValues);
+
+          for (const val of formValues) {
+            if (
+              typeof val === 'string' &&
+              val.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return true;
+            }
+          }
+          return false;
+        })
+      );
+      console.log(forms);
+    } else {
+      setForms(allForms);
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     getForms();
@@ -56,15 +89,23 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <Select
-        width="25%"
-        mb={2}
-        ml={4}
-        onChange={(event) => setSortBy(event.target.value as SortOptions)}
-      >
-        <option value={SortOptions.NAME}>Sort by Name</option>
-        <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
-      </Select>
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <Select
+          width="25%"
+          mb={2}
+          ml={4}
+          onChange={(event) => setSortBy(event.target.value as SortOptions)}
+        >
+          <option value={SortOptions.NAME}>Sort by Name</option>
+          <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
+        </Select>
+        <Input
+          width="25%"
+          mr={4}
+          placeholder="Search"
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
+      </Box>
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
           <Tr>
