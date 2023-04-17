@@ -23,6 +23,10 @@ import { Filter, Filtering, Options } from '../../types/SortAndFilter';
 import FormListRow from './FormListRow';
 import FormListFilter from './FormListFilter';
 import { Grid } from '@aws-amplify/ui-react';
+import {
+  getUniqueValuesFromList,
+  getValueFromNestedKey,
+} from '../../utils/nestedKeys';
 
 export enum FormDataToEnglish {
   'date' = 'Last Updated',
@@ -35,7 +39,7 @@ export enum FormDataToEnglish {
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[] | null>(null);
 
-  const filteredForms = useSortingAndFiltering(forms, {});
+  const { listState: filteredForms } = useSortingAndFiltering(forms);
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -71,7 +75,7 @@ export default function ViewFormsList() {
                     key={index}
                     dataField={formKey as FormDataNestedKeys}
                     dataLabel={englishValue}
-                    filterValues={getUniqueValuesFromKey(
+                    filterValues={getUniqueValuesFromList(
                       filteredForms,
                       formKey as FormDataNestedKeys
                     )}

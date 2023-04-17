@@ -18,3 +18,19 @@ export const getValueFromNestedKey = (
   }
   return undefined;
 };
+
+export const getUniqueValuesFromList = (
+  formList: FormData[],
+  nestedKey: FormDataNestedKeys
+): FormData[keyof FormData][] => {
+  const values = new Set<FormData[keyof FormData]>();
+
+  for (const form of formList) {
+    const value = getValueFromNestedKey(form, nestedKey);
+    if (value) {
+      values.add(value);
+    }
+  }
+
+  return Array.from(values);
+};
