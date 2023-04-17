@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   Center,
@@ -17,14 +17,31 @@ import {
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
+import { SortOptions } from '../../enums/SortOrder';
 
 export default function ViewFormsList() {
-  const [forms, setForms] = useState<FormData[] | null>(null);
+  const [forms, setForms] = useState<FormData[]>([]);
+  const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
 
   const getForms = async () => {
     const allForms = await getAllForms();
     setForms(allForms);
   };
+
+  useMemo(() => {
+    if (sortBy === SortOptions.NAME) {
+      forms.sort((a, b) =>
+        a.guardianForm.childsName.localeCompare(b.guardianForm.childsName)
+      );
+    } else if (sortBy === SortOptions.LASTUPDATED) {
+      forms.sort(
+        (a, b) =>
+          new Date(b.adminNotes[0].updatedAt).getTime() -
+          new Date(a.adminNotes[0].updatedAt).getTime()
+      );
+    }
+    console.log('sorted forms', forms);
+  }, [sortBy, forms]);
 
   useEffect(() => {
     getForms();
@@ -35,9 +52,14 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <Select width="25%" mb={2} ml={4}>
-        <option value="name">Sort by Name</option>
-        <option value="recency">Sort by Last Updated</option>
+      <Select
+        width="25%"
+        mb={2}
+        ml={4}
+        onChange={(event) => setSortBy(event.target.value as SortOptions)}
+      >
+        <option value={SortOptions.NAME}>Sort by Name</option>
+        <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
       </Select>
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
@@ -59,7 +81,9 @@ export default function ViewFormsList() {
           <Tbody>
             {forms.map((form) => (
               <Tr key={form.id}>
-                <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
+                <Td>
+                  {new Date(form.adminNotes[0].updatedAt).toLocaleDateString()}
+                </Td>
                 <Td>
                   <Link href={`/form/${form.id}`}>
                     {form.guardianForm.childsName}
