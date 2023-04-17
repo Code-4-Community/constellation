@@ -29,7 +29,7 @@ import {
 } from '../../utils/nestedKeys';
 
 export enum FormDataToEnglish {
-  'date' = 'Last Updated',
+  'guardianForm.date' = 'Last Updated',
   'guardianForm.childsName' = 'Child Name',
   'guardianForm.dob' = 'Date of Birth',
   'medicalForm.hospital' = 'Hospital',
