@@ -29,6 +29,6 @@ export const executeHandler = async (
   } catch (error) {
     console.error('error accessing database', error);
 
-    return createResponse(400, 'error');
+    return createResponse(500, 'error');
   }
 };
