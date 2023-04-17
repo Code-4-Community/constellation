@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import SortOrder from '../enums/SortOrder';
 import { FormData } from '../types/formData';
-import { Options } from '../types/SortAndFilter';
+import { Filter, Options } from '../types/SortAndFilter';
 import { getValueFromNestedKey } from '../utils/nestedKeys';
 
 /**
@@ -11,8 +11,9 @@ import { getValueFromNestedKey } from '../utils/nestedKeys';
  * @param options an object representing the different ways the user wants to sort, filter, and search the data
  * @returns a piece of state representing the list that is reduced to the user's preferences.
  */
-const useSortingAndFiltering = (list: FormData[] | null, options: Options) => {
+const useSortingAndFiltering = (list: FormData[] | null) => {
   const [listState, setListState] = useState(list);
+  const [options, setOptions] = useState<Options>({});
 
   const reducedData = useMemo(() => reduceData(list, options), [list, options]);
 
@@ -20,7 +21,30 @@ const useSortingAndFiltering = (list: FormData[] | null, options: Options) => {
     setListState(reducedData);
   }, [reducedData]);
 
-  return listState;
+  const addFilter = (filter: Filter): void => {
+    if (options.filtering) {
+      const newFilters = [...options.filtering.filters, filter];
+      setOptions({ ...options, filtering: { filters: newFilters } });
+    }
+    setOptions({ ...options, filtering: { filters: [filter] } });
+  };
+
+  const removeFilter = (filter: Filter): void => {
+    if (options.filtering) {
+      const newFilters = options.filtering.filters.filter((f) => {
+        if (f.field !== filter.field || f.value !== filter.value) return true;
+      });
+      if (newFilters.length > 0) {
+        setOptions({ ...options, filtering: { filters: newFilters } });
+      } else {
+        const newOptions = options;
+        delete newOptions.filtering;
+        setOptions(newOptions);
+      }
+    }
+  };
+
+  return { listState, addFilter, removeFilter };
 };
 
 /**
