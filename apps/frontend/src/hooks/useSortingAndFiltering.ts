@@ -90,9 +90,23 @@ const sortData = (
   if (sortingObject.sorting) {
     const { field, sortOrder } = sortingObject.sorting;
     if (sortOrder === SortOrder.ASC) {
-      list.sort((a, b) => (b[field] > a[field] ? -1 : 1));
+      list.sort((a, b) => {
+        const aValue = getValueFromNestedKey(a, field);
+        const bValue = getValueFromNestedKey(b, field);
+        if (aValue && bValue) {
+          return bValue > aValue ? -1 : 1;
+        }
+        return 1;
+      });
     } else {
-      list.sort((a, b) => (a[field] > b[field] ? -1 : 1));
+      list.sort((a, b) => {
+        const aValue = getValueFromNestedKey(a, field);
+        const bValue = getValueFromNestedKey(b, field);
+        if (aValue && bValue) {
+          return aValue > bValue ? -1 : 1;
+        }
+        return -1;
+      });
     }
   }
   return list;
