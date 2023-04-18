@@ -9,18 +9,6 @@ import { validateRequestBody } from '../utils/validateRequestBody.js';
  * An HTTP post method to add one form to the QLDB table.
  */
 export const patchFormHandler = async (event: APIGatewayEvent) => {
-  const headers = {
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin, Authorization',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'PATCH',
-  };
-
-  if (event.httpMethod !== 'PATCH') {
-    return {
-      statusCode: 400,
-      headers,
-      body: `patchMethod only accepts PATCH method, you tried: ${event.httpMethod} method.`,
-    };
   let response = validateMethodType(
     event.httpMethod,
     'PATCH',
