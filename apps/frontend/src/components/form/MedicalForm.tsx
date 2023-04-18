@@ -43,7 +43,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.hospital"
         displayName="Hospital"
         isRequired
-        description="Hospital Name"
+        description="Select Hospital"
         selectList={Object.entries(HospitalsDropdownValues)}
       />
 
@@ -70,7 +70,7 @@ const MedicalForm: React.FC = () => {
       <FormField
         inputVariant="text"
         name="medicalForm.address.state"
-        displayName="State"
+        displayName="State (Abbreviation)"
         isRequired
       />
 

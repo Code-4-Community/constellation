@@ -1,6 +1,7 @@
 import { APIGatewayEvent } from 'aws-lambda';
-import { createTableIfNotExists } from '../db/createTable.js';
 import { fetchDocuments } from '../db/utils.js';
+import { executeHandler } from '../utils/executeHandler.js';
+import { validateMethodType } from '../utils/validateMethodType.js';
 
 /**
  * An HTTP get method to get all forms from the QLDB table.
@@ -18,13 +19,19 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
       headers,
       body: `getMethod only accepts GET method, you tried: ${event.httpMethod} method.`,
     };
+  let response = validateMethodType(
+    event.httpMethod,
+    'GET',
+    'getAllFormsHandler'
+  );
+  if (response) {
+    return response;
   }
-  // All log statements are written to CloudWatch
-  console.info('received:', event);
 
-  try {
-    await createTableIfNotExists();
+  const handlerFunction = async () => {
     const allForms = await fetchDocuments();
+    return JSON.stringify(allForms);
+  };
 
     const response = {
       statusCode: 200,
@@ -47,4 +54,6 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
       body: 'error',
     };
   }
+};
+  return executeHandler(event, handlerFunction);
 };

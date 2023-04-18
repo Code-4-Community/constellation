@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   Center,
@@ -14,17 +14,70 @@ import {
   Thead,
   Tr,
   Link,
+  Input,
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
+import { SortOptions } from '../../enums/SortOrder';
 
 export default function ViewFormsList() {
-  const [forms, setForms] = useState<FormData[] | null>(null);
+  const [forms, setForms] = useState<FormData[]>([]);
+  const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
+  const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const getForms = async () => {
     const allForms = await getAllForms();
     setForms(allForms);
+    setAllForms(allForms);
   };
+
+  // sort forms
+  useEffect(() => {
+    if (sortBy === SortOptions.NAME) {
+      forms.sort((a, b) =>
+        a.guardianForm.childsName.localeCompare(b.guardianForm.childsName)
+      );
+    } else if (sortBy === SortOptions.LASTUPDATED) {
+      forms.sort(
+        (a, b) =>
+          (b.adminNotes.length > 0
+            ? new Date(b.adminNotes[0].updatedAt).getTime()
+            : new Date(b.guardianForm.date).getTime()) -
+          (a.adminNotes.length > 0
+            ? new Date(a.adminNotes[0].updatedAt).getTime()
+            : new Date(a.guardianForm.date).getTime())
+      );
+    }
+  }, [sortBy, forms]);
+
+  // filter forms by search term
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      setForms(
+        forms.filter((form) => {
+          const formValues = Object.values({
+            ...form.guardianForm,
+            ...form.medicalForm,
+            ...form.guardianForm.address,
+          });
+          console.log(formValues);
+
+          for (const val of formValues) {
+            if (
+              typeof val === 'string' &&
+              val.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return true;
+            }
+          }
+          return false;
+        })
+      );
+    } else {
+      setForms(allForms);
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     getForms();
@@ -35,10 +88,23 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <Select width="25%" mb={2} ml={4}>
-        <option value="name">Sort by Name</option>
-        <option value="recency">Sort by Last Updated</option>
-      </Select>
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <Select
+          width="25%"
+          mb={2}
+          ml={4}
+          onChange={(event) => setSortBy(event.target.value as SortOptions)}
+        >
+          <option value={SortOptions.NAME}>Sort by Name</option>
+          <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
+        </Select>
+        <Input
+          width="25%"
+          mr={4}
+          placeholder="Search"
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
+      </Box>
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
           <Tr>
@@ -59,7 +125,13 @@ export default function ViewFormsList() {
           <Tbody>
             {forms.map((form) => (
               <Tr key={form.id}>
-                <Td>{new Date(form.guardianForm.date).toLocaleDateString()}</Td>
+                <Td>
+                  {form.adminNotes.length > 0
+                    ? new Date(
+                        form.adminNotes[0].updatedAt
+                      ).toLocaleDateString()
+                    : new Date(form.guardianForm.date).toLocaleDateString()}
+                </Td>
                 <Td>
                   <Link href={`/form/${form.id}`}>
                     {form.guardianForm.childsName}

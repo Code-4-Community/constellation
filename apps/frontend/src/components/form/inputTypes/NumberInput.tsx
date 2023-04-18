@@ -20,15 +20,15 @@ const NumberInputView: React.FC<NumberInputProps> = ({
 }) => {
   return (
     <InputGroup>
-      {inputVariant === 'money' && (
-        <InputLeftElement
-          pointerEvents="none"
-          color="gray.300"
-          fontSize="1.2em"
-          children="$"
-        />
-      )}
       <NumberInput>
+        {inputVariant === 'money' ? (
+          <InputLeftElement
+            pointerEvents="none"
+            color="gray.300"
+            fontSize="1.2em"
+            children="$"
+          />
+        ) : null}
         <NumberInputField {...field} id={id} type="number" />
       </NumberInput>
     </InputGroup>
