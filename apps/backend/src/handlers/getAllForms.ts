@@ -1,43 +1,26 @@
 import { APIGatewayEvent } from 'aws-lambda';
+import { createTableIfNotExists } from '../db/createTable.js';
 import { fetchDocuments } from '../db/utils.js';
-import { executeHandler } from '../utils/executeHandler.js';
-import { validateMethodType } from '../utils/validateMethodType.js';
+import { createResponse } from '../utils/createResponse.js';
 
 /**
  * An HTTP get method to get all forms from the QLDB table.
  */
 export const getAllFormsHandler = async (event: APIGatewayEvent) => {
-  const headers = {
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin, Authorization',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-  };
-
   if (event.httpMethod !== 'GET') {
-    return {
-      statusCode: 400,
-      headers,
-      body: `getMethod only accepts GET method, you tried: ${event.httpMethod} method.`,
-    };
-  let response = validateMethodType(
-    event.httpMethod,
-    'GET',
-    'getAllFormsHandler'
-  );
-  if (response) {
-    return response;
+    return createResponse(
+      400,
+      `getMethod only accepts GET method, you tried: ${event.httpMethod} method.`
+    );
   }
+  // All log statements are written to CloudWatch
+  console.info('received:', event);
 
-  const handlerFunction = async () => {
+  try {
+    await createTableIfNotExists();
     const allForms = await fetchDocuments();
-    return JSON.stringify(allForms);
-  };
 
-    const response = {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(allForms),
-    };
+    const response = createResponse(200, JSON.stringify(allForms));
 
     // All log statements are written to CloudWatch
     console.info(
@@ -48,12 +31,6 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
   } catch (error) {
     console.error('error accessing database', error);
 
-    return {
-      statusCode: 400,
-      headers,
-      body: 'error',
-    };
+    return createResponse(400, 'error');
   }
-};
-  return executeHandler(event, handlerFunction);
 };
