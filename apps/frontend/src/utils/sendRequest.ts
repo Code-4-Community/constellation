@@ -10,8 +10,7 @@ import {
 import { FormData } from '../types/formData';
 import { AdminNotes, formSchema } from '../types/formSchema';
 
-const authenticatedAxios
-= axios.create();
+const authenticatedAxios = axios.create();
 authenticatedAxios.interceptors.request.use(async (config) => {
   try {
     const session = await Auth.currentSession();
