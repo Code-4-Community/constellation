@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { FormValues } from '../components/form/Form';
+import {Auth} from 'aws-amplify';
 import {
   GET_ALL_FORMS_URL,
   GET_FORM_BY_ID_URL,
@@ -8,6 +9,19 @@ import {
 } from '../constants/endpoints';
 import { FormData } from '../types/formData';
 import { AdminNotes, formSchema } from '../types/formSchema';
+
+const authenticatedAxios
+= axios.create();
+authenticatedAxios.interceptors.request.use(async (config) => {
+  try {
+    const session = await Auth.currentSession();
+    const token = session.getIdToken().getJwtToken();
+    config.headers.Authorization = `Bearer ${token}`;
+  } catch (error) {
+    console.error('Error setting auth header:', error);
+  }
+  return config;
+});
 
 export const submitForm = async (body: FormValues): Promise<void> => {
   try {
@@ -21,7 +35,8 @@ export const submitForm = async (body: FormValues): Promise<void> => {
 
 export const getAllForms = async (): Promise<FormData[]> => {
   try {
-    return (await axios.get(GET_ALL_FORMS_URL)).data;
+    return (await authenticatedAxios
+      .get(GET_ALL_FORMS_URL,)).data;
   } catch (error) {
     console.log('axios error making get request', error);
     alert('Error getting data');
@@ -30,12 +45,13 @@ export const getAllForms = async (): Promise<FormData[]> => {
 };
 
 export const getFormById = async (id: string): Promise<AxiosResponse> => {
-  return await axios.get(GET_FORM_BY_ID_URL(id));
+  return await authenticatedAxios
+  .get(GET_FORM_BY_ID_URL(id));
 };
 
 export const patchAdminNotes = async (
   id: string,
   notes: AdminNotes
 ): Promise<AxiosResponse> => {
-  return await axios.patch(PATCH_ADMIN_NOTES_URL(id), notes);
+  return await authenticatedAxios.patch(PATCH_ADMIN_NOTES_URL(id), notes);
 };

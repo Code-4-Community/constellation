@@ -22,7 +22,7 @@ Globals:
     TracingEnabled: true
     Cors:
       AllowMethods: "'GET,POST,PATCH,OPTIONS'"
-      AllowHeaders: "'content-type, Access-Control-Allow-Origin'"
+      AllowHeaders: "'content-type, Access-Control-Allow-Origin, Authorization'"
       AllowOrigin: "'*'"
 
 Resources:

@@ -7,7 +7,7 @@ import { fetchDocuments } from '../db/utils.js';
  */
 export const getAllFormsHandler = async (event: APIGatewayEvent) => {
   const headers = {
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin, Authorization',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET',
   };
