@@ -22,7 +22,7 @@ Globals:
     TracingEnabled: true
     Cors:
       AllowMethods: "'GET,POST,PATCH,OPTIONS'"
-      AllowHeaders: "'content-type, Access-Control-Allow-Origin'"
+      AllowHeaders: "'content-type, Access-Control-Allow-Origin, Authorization'"
       AllowOrigin: "'*'"
 
 Resources:
@@ -60,6 +60,12 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
+      Auth:
+        Authorizers:
+          CognitoAuthorizer:
+            UserPoolArn: arn:aws:cognito-idp:us-east-1:489881683177:userpool/us-east-1_ItaXWUupj
+
+
 
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -103,6 +109,8 @@ Resources:
             Path: /forms
             Method: GET
             RestApiId: !Ref ApiGateway
+            Auth:
+              Authorizer: CognitoAuthorizer
 
   getFormByIdFunction:
     Type: AWS::Serverless::Function
@@ -122,6 +130,8 @@ Resources:
             Path: /form/{id}
             Method: GET
             RestApiId: !Ref ApiGateway 
+            Auth:
+              Authorizer: CognitoAuthorizer
   # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
     Type: AWS::Serverless::Function
@@ -160,6 +170,10 @@ Resources:
             Path: /form/{id}/notes
             Method: PATCH
             RestApiId: !Ref ApiGateway
+            Auth: 
+              Authorizer: CognitoAuthorizer
+
+            
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)
