@@ -10,6 +10,7 @@ interface FormFieldProps {
   description?: string;
   isRequired?: boolean;
   selectList?: string[][];
+  isReadOnly?: boolean;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -19,6 +20,7 @@ const FormField: React.FC<FormFieldProps> = ({
   description,
   isRequired,
   selectList,
+  isReadOnly,
 }) => {
   const fieldType = (() => {
     if (inputVariant === 'money' || inputVariant === 'number') {
@@ -36,6 +38,7 @@ const FormField: React.FC<FormFieldProps> = ({
         <FormControl
           isRequired={isRequired}
           isInvalid={Boolean(form.errors[name] && form.touched[name])}
+          isReadOnly={isReadOnly}
         >
           <FormLabel htmlFor={name}>{displayName}</FormLabel>
           <FormInput

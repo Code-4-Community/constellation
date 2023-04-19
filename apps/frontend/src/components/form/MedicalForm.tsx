@@ -98,6 +98,7 @@ const MedicalForm: React.FC = () => {
         inputVariant="text"
         name="medicalForm.medicalProfessionalName"
         displayName="Doctor's Name"
+        isRequired
       />
 
       <FormField
@@ -118,6 +119,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.date"
         displayName="Date Signed"
         isRequired
+        isReadOnly
       />
 
       <FormField

@@ -3,6 +3,9 @@
 // do we add notes section to both grant form and medical form or just one
 import React from 'react';
 import FormField from './FormField';
+import {
+  GendersDropdownValues,
+} from '../../enums/DropdownValues';
 
 const GrantForm: React.FC = () => {
   return (
@@ -22,9 +25,12 @@ const GrantForm: React.FC = () => {
       />
 
       <FormField
-        inputVariant="text"
+        inputVariant="select"
         name="guardianForm.gender"
         displayName="Gender"
+        isRequired
+        description="Select Gender"
+        selectList={Object.entries(GendersDropdownValues)}
       />
 
       <FormField
@@ -107,6 +113,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.date"
         displayName="Date"
         isRequired
+        isReadOnly
       />
 
       <FormField
