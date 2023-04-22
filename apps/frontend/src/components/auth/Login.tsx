@@ -16,7 +16,7 @@ export function Login() {
     }
   }, [route, navigate, from]);
   return (
-    <View className="auth-wrapper">
+    <View className="auth-wrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 64px)' }}>
       <Authenticator></Authenticator>
     </View>
   );

@@ -29,7 +29,7 @@ const NumberInputView: React.FC<NumberInputProps> = ({
             children="$"
           />
         ) : null}
-        <NumberInputField {...field} id={id} type="number" />
+        <NumberInputField {...field} id={id} type="number" paddingLeft={8}/>
       </NumberInput>
     </InputGroup>
   );
