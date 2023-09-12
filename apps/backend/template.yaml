@@ -104,6 +104,9 @@ Resources:
             Path: /
             Method: GET
             RestApiId: !Ref ApiGateway
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   # This is a Lambda function config associated with the source code: getAllForms.ts
   getAllFormsFunction:
@@ -126,6 +129,9 @@ Resources:
             RestApiId: !Ref ApiGateway
             Auth:
               Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   getFormByIdFunction:
     Type: AWS::Serverless::Function
@@ -147,6 +153,10 @@ Resources:
             RestApiId: !Ref ApiGateway
             Auth:
               Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
+
   # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
     Type: AWS::Serverless::Function
@@ -166,6 +176,9 @@ Resources:
             Path: /form
             Method: POST
             RestApiId: !Ref ApiGateway
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   patchFormFunction:
     Type: AWS::Serverless::Function
@@ -187,6 +200,9 @@ Resources:
             RestApiId: !Ref ApiGateway
             Auth:
               Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
@@ -244,4 +260,4 @@ Resources:
 Outputs:
   WebEndpoint:
     Description: API Gateway endpoint URL for Prod stage
-    Value: !Sub 'https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/${EnvName}/'
+    Value: !Sub 'https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/'

@@ -4,7 +4,8 @@ import { QldbDriver, RetryConfig } from 'amazon-qldb-driver-nodejs';
 import { Agent } from 'https';
 
 // IMPORTANT: this must match the ledger name defined in template.yaml
-const ledgerName = 'TestLedger';
+const ledgerName =
+  process.env.ENV_NAME === 'prod' ? 'constellation-prod' : 'constellation-dev';
 
 const maxConcurrentTransactions = 10;
 const retryLimit = 4;
@@ -33,4 +34,4 @@ export const qldbDriver: QldbDriver = new QldbDriver(
   retryConfig
 );
 
-export const tableName = 'TestTable';
+export const tableName = 'Forms';

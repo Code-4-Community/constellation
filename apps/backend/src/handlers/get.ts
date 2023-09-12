@@ -16,7 +16,7 @@ export const getHandler = async (event: APIGatewayEvent) => {
   // All log statements are written to CloudWatch
   console.info('received:', event);
 
-  response = createResponse(200, JSON.stringify('Hello world!'));
+  response = createResponse(200, JSON.stringify('Hello world! 2.0 '));
 
   // All log statements are written to CloudWatch
   console.log(
