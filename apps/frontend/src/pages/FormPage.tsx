@@ -18,8 +18,6 @@ const FormPage: React.FC = () => {
     }
   };
 
-  console.log(process.env.NX_ENV_NAME);
-
   return (
     <Formik
       onSubmit={onSubmit}
