@@ -25,6 +25,23 @@ Globals:
       AllowHeaders: "'content-type, Access-Control-Allow-Origin, Authorization'"
       AllowOrigin: "'*'"
 
+Parameters:
+  EnvName:
+    Type: String
+    Description: 'Environment name'
+
+  QldbLedgerName:
+    Type: String
+    Description: 'Name of QLDB Ledger'
+
+  QldbDeletionProtection:
+    Type: String
+    Description: 'Protect ledger from deletion'
+
+  QLDBSendCommandRoleName:
+    Type: String
+    Description: 'Name of QLDB Send Command Role'
+
 Resources:
   # Defines an IAM role for Lambdas that allows them to:
   # 1. interact with the QLDB transactional data API
@@ -32,7 +49,7 @@ Resources:
   QLDBSendCommandRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: QLDBSendCommandRole
+      RoleName: !Ref QLDBSendCommandRoleName
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -65,8 +82,6 @@ Resources:
           CognitoAuthorizer:
             UserPoolArn: arn:aws:cognito-idp:us-east-1:489881683177:userpool/us-east-1_ItaXWUupj
 
-
-
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
@@ -89,6 +104,9 @@ Resources:
             Path: /
             Method: GET
             RestApiId: !Ref ApiGateway
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   # This is a Lambda function config associated with the source code: getAllForms.ts
   getAllFormsFunction:
@@ -111,6 +129,9 @@ Resources:
             RestApiId: !Ref ApiGateway
             Auth:
               Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   getFormByIdFunction:
     Type: AWS::Serverless::Function
@@ -118,7 +139,7 @@ Resources:
       Handler: dist/handlers/getFormById.getFormByIdHandler
       Runtime: nodejs18.x
       Architectures:
-      - x86_64
+        - x86_64
       MemorySize: 128
       Timeout: 100
       Description: An http get method to get a form with a certain ID.
@@ -129,9 +150,13 @@ Resources:
           Properties:
             Path: /form/{id}
             Method: GET
-            RestApiId: !Ref ApiGateway 
+            RestApiId: !Ref ApiGateway
             Auth:
               Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
+
   # This is a Lambda function config associated with the source code: putForm.ts
   putFormFunction:
     Type: AWS::Serverless::Function
@@ -151,6 +176,9 @@ Resources:
             Path: /form
             Method: POST
             RestApiId: !Ref ApiGateway
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
   patchFormFunction:
     Type: AWS::Serverless::Function
@@ -170,10 +198,12 @@ Resources:
             Path: /form/{id}/notes
             Method: PATCH
             RestApiId: !Ref ApiGateway
-            Auth: 
+            Auth:
               Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
 
-            
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)
@@ -202,9 +232,9 @@ Resources:
   myQLDBLedger:
     Type: AWS::QLDB::Ledger
     Properties:
-      DeletionProtection: false #TODO: change to true for prod, set to false so we can delete the entire stack during the development process
+      DeletionProtection: !Ref QldbDeletionProtection #TODO: change to true for prod, set to false so we can delete the entire stack during the development process
       KmsKey: !Ref QLDBKey
-      Name: TestLedger
+      Name: !Ref QldbLedgerName
       PermissionsMode: STANDARD
 
   ApplicationResourceGroup:

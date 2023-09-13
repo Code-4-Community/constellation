@@ -21,5 +21,28 @@
         }
       }
     }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-constellation-prod-135223-authRole",
+      "UnauthRoleArn": "arn:aws:iam::489881683177:role/amplify-constellation-prod-135223-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::489881683177:role/amplify-constellation-prod-135223-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-constellation-prod-135223-deployment",
+      "UnauthRoleName": "amplify-constellation-prod-135223-unauthRole",
+      "StackName": "amplify-constellation-prod-135223",
+      "StackId": "arn:aws:cloudformation:us-east-1:489881683177:stack/amplify-constellation-prod-135223/21795200-5195-11ee-b0f8-1243b98013d5",
+      "AmplifyAppId": "d26ahfp227bhin"
+    },
+    "categories": {
+      "auth": {
+        "constellationtestdb3db1c5": {
+          "userPoolId": "us-east-1_2YLcAdTx3",
+          "userPoolName": "constellation-userpool-prod",
+          "webClientId": "1opvj842h6fq36p2gbgs1b9ghn",
+          "nativeClientId": "1opvj842h6fq36p2gbgs1b9ghn"
+        }
+      }
+    }
   }
 }

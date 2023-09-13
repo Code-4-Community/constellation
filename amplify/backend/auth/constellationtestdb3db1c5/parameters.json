@@ -21,6 +21,6 @@
     "email"
   ],
   "mfaTypes": [
-    "SMS Text Message"
+    "TOTP"
   ]
 }
