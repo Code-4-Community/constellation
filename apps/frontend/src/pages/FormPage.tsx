@@ -18,7 +18,7 @@ const FormPage: React.FC = () => {
     }
   };
 
-  console.log(process.env.REACT_APP_ENV_NAME);
+  console.log(process.env.NX_ENV_NAME);
 
   return (
     <Formik
