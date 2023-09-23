@@ -4,9 +4,12 @@
 
 - [Overview](#overview)
 - [Endpoints Reference](#endpoints-reference)
-- [Deploy to AWS](#deploy-the-sample-application)
-- [Delete AWS Stack](#cleanup)
+- [Deploy for Development](#deploy-the-sample-application)
+  - [Deploy to Personal AWS Account](#deploy-to-personal-aws-account-for-development)
+  - [Syncing the stack](#syncing-the-stack)
+  - [Cleanup](#cleanup)
 - [Deploy Locally](#use-the-aws-sam-cli-to-build-and-test-locally)
+- [Deploy for Prod and Dev](#deploy-for-prod-and-dev)
 - [Add Resource](#add-a-resource-to-your-application)
 - [Use Lambda Logs](#fetch-tail-and-filter-lambda-function-logs)
 - [Testing](#unit-tests)
@@ -43,7 +46,7 @@ We currently have 5 endpoints:
   - PATCH method to update admin notes of given form
   - Event body must match `adminNoteSchema` defined in `/backend/schema/schema.ts`
 
-## Deploy the sample application
+## Deploy for Development
 
 The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
 
@@ -53,7 +56,19 @@ To use the AWS SAM CLI, you need the following tools:
 - Node.js - [Install Node.js 18](https://nodejs.org/en/), including the npm package management tool.
 - Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community) (optional, only if you want to try deploying locally but this doesn't work well with QLDB)
 
-To build and deploy your application for the first time, run the following in your shell:
+### Deploy to Personal AWS Account for development
+
+When working on the backend, the best way to test your work is to deploy the stack on your personal aws account.
+
+> **_NOTE:_** Don't forget to delete the stack when you're finished working or you will be charged for the usage. \
+> \
+> It is also a good idea to set up pricing alerts in AWS.
+
+First, create an access key for your personal aws account \
+Run: `aws configure` \
+Enter access key and secret access key when prompted
+
+Then run:
 
 ```bash
 npm run build
@@ -117,6 +132,44 @@ Events:
     Properties:
       Path: /
       Method: GET
+```
+
+## Deploy for Prod and Dev
+
+Since the prod stacks are already deployed, the only command need should be to sync the stacks with the appropriate branches.
+
+Dev:
+
+```
+git checkout develop
+npm run build
+sam sync --stack-name constellation-dev
+```
+
+Prod:
+
+```
+git checkout main
+npm run build
+sam sync --stack-name constellation-prod
+```
+
+In the event the branches need to be redeployed:
+
+Dev:
+
+```
+git checkout develop
+npm run build
+sam deploy —config-env prod
+```
+
+Prod:
+
+```
+git checkout develop
+npm run build
+sam deploy —config-env dev
 ```
 
 ## Add a resource to your application
