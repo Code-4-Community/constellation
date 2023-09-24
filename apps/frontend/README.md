@@ -4,6 +4,7 @@
 
 - [Set Up](#set-up)
 - [Accessing the Site](#accessing-the-site)
+- [Running Locally](#running-locally)
 - [Deployment](#deployment)
 - [Site Map](#site-map)
 
@@ -45,6 +46,16 @@ The prod environment is for use by the TSWGO organization and none of us have ac
 The url for the prod environment is https://tswgo.c4cneu.com/
 
 Do not upload test forms to the prod url.
+
+## Running Locally
+
+To run the frontend locally, from the root of the constellation directory, run:
+
+```
+nx serve frontend
+```
+
+To use a different backend stack than either dev or prod (e.g. a custom one from your personal aws account), replace the `BASE_URL` constant in `apps/frontend/src/constants/endpoints.ts` with the one listed in Api Gateway for your stack.
 
 ## Deployment
 

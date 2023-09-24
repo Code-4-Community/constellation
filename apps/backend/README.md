@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
 - [Endpoints Reference](#endpoints-reference)
-- [Deploy for Development](#deploy-the-sample-application)
+- [Deploy for Development](#deploy-for-development)
   - [Deploy to Personal AWS Account](#deploy-to-personal-aws-account-for-development)
   - [Syncing the stack](#syncing-the-stack)
   - [Cleanup](#cleanup)
@@ -68,7 +68,35 @@ First, create an access key for your personal aws account \
 Run: `aws configure` \
 Enter access key and secret access key when prompted
 
+Now you have two choices:
+
+1. To use the default dev configuration make sure you have a `samconfig.toml` file in the root of the backend folder with the following contents:
+
+```
+version = 0.1
+
+[dev]
+[dev.deploy]
+[dev.deploy.parameters]
+stack_name = "constellation-dev"
+s3_prefix = "constellation-dev"
+region = "us-east-1"
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
+resolve_s3 = true
+confirm_changeset = true
+disable_rollback = true
+parameter_overrides = "EnvName='dev', QldbLedgerName='constellation-dev', QldbDeletionProtection='false', QLDBSendCommandRoleName='QLDBSendCommandRole-dev'"
+```
+
 Then run:
+
+```
+npm run build
+sam deploy —config-env dev
+```
+
+2. The other option is to walk through setting up the configuration yourself, by running:
 
 ```bash
 npm run build
@@ -84,6 +112,8 @@ The first command will build the source of your application. Since we're using T
 - **Save arguments to samconfig.toml**: If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application.
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete.
+
+If you want to use this endpoint when running the frontend locally, replace the `BASE_URL` constant with it in `apps/frontend/src/constants/endpoints.ts`
 
 ### Syncing the stack
 
