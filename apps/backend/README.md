@@ -4,9 +4,12 @@
 
 - [Overview](#overview)
 - [Endpoints Reference](#endpoints-reference)
-- [Deploy to AWS](#deploy-the-sample-application)
-- [Delete AWS Stack](#cleanup)
+- [Deploy for Development](#deploy-for-development)
+  - [Deploy to Personal AWS Account](#deploy-to-personal-aws-account-for-development)
+  - [Syncing the stack](#syncing-the-stack)
+  - [Cleanup](#cleanup)
 - [Deploy Locally](#use-the-aws-sam-cli-to-build-and-test-locally)
+- [Deploy for Prod and Dev](#deploy-for-prod-and-dev)
 - [Add Resource](#add-a-resource-to-your-application)
 - [Use Lambda Logs](#fetch-tail-and-filter-lambda-function-logs)
 - [Testing](#unit-tests)
@@ -43,7 +46,7 @@ We currently have 5 endpoints:
   - PATCH method to update admin notes of given form
   - Event body must match `adminNoteSchema` defined in `/backend/schema/schema.ts`
 
-## Deploy the sample application
+## Deploy for Development
 
 The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
 
@@ -53,7 +56,47 @@ To use the AWS SAM CLI, you need the following tools:
 - Node.js - [Install Node.js 18](https://nodejs.org/en/), including the npm package management tool.
 - Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community) (optional, only if you want to try deploying locally but this doesn't work well with QLDB)
 
-To build and deploy your application for the first time, run the following in your shell:
+### Deploy to Personal AWS Account for development
+
+When working on the backend, the best way to test your work is to deploy the stack on your personal aws account.
+
+> **_NOTE:_** Don't forget to delete the stack when you're finished working or you will be charged for the usage. \
+> \
+> It is also a good idea to set up pricing alerts in AWS.
+
+First, create an access key for your personal aws account \
+Run: `aws configure` \
+Enter access key and secret access key when prompted
+
+Now you have two choices:
+
+1. To use the default dev configuration make sure you have a `samconfig.toml` file in the root of the backend folder with the following contents:
+
+```
+version = 0.1
+
+[dev]
+[dev.deploy]
+[dev.deploy.parameters]
+stack_name = "constellation-dev"
+s3_prefix = "constellation-dev"
+region = "us-east-1"
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
+resolve_s3 = true
+confirm_changeset = true
+disable_rollback = true
+parameter_overrides = "EnvName='dev', QldbLedgerName='constellation-dev', QldbDeletionProtection='false', QLDBSendCommandRoleName='QLDBSendCommandRole-dev'"
+```
+
+Then run:
+
+```
+npm run build
+sam deploy —config-env dev
+```
+
+2. The other option is to walk through setting up the configuration yourself, by running:
 
 ```bash
 npm run build
@@ -69,6 +112,8 @@ The first command will build the source of your application. Since we're using T
 - **Save arguments to samconfig.toml**: If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run `sam deploy` without parameters to deploy changes to your application.
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete.
+
+If you want to use this endpoint when running the frontend locally, replace the `BASE_URL` constant with it in `apps/frontend/src/constants/endpoints.ts`
 
 ### Syncing the stack
 
@@ -117,6 +162,44 @@ Events:
     Properties:
       Path: /
       Method: GET
+```
+
+## Deploy for Prod and Dev
+
+Since the prod stacks are already deployed, the only command need should be to sync the stacks with the appropriate branches.
+
+Dev:
+
+```
+git checkout develop
+npm run build
+sam sync --stack-name constellation-dev
+```
+
+Prod:
+
+```
+git checkout main
+npm run build
+sam sync --stack-name constellation-prod
+```
+
+In the event the branches need to be redeployed:
+
+Dev:
+
+```
+git checkout develop
+npm run build
+sam deploy —config-env prod
+```
+
+Prod:
+
+```
+git checkout develop
+npm run build
+sam deploy —config-env dev
 ```
 
 ## Add a resource to your application
