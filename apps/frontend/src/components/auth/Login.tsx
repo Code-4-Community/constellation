@@ -25,7 +25,7 @@ export function Login() {
         minHeight: 'calc(100vh - 64px)',
       }}
     >
-      <Authenticator></Authenticator>
+      <Authenticator hideSignUp={true}></Authenticator>
     </View>
   );
 }
