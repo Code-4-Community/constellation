@@ -18,14 +18,24 @@ import {
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
-import { SortOptions, SortOrder } from '../../enums/SortOrder';
+import { SortOptions } from '../../enums/SortOrder';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // the forms list will be filtered such that only forms whose hospital
+  // is in the hospitalsToFilter array and whose state is in the
+  // statesToFilter array will be shown; if an array is empty, then that
+  // type of filtering will not be performed
+
+  // should contain hospital abbreviations exactly as shown in the "hospital" column of the table (e.g., ["MASSGENHOSPITAL"])
+  const [hospitalsToFilter, setHospitalsToFilter] = useState<string[]>([]);
+
+  // should contain states (abbreviations) exactly as shown in the "location" column of the table (e.g., ["MA", "TX"])
+  const [statesToFilter, setStatesToFilter] = useState<string[]>([]);
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -49,18 +59,17 @@ export default function ViewFormsList() {
             ? new Date(a.adminNotes[0].updatedAt).getTime()
             : new Date(a.guardianForm.date).getTime())
       );
-    
     }
-    if (sortOrder === SortOrder.DESC) {
-      forms.reverse();
-    }
-  }, [sortBy, sortOrder, forms]);
+  }, [sortBy, forms]);
 
-  // filter forms by search term
+  // filter forms by search term and list of filtering options
   useEffect(() => {
+    let formsToDisplay = allForms;
+
+    // filter by search term
     if (searchTerm.length > 0) {
-      setForms(
-        forms.filter((form) => {
+      formsToDisplay =
+        formsToDisplay.filter((form) => {
           const formValues = Object.values({
             ...form.guardianForm,
             ...form.medicalForm,
@@ -77,12 +86,23 @@ export default function ViewFormsList() {
             }
           }
           return false;
-        })
-      );
-    } else {
-      setForms(allForms);
+        });
     }
-  }, [searchTerm]);
+
+    // filter by hospital
+    if (hospitalsToFilter.length > 0) {
+      formsToDisplay =
+        formsToDisplay.filter((form) => hospitalsToFilter.includes(form.medicalForm.hospital))
+    }
+
+    // filter by state ("location")
+    if (statesToFilter.length > 0) {
+      formsToDisplay =
+        formsToDisplay.filter((form) => statesToFilter.includes(form.guardianForm.address.state))
+    }
+
+    setForms(formsToDisplay);
+  }, [searchTerm, hospitalsToFilter, statesToFilter]);
 
   useEffect(() => {
     getForms();
@@ -102,15 +122,6 @@ export default function ViewFormsList() {
         >
           <option value={SortOptions.NAME}>Sort by Name</option>
           <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
-        </Select>
-        <Select 
-        width="25%" 
-        mb={2} 
-        mr={4}
-        onChange={(event) => setSortOrder(event.target.value as SortOrder)}
-        >
-          <option value={SortOrder.ASC}>Ascending</option>
-          <option value={SortOrder.DESC}>Descending</option>
         </Select>
         <Input
           width="25%"
