@@ -18,12 +18,13 @@ import {
 } from '@chakra-ui/react';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
-import { SortOptions } from '../../enums/SortOrder';
+import { SortOptions, SortOrder } from '../../enums/SortOrder';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   // the forms list will be filtered such that only forms whose hospital
@@ -60,7 +61,10 @@ export default function ViewFormsList() {
             : new Date(a.guardianForm.date).getTime())
       );
     }
-  }, [sortBy, forms]);
+    if (sortOrder === SortOrder.DESC) {
+      forms.reverse();
+    }
+  }, [sortBy, sortOrder, forms]);
 
   // filter forms by search term and list of filtering options
   useEffect(() => {
@@ -122,6 +126,15 @@ export default function ViewFormsList() {
         >
           <option value={SortOptions.NAME}>Sort by Name</option>
           <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
+        </Select>
+        <Select 
+        width="25%" 
+        mb={2} 
+        mr={4}
+        onChange={(event) => setSortOrder(event.target.value as SortOrder)}
+        >
+          <option value={SortOrder.ASC}>Ascending</option>
+          <option value={SortOrder.DESC}>Descending</option>
         </Select>
         <Input
           width="25%"
