@@ -4,6 +4,7 @@ import FormField from './FormField';
 import {
   CancersDropdownValues,
   HospitalsDropdownValues,
+  StatesDropdownValues,
 } from '../../enums/DropdownValues';
 
 const MedicalForm: React.FC = () => {
@@ -68,10 +69,12 @@ const MedicalForm: React.FC = () => {
       />
 
       <FormField
-        inputVariant="text"
+        inputVariant="select"
         name="medicalForm.address.state"
-        displayName="State (Abbreviation)"
+        displayName="State"
         isRequired
+        description="Select State"
+        selectList={Object.entries(StatesDropdownValues)}
       />
 
       <FormField
