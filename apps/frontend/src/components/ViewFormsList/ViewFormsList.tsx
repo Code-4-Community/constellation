@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import Checkbox from './Checkbox';
 import {
   Box,
   Center,
@@ -26,7 +27,16 @@ export default function ViewFormsList() {
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [checkboxes, setCheckboxes] = React.useState<boolean[]>(Array(11).fill(false));
+  
 
+  const handleChange = (index: number) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index] = !newCheckboxes[index];
+    setCheckboxes(newCheckboxes);
+  };  
+  const states = [ " CT ", " DE ", " ME ", " MD ", " MA ", " NH ", " NJ ", " NY ", " PA ", " RI ", " VT "];
+  
   const getForms = async () => {
     const allForms = await getAllForms();
     setForms(allForms);
@@ -60,7 +70,7 @@ export default function ViewFormsList() {
   useEffect(() => {
     if (searchTerm.length > 0) {
       setForms(
-        forms.filter((form) => {
+        allForms.filter((form) => {
           const formValues = Object.values({
             ...form.guardianForm,
             ...form.medicalForm,
@@ -87,12 +97,23 @@ export default function ViewFormsList() {
   useEffect(() => {
     getForms();
   }, []);
-
+  // event handler for all the checkboozes to a empty list until the boxes are checked then the list appends the checked boxes
+  // keep the hosptial names as long and add the full names to the lists as well
   return (
     <Box p={1}>
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
+      <Box>
+      {checkboxes.map((value, index) => (
+        <Checkbox
+          key={index}
+          label={states[index]}
+          value={value}
+          onChange={() => handleChange(index)}
+        />
+      ))}
+    </Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"

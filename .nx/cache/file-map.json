@@ -1,0 +1,697 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.0.2",
+  "deps": {
+    "@aws-amplify/ui-react": "^4.4.1",
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/react": "^2.4.9",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "aws-amplify": "^5.0.22",
+    "axios": "^1.3.5",
+    "formik": "^2.2.9",
+    "framer-motion": "^9.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.8.1",
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
+    "yup": "^1.1.0",
+    "@babel/preset-react": "^7.14.5",
+    "@emotion/babel-plugin": "11.10.5",
+    "@nrwl/cypress": "15.5.1",
+    "@nrwl/eslint-plugin-nx": "15.5.1",
+    "@nrwl/jest": "15.5.1",
+    "@nrwl/linter": "15.5.1",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/react": "15.5.1",
+    "@nrwl/web": "15.5.1",
+    "@nrwl/workspace": "15.5.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@svgr/webpack": "^6.1.2",
+    "@testing-library/react": "13.4.0",
+    "@types/jest": "28.1.1",
+    "@types/node": "16.11.7",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "babel-jest": "28.1.1",
+    "cypress": "^12.2.0",
+    "eslint": "~8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-react": "7.31.11",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jest": "28.1.1",
+    "jest-environment-jsdom": "28.1.1",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "nx": "15.5.1",
+    "prettier": "^2.6.2",
+    "react-refresh": "^0.10.0",
+    "react-test-renderer": "18.2.0",
+    "ts-jest": "28.0.5",
+    "ts-node": "10.9.1",
+    "typescript": "~4.8.2",
+    "url-loader": "^4.1.1"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "1659929058009100827"
+      },
+      {
+        "file": ".github/CODEOWNERS",
+        "hash": "1066290309539174831"
+      },
+      {
+        "file": ".github/pull_request_template.md",
+        "hash": "5441707001336478084"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "6947378937437417992"
+      },
+      {
+        "file": ".nx/cache/d/daemon.log",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": ".nx/cache/d/server-process.json",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "17733650430415207254"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "13248213910140992947"
+      },
+      {
+        "file": "README.md",
+        "hash": "7714536229989927295"
+      },
+      {
+        "file": "amplify/.config/project-config.json",
+        "hash": "3817496099377069217"
+      },
+      {
+        "file": "amplify/README.md",
+        "hash": "9213201827306025567"
+      },
+      {
+        "file": "amplify/backend/auth/constellationtestdb3db1c5/parameters.json",
+        "hash": "406232716027244825"
+      },
+      {
+        "file": "amplify/backend/backend-config.json",
+        "hash": "14155569548439044340"
+      },
+      {
+        "file": "amplify/backend/tags.json",
+        "hash": "344355778499095363"
+      },
+      {
+        "file": "amplify/backend/types/amplify-dependent-resources-ref.d.ts",
+        "hash": "5610928820023007345"
+      },
+      {
+        "file": "amplify/cli.json",
+        "hash": "1137096589461659487"
+      },
+      {
+        "file": "amplify/hooks/README.md",
+        "hash": "4491822230140534369"
+      },
+      {
+        "file": "amplify/team-provider-info.json",
+        "hash": "1563384855834211470"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "apps/backend/.gitignore",
+        "hash": "15441318521576600261"
+      },
+      {
+        "file": "apps/backend/README.md",
+        "hash": "11960190222537855655"
+      },
+      {
+        "file": "apps/backend/__tests__/unit/handlers/get-all-items.test.mjs",
+        "hash": "11853776299027766644"
+      },
+      {
+        "file": "apps/backend/__tests__/unit/handlers/get-by-id.test.mjs",
+        "hash": "8270291243048241417"
+      },
+      {
+        "file": "apps/backend/__tests__/unit/handlers/put-item.test.mjs",
+        "hash": "8913508430705932260"
+      },
+      {
+        "file": "apps/backend/buildspec.yml",
+        "hash": "17964490951405808237"
+      },
+      {
+        "file": "apps/backend/env.json",
+        "hash": "14399264232570075767"
+      },
+      {
+        "file": "apps/backend/events/event-get-by-id.json",
+        "hash": "16611717642341629493"
+      },
+      {
+        "file": "apps/backend/events/event-get.json",
+        "hash": "4839228753944043744"
+      },
+      {
+        "file": "apps/backend/events/event-post-item.json",
+        "hash": "16328139628965427012"
+      },
+      {
+        "file": "apps/backend/package-lock.json",
+        "hash": "17469729012956052423"
+      },
+      {
+        "file": "apps/backend/package.json",
+        "hash": "12948152547965761653"
+      },
+      {
+        "file": "apps/backend/src/db/createTable.ts",
+        "hash": "14112155118682810285"
+      },
+      {
+        "file": "apps/backend/src/db/qldb.ts",
+        "hash": "1526356143862452349"
+      },
+      {
+        "file": "apps/backend/src/db/utils.ts",
+        "hash": "7376611153746413238"
+      },
+      {
+        "file": "apps/backend/src/handlers/get.ts",
+        "hash": "13267124235727181687"
+      },
+      {
+        "file": "apps/backend/src/handlers/getAllForms.ts",
+        "hash": "16087555323334952875"
+      },
+      {
+        "file": "apps/backend/src/handlers/getFormById.ts",
+        "hash": "2882084218627253035"
+      },
+      {
+        "file": "apps/backend/src/handlers/patchForm.ts",
+        "hash": "1471435449453037974"
+      },
+      {
+        "file": "apps/backend/src/handlers/putForm.ts",
+        "hash": "4383051462393170659"
+      },
+      {
+        "file": "apps/backend/src/schema/schema.ts",
+        "hash": "8651509820348606682"
+      },
+      {
+        "file": "apps/backend/src/utils/createResponse.ts",
+        "hash": "3684428985505549526"
+      },
+      {
+        "file": "apps/backend/src/utils/executeHandler.ts",
+        "hash": "7734077602436703991"
+      },
+      {
+        "file": "apps/backend/src/utils/validateMethodType.ts",
+        "hash": "16999816820300590347"
+      },
+      {
+        "file": "apps/backend/src/utils/validateRequestBody.ts",
+        "hash": "6728034951735712118"
+      },
+      {
+        "file": "apps/backend/template.yaml",
+        "hash": "15456598845957260167"
+      },
+      {
+        "file": "apps/backend/tsconfig.json",
+        "hash": "5576344739197265104"
+      },
+      {
+        "file": "babel.config.json",
+        "hash": "5546405625092116747"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "2950215254536237782"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "2772139696069860212"
+      },
+      {
+        "file": "libs/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "nx.json",
+        "hash": "5880535582084488475"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "16210965529171057648"
+      },
+      {
+        "file": "package.json",
+        "hash": "10567772355370045028"
+      },
+      {
+        "file": "tools/generators/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "tools/tsconfig.tools.json",
+        "hash": "16088922570277978783"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "7788264000166780777"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "16738917269784730284"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "9752521190147497202"
+      },
+      {
+        "file": ".nx/cache/file-map.json",
+        "hash": "9512254370469338661"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "15560487874620891235"
+      }
+    ],
+    "projectFileMap": {
+      "frontend": [
+        {
+          "file": "apps/frontend/.babelrc",
+          "hash": "8571919306683685073"
+        },
+        {
+          "file": "apps/frontend/.eslintrc.json",
+          "hash": "10075191527724852300"
+        },
+        {
+          "file": "apps/frontend/README.md",
+          "hash": "1567437203617634364"
+        },
+        {
+          "file": "apps/frontend/jest.config.ts",
+          "hash": "953634214219834517"
+        },
+        {
+          "file": "apps/frontend/project.json",
+          "hash": "17052889479036194067"
+        },
+        {
+          "file": "apps/frontend/src/app/app.spec.tsx",
+          "hash": "14024072814186379895",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/app/app.tsx",
+          "hash": "1854769928796622435",
+          "deps": [
+            "npm:@aws-amplify/ui-react",
+            "npm:@chakra-ui/react",
+            "npm:aws-amplify",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/app/nx-welcome.tsx",
+          "hash": "6505761074598079456"
+        },
+        {
+          "file": "apps/frontend/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/frontend/src/aws-exports.d.ts",
+          "hash": "16652146045642881514"
+        },
+        {
+          "file": "apps/frontend/src/components/ErrorMessage.tsx",
+          "hash": "4737201432734361282",
+          "deps": [
+            "npm:@chakra-ui/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/ViewFormsList/ViewFormsList.tsx",
+          "hash": "13752939843381847850",
+          "deps": [
+            "npm:react",
+            "npm:@chakra-ui/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/adminNotes/AdminNotes.tsx",
+          "hash": "6141175998711477705",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/auth/Login.tsx",
+          "hash": "3438474140263679115",
+          "deps": [
+            "npm:react",
+            "npm:@aws-amplify/ui-react",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/auth/RequireAuth.tsx",
+          "hash": "3779704767685437696",
+          "deps": [
+            "npm:@aws-amplify/ui-react",
+            "npm:@chakra-ui/react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/Form.tsx",
+          "hash": "3049889207037515678",
+          "deps": [
+            "npm:formik",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/FormField.tsx",
+          "hash": "12188390218734283467",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/FormInput.tsx",
+          "hash": "12652707772893130566",
+          "deps": [
+            "npm:@chakra-ui/icons",
+            "npm:@chakra-ui/react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/GrantForm.tsx",
+          "hash": "16024535857598826115",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/MedicalForm.tsx",
+          "hash": "2352574728016372276",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/inputTypes/FormSelect.tsx",
+          "hash": "2231402684177867082",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/form/inputTypes/NumberInput.tsx",
+          "hash": "10738329593826022699",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/header/Header.tsx",
+          "hash": "1628448023221806905",
+          "deps": [
+            "npm:react",
+            "npm:@chakra-ui/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/header/PortalHeader.tsx",
+          "hash": "5141610234204807780",
+          "deps": [
+            "npm:react",
+            "npm:@chakra-ui/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/header/Swgologo.jpeg",
+          "hash": "11183953070794050039"
+        },
+        {
+          "file": "apps/frontend/src/components/viewForm/FieldView.tsx",
+          "hash": "17561683822507735631",
+          "deps": [
+            "npm:@chakra-ui/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/viewForm/GuardianForm.tsx",
+          "hash": "2459084826336632039",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/components/viewForm/MedicalForm.tsx",
+          "hash": "11589317054545169116",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/constants/endpoints.ts",
+          "hash": "2377280693303451512"
+        },
+        {
+          "file": "apps/frontend/src/enums/DropdownValues.ts",
+          "hash": "3681644485720917246"
+        },
+        {
+          "file": "apps/frontend/src/enums/SortOrder.ts",
+          "hash": "13974134028104396044"
+        },
+        {
+          "file": "apps/frontend/src/environments/environment.prod.ts",
+          "hash": "10220522844224226756"
+        },
+        {
+          "file": "apps/frontend/src/environments/environment.ts",
+          "hash": "11309522437153898482"
+        },
+        {
+          "file": "apps/frontend/src/favicon.ico",
+          "hash": "255549601291444303"
+        },
+        {
+          "file": "apps/frontend/src/hooks/useSortingAndFiltering.ts",
+          "hash": "14257838077364285629",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/index.html",
+          "hash": "3967446834949485872"
+        },
+        {
+          "file": "apps/frontend/src/main.tsx",
+          "hash": "4731961929376199421",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/pages/404.tsx",
+          "hash": "9855227548635017408",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/pages/FormPage.tsx",
+          "hash": "7554830298143248084",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/pages/GrantFormPage.tsx",
+          "hash": "1796156933076149787",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/pages/LoginPage.tsx",
+          "hash": "14969207644960295988",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/pages/MedicalFormPage.tsx",
+          "hash": "10283056462222307129",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/pages/OneFormPage.tsx",
+          "hash": "1459249132173032387",
+          "deps": [
+            "npm:@chakra-ui/react",
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/types/SortAndFilter.d.ts",
+          "hash": "6549432784039283156"
+        },
+        {
+          "file": "apps/frontend/src/types/formData.ts",
+          "hash": "2181461085742143232",
+          "deps": [
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/types/formSchema.ts",
+          "hash": "15136402199303600974",
+          "deps": [
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/types/input.ts",
+          "hash": "9265738324911210176"
+        },
+        {
+          "file": "apps/frontend/src/utils/sendRequest.ts",
+          "hash": "3723262789117030003",
+          "deps": [
+            "npm:axios",
+            "npm:aws-amplify"
+          ]
+        },
+        {
+          "file": "apps/frontend/tsconfig.app.json",
+          "hash": "8252693981156152688"
+        },
+        {
+          "file": "apps/frontend/tsconfig.json",
+          "hash": "15755030591004020701"
+        },
+        {
+          "file": "apps/frontend/tsconfig.spec.json",
+          "hash": "5645632859723601232"
+        },
+        {
+          "file": "apps/frontend/webpack.config.js",
+          "hash": "13534938276223757596",
+          "deps": [
+            "npm:@nrwl/webpack",
+            "npm:@nrwl/react",
+            "npm:node-polyfill-webpack-plugin"
+          ]
+        }
+      ],
+      "frontend-e2e": [
+        {
+          "file": "apps/frontend-e2e/.eslintrc.json",
+          "hash": "15523834149352881398"
+        },
+        {
+          "file": "apps/frontend-e2e/cypress.config.ts",
+          "hash": "212614215478757206",
+          "deps": [
+            "npm:cypress",
+            "npm:@nrwl/cypress"
+          ]
+        },
+        {
+          "file": "apps/frontend-e2e/project.json",
+          "hash": "14184584747002482245"
+        },
+        {
+          "file": "apps/frontend-e2e/src/e2e/app.cy.ts",
+          "hash": "10814401713449552516"
+        },
+        {
+          "file": "apps/frontend-e2e/src/fixtures/example.json",
+          "hash": "11614668686582597233"
+        },
+        {
+          "file": "apps/frontend-e2e/src/support/app.po.ts",
+          "hash": "11157016311132186162"
+        },
+        {
+          "file": "apps/frontend-e2e/src/support/commands.ts",
+          "hash": "7314691991044890572"
+        },
+        {
+          "file": "apps/frontend-e2e/src/support/e2e.ts",
+          "hash": "7316781463159904275"
+        },
+        {
+          "file": "apps/frontend-e2e/tsconfig.json",
+          "hash": "1788248097864730386"
+        }
+      ]
+    }
+  }
+}
