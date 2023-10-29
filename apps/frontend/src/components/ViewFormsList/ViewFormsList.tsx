@@ -25,6 +25,7 @@ import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
 } from '../../hooks/useSort/sortFunctions';
+import { formFilterFunction } from '../../hooks/useFilter/filterFunctions';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 
 export default function ViewFormsList() {
