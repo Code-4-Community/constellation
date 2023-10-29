@@ -6,7 +6,7 @@ import { FormData } from '../types/formData';
 // given state setter function, using the given search term
 // and the hospitalsToFilter and statesToFilter state variables
 // whose setters are returned by the hook
-export default function useFormsListFiltering(forms: FormData[], setForms: React.Dispatch<React.SetStateAction<FormData[]>>,
+export default function useFormsListFiltering(forms: FormData[], setForms: (data: FormData[]) => void,
                                               searchTerm: string) {
   
   // should contain hospital abbreviations as represented in the keys
