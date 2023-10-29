@@ -19,6 +19,7 @@ import {
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
+import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
@@ -49,40 +50,34 @@ export default function ViewFormsList() {
             ? new Date(a.adminNotes[0].updatedAt).getTime()
             : new Date(a.guardianForm.date).getTime())
       );
-    
     }
     if (sortOrder === SortOrder.DESC) {
       forms.reverse();
     }
   }, [sortBy, sortOrder, forms]);
 
-  // filter forms by search term
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      setForms(
-        forms.filter((form) => {
-          const formValues = Object.values({
-            ...form.guardianForm,
-            ...form.medicalForm,
-            ...form.guardianForm.address,
-          });
-          console.log(formValues);
+  /* Filter forms by search term and lists of hospital and state filtering options;
+     the setters returned by the filtering hook allow the hospitals and states to
+     filter for to be updated
 
-          for (const val of formValues) {
-            if (
-              typeof val === 'string' &&
-              val.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return true;
-            }
-          }
-          return false;
-        })
-      );
-    } else {
-      setForms(allForms);
-    }
-  }, [searchTerm]);
+     Note: hospitalsToFilter should contain only hospital abbreviations as represented
+     in the keys of the HospitalsDropdownValues enum / as they appear in the
+     "hospital" column of the table (e.g., ["BOSHOSPITAL"])
+
+     Note: statesToFilter should contain only state abbreviations as represented in
+     the keys of the StatesDropdownValues enum / as they appear in the "location"
+     column of the table (e.g., ["MA", "NH"])
+
+     After filtering by search term, the forms list will be filtered such that only
+     forms whose hospital is in the hospitalsToFilter array and whose state is in
+     the statesToFilter array will be shown; if an array is empty, then that type
+     of filtering will not be performed
+  */
+  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
+    allForms,
+    setForms,
+    searchTerm
+  );
 
   useEffect(() => {
     getForms();
@@ -103,11 +98,11 @@ export default function ViewFormsList() {
           <option value={SortOptions.NAME}>Sort by Name</option>
           <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
         </Select>
-        <Select 
-        width="25%" 
-        mb={2} 
-        mr={4}
-        onChange={(event) => setSortOrder(event.target.value as SortOrder)}
+        <Select
+          width="25%"
+          mb={2}
+          mr={4}
+          onChange={(event) => setSortOrder(event.target.value as SortOrder)}
         >
           <option value={SortOrder.ASC}>Ascending</option>
           <option value={SortOrder.DESC}>Descending</option>
