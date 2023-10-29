@@ -19,13 +19,15 @@ import {
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
+import { useSort } from '../../hooks/useSort';
+import { lastUpdatedCompareFunction, nameCompareFunction } from '../../hooks/useSort/sortFunctions';
+import { useFilter } from '../../hooks/useFilter/useFilter';
+import { formFilterFunction } from '../../hooks/useFilter/filterFunctions';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
-  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -33,56 +35,13 @@ export default function ViewFormsList() {
     setAllForms(allForms);
   };
 
+
   // sort forms
-  useEffect(() => {
-    if (sortBy === SortOptions.NAME) {
-      forms.sort((a, b) =>
-        a.guardianForm.childsName.localeCompare(b.guardianForm.childsName)
-      );
-    } else if (sortBy === SortOptions.LASTUPDATED) {
-      forms.sort(
-        (a, b) =>
-          (b.adminNotes.length > 0
-            ? new Date(b.adminNotes[0].updatedAt).getTime()
-            : new Date(b.guardianForm.date).getTime()) -
-          (a.adminNotes.length > 0
-            ? new Date(a.adminNotes[0].updatedAt).getTime()
-            : new Date(a.guardianForm.date).getTime())
-      );
-    
-    }
-    if (sortOrder === SortOrder.DESC) {
-      forms.reverse();
-    }
-  }, [sortBy, sortOrder, forms]);
+  const compareFunction = sortBy === SortOptions.NAME ? nameCompareFunction : lastUpdatedCompareFunction;
+  const { sortedData: sortedForms, setSortOrder} = useSort(forms, compareFunction);
 
   // filter forms by search term
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      setForms(
-        forms.filter((form) => {
-          const formValues = Object.values({
-            ...form.guardianForm,
-            ...form.medicalForm,
-            ...form.guardianForm.address,
-          });
-          console.log(formValues);
-
-          for (const val of formValues) {
-            if (
-              typeof val === 'string' &&
-              val.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return true;
-            }
-          }
-          return false;
-        })
-      );
-    } else {
-      setForms(allForms);
-    }
-  }, [searchTerm]);
+const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, formFilterFunction);
 
   useEffect(() => {
     getForms();
@@ -137,7 +96,7 @@ export default function ViewFormsList() {
           </Flex>
         ) : (
           <Tbody>
-            {forms.map((form) => (
+            {filteredForms.map((form) => (
               <Tr key={form.id}>
                 <Td>
                   {form.adminNotes.length > 0
