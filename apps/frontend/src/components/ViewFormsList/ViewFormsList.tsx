@@ -20,6 +20,10 @@ import { useNavigate } from 'react-router-dom';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
+import { useSort } from '../../hooks/useSort';
+import { lastUpdatedCompareFunction, nameCompareFunction } from '../../hooks/useSort/sortFunctions';
+import { useFilter } from '../../hooks/useFilter/useFilter';
+import { formFilterFunction } from '../../hooks/useFilter/filterFunctions';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 
 export default function ViewFormsList() {
@@ -41,28 +45,13 @@ export default function ViewFormsList() {
     setAllForms(allForms);
   };
 
-  // sort forms
-  useEffect(() => {
-    if (sortBy === SortOptions.NAME) {
-      forms.sort((a, b) =>
-        a.guardianForm.childsName.localeCompare(b.guardianForm.childsName)
-      );
-    } else if (sortBy === SortOptions.LASTUPDATED) {
-      forms.sort(
-        (a, b) =>
-          (b.adminNotes.length > 0
-            ? new Date(b.adminNotes[0].updatedAt).getTime()
-            : new Date(b.guardianForm.date).getTime()) -
-          (a.adminNotes.length > 0
-            ? new Date(a.adminNotes[0].updatedAt).getTime()
-            : new Date(a.guardianForm.date).getTime())
-      );
-    }
-    if (sortOrder === SortOrder.DESC) {
-      forms.reverse();
-    }
-  }, [sortBy, sortOrder, forms]);
 
+  // sort forms
+  const compareFunction = sortBy === SortOptions.NAME ? nameCompareFunction : lastUpdatedCompareFunction;
+  const { sortedData: sortedForms, setSortOrder} = useSort(forms, compareFunction);
+
+  // filter forms by search term
+const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, formFilterFunction);
   /* Filter forms by search term and lists of hospital and state filtering options;
      the setters returned by the filtering hook allow the hospitals and states to
      filter for to be updated
@@ -139,6 +128,8 @@ export default function ViewFormsList() {
           </Flex>
         ) : (
           <Tbody>
+            {filteredForms.map((form) => (
+              <Tr key={form.id}>
             {forms.map((form) => (
               <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
                 <Td>
