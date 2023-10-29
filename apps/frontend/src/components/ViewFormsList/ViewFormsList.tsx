@@ -73,8 +73,12 @@ export default function ViewFormsList() {
      the statesToFilter array will be shown; if an array is empty, then that type
      of filtering will not be performed
   */
-  const {setHospitalsToFilter, setStatesToFilter} = useFormsListFiltering(allForms, setForms, searchTerm);
-  
+  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
+    allForms,
+    setForms,
+    searchTerm
+  );
+
   useEffect(() => {
     getForms();
   }, []);
@@ -94,11 +98,11 @@ export default function ViewFormsList() {
           <option value={SortOptions.NAME}>Sort by Name</option>
           <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
         </Select>
-        <Select 
-        width="25%" 
-        mb={2} 
-        mr={4}
-        onChange={(event) => setSortOrder(event.target.value as SortOrder)}
+        <Select
+          width="25%"
+          mb={2}
+          mr={4}
+          onChange={(event) => setSortOrder(event.target.value as SortOrder)}
         >
           <option value={SortOrder.ASC}>Ascending</option>
           <option value={SortOrder.DESC}>Descending</option>
