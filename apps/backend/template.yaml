@@ -180,10 +180,10 @@ Resources:
         Variables:
           ENV_NAME: !Ref EnvName
 
-  patchFormFunction:
+  updateDocumentAdminNotesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: dist/handlers/patchForm.patchFormHandler
+      Handler: dist/handlers/updateDocumentAdminNotes.updateDocumentAdminNotesHandler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
@@ -203,7 +203,29 @@ Resources:
       Environment:
         Variables:
           ENV_NAME: !Ref EnvName
-
+  markFormAsReadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/markFormAsRead.markFormAsReadHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: An HTTP patch method to mark a form in the QLDB table as read.
+      Role: !GetAtt QLDBSendCommandRole.Arn
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /form/{id}/read
+            Method: PATCH
+            RestApiId: !Ref ApiGateway
+            Auth:
+              Authorizer: CognitoAuthorizer
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
   # Creates an AWS KMS key to encrypt/decrypt data in QLDB
   # the key policy gives root account users key management permissions
   # and gives the IAM role given to the Lambdas permission to use the key (necessary to interact with QLDB)
