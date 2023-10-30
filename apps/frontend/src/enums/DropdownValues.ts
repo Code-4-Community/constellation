@@ -20,3 +20,13 @@ export enum HospitalsDropdownValues {
   VERMONTHOSPITAL = 'University Of Vermont Hospital',
   OTHERHOSPITALS = 'Other',
 }
+
+export enum StatesDropdownValues {
+    CT = 'Connecticut',
+    ME = 'Maine',
+    MA = 'Massachusetts',
+    NH = 'New Hampshire',
+    RI = 'Rhode Island',
+    VT = 'Vermont',
+    OTHERSTATES = 'Other',
+}
