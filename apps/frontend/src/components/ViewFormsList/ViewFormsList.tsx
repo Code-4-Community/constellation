@@ -16,6 +16,7 @@ import {
   Link,
   Input,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
@@ -27,6 +28,12 @@ export default function ViewFormsList() {
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const navigate = useNavigate();
+
+  //navigate to an user's form based on the formId
+  const navigateToForm = (formId: string) => {
+    navigate(`/form/${formId}`);
+  }
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -133,7 +140,7 @@ export default function ViewFormsList() {
         ) : (
           <Tbody>
             {forms.map((form) => (
-              <Tr key={form.id}>
+              <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
                 <Td>
                   {form.adminNotes.length > 0
                     ? new Date(
@@ -141,11 +148,7 @@ export default function ViewFormsList() {
                       ).toLocaleDateString()
                     : new Date(form.guardianForm.date).toLocaleDateString()}
                 </Td>
-                <Td>
-                  <Link href={`/form/${form.id}`}>
-                    {form.guardianForm.childsName}
-                  </Link>
-                </Td>
+                <Td>{form.guardianForm.childsName}</Td>
                 <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
                 <Td>{form.medicalForm.hospital}</Td>
                 <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
