@@ -63,9 +63,14 @@ export const medicalFormSchema = Yup.object().shape({
   notes: Yup.string(),
 });
 
+export const readSchema = Yup.object().shape({
+  read: Yup.boolean().defined()
+});
+
 export const formSchema = Yup.object().shape({
   id: Yup.string().default(''),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
   adminNotes: adminNotesSchema,
+  read: readSchema.optional()
 });

@@ -33,7 +33,7 @@ export default function ViewFormsList() {
   //navigate to an user's form based on the formId
   const navigateToForm = (formId: string) => {
     navigate(`/form/${formId}`);
-  }
+  };
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -124,6 +124,7 @@ export default function ViewFormsList() {
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
           <Tr>
+            <Th></Th>
             <Th>Last Updated</Th>
             <Th>Child Name</Th>
             <Th>Date of Birth</Th>
@@ -141,6 +142,14 @@ export default function ViewFormsList() {
           <Tbody>
             {forms.map((form) => (
               <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
+                <Td
+                  style={{
+                    color: '#3275a8',
+                    fontSize: '24pt',
+                  }}
+                >
+                  {!form.read?.read ? '●' : ''}
+                </Td>
                 <Td>
                   {form.adminNotes.length > 0
                     ? new Date(
