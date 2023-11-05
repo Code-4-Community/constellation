@@ -20,6 +20,8 @@ import {
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
+import MultiSelect from './MultiSelectBoxes';
+
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
@@ -104,16 +106,7 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <Box>
-      {checkboxes.map((value, index) => (
-        <Checkbox
-          key={index}
-          label={states[index]}
-          value={value}
-          onChange={() => handleChange(index)}
-        />
-      ))}
-    </Box>
+      <MultiSelect></MultiSelect>      
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"
