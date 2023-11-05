@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React from 'react';
 import FormField from './FormField';
 import {
   CancersDropdownValues,
@@ -8,8 +8,7 @@ import {
 } from '../../enums/DropdownValues';
 
 const MedicalForm: React.FC = () => {
-
-  return  (
+  return (
     <>
       <FormField
         inputVariant="select"
@@ -139,7 +138,6 @@ const MedicalForm: React.FC = () => {
       />
     </>
   );
-
 };
 
 export default MedicalForm;

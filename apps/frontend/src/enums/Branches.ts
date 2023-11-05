@@ -1,5 +1,1 @@
-export enum Branches {
-    CONFIRMATION = "confirmation",
-    FORM = "form",
-    END = "end"
-    };
+export type Branches = 'CONFIRMATION' | 'FORM' | `END`;

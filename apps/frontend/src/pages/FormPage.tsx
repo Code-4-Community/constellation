@@ -8,44 +8,41 @@ import MedicalFormPage from './MedicalFormPage';
 import { useState } from 'react';
 import { Branches } from '../enums/Branches';
 import FormBranching from '../components/form/FormBranching';
+import NextButton from '../components/form/NextButton';
 const FormPage: React.FC = () => {
-
   const [step, setStep] = useState(1);
-  const [medicalFormCurrentStep, setMedicalFormCurrentStep] = useState(Branches.CONFIRMATION);
-  const [grantFormCurrentStep, setGrantFormCurrentStep] = useState(Branches.CONFIRMATION);
+  const [medicalFormCurrentStep, setMedicalFormCurrentStep] =
+    useState<Branches>('CONFIRMATION');
+  const [grantFormCurrentStep, setGrantFormCurrentStep] =
+    useState<Branches>('CONFIRMATION');
   const [ableToSubmit, setAbleToSubmit] = useState(true);
   const handleMedicalProfessional = (response: boolean) => {
     if (response) {
-      setMedicalFormCurrentStep(Branches.FORM);
+      setMedicalFormCurrentStep('FORM');
     } else {
-      setMedicalFormCurrentStep(Branches.END);
+      setMedicalFormCurrentStep('END');
       setAbleToSubmit(false);
-
     }
-    
-
-  }
+  };
 
   const handleGrantForm = (response: boolean) => {
     if (response) {
-      setGrantFormCurrentStep(Branches.FORM);
-      
+      setGrantFormCurrentStep('FORM');
     } else {
-      setGrantFormCurrentStep(Branches.END);
+      setGrantFormCurrentStep('END');
       setAbleToSubmit(false);
     }
-  }
+  };
 
-    // Navigation Logic
+  // Navigation Logic
   const nextStep = () => {
     setStep((prevStep) => prevStep + 1);
   };
-  
+
   const prevStep = () => {
     setStep((prevStep) => prevStep - 1);
   };
 
-    
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<any>
@@ -70,7 +67,9 @@ const FormPage: React.FC = () => {
               currentStep={grantFormCurrentStep}
               form={GrantFormPage}
               confirmationQuestion={'Are you a parent or legal guardian?'}
-              endMessage={'Please find a parent or legal guardian to complete the form.'}
+              endMessage={
+                'Please find a parent or legal guardian to complete the form.'
+              }
               onConfirm={handleGrantForm}
             />
           )}
@@ -80,25 +79,21 @@ const FormPage: React.FC = () => {
               currentStep={medicalFormCurrentStep}
               form={MedicalFormPage}
               confirmationQuestion={'Are you a medical professional?'}
-              endMessage={'Please find a medical professional to complete the form.'}
+              endMessage={
+                'Please find a medical professional to complete the form.'
+              }
               onConfirm={handleMedicalProfessional}
             />
           )}
 
           <Center mt={4}>
             {step > 1 && ableToSubmit && (
-              <Button onClick={prevStep} variant="outline" mr={2}>
-                Previous
-              </Button>
+              <NextButton option={'Previous'} nextStep={prevStep} />
             )}
             {step < 2 && ableToSubmit ? (
-              <Button colorScheme="teal" onClick={nextStep} ml={2}>
-                Next
-              </Button>
+              <NextButton option={'Next'} nextStep={nextStep} />
             ) : ableToSubmit ? (
-              <Button colorScheme="teal" onClick={form.submitForm} ml={2}>
-                Submit
-              </Button>
+              <NextButton option={'Submit'} nextStep={form.submitForm} />
             ) : null}
           </Center>
         </Form>
@@ -106,6 +101,5 @@ const FormPage: React.FC = () => {
     </Formik>
   );
 };
-
 
 export default FormPage;
