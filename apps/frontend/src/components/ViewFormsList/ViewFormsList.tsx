@@ -21,23 +21,24 @@ import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import { useSort } from '../../hooks/useSort';
-import { lastUpdatedCompareFunction, nameCompareFunction } from '../../hooks/useSort/sortFunctions';
-import { useFilter } from '../../hooks/useFilter/useFilter';
-import { formFilterFunction } from '../../hooks/useFilter/filterFunctions';
+import {
+  lastUpdatedCompareFunction,
+  nameCompareFunction,
+} from '../../hooks/useSort/sortFunctions';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
+
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigate = useNavigate();
 
   //navigate to an user's form based on the formId
   const navigateToForm = (formId: string) => {
     navigate(`/form/${formId}`);
-  }
+  };
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -45,13 +46,13 @@ export default function ViewFormsList() {
     setAllForms(allForms);
   };
 
-
   // sort forms
-  const compareFunction = sortBy === SortOptions.NAME ? nameCompareFunction : lastUpdatedCompareFunction;
-  const { sortedData: sortedForms, setSortOrder} = useSort(forms, compareFunction);
+  const compareFunction =
+    sortBy === SortOptions.NAME
+      ? nameCompareFunction
+      : lastUpdatedCompareFunction;
+  const { setSortOrder } = useSort(forms, compareFunction, setForms);
 
-  // filter forms by search term
-const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, formFilterFunction);
   /* Filter forms by search term and lists of hospital and state filtering options;
      the setters returned by the filtering hook allow the hospitals and states to
      filter for to be updated
@@ -70,7 +71,7 @@ const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, form
      of filtering will not be performed
   */
   const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
-    allForms,
+    forms,
     setForms,
     searchTerm
   );
@@ -128,8 +129,6 @@ const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, form
           </Flex>
         ) : (
           <Tbody>
-            {filteredForms.map((form) => (
-              <Tr key={form.id}>
             {forms.map((form) => (
               <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
                 <Td>
