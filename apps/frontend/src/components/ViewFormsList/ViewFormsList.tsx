@@ -26,6 +26,11 @@ import {
   nameCompareFunction,
 } from '../../hooks/useSort/sortFunctions';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
+import { useSort } from '../../hooks/useSort';
+import {
+  lastUpdatedCompareFunction,
+  nameCompareFunction,
+} from '../../hooks/useSort/sortFunctions';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
