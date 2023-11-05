@@ -20,19 +20,12 @@ import { useNavigate } from 'react-router-dom';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
-import { useSort } from '../../hooks/useSort';
-import {
-  lastUpdatedCompareFunction,
-  nameCompareFunction,
-} from '../../hooks/useSort/sortFunctions';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 import { useSort } from '../../hooks/useSort';
 import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
 } from '../../hooks/useSort/sortFunctions';
-import { useFilter } from '../../hooks/useFilter/useFilter';
-import { formFilterFunction } from '../../hooks/useFilter/filterFunctions';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
