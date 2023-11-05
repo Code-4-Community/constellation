@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Checkbox from './DropDownCheckbox';
 import {
   Box,
   Center,
@@ -28,16 +27,8 @@ export default function ViewFormsList() {
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [checkboxes, setCheckboxes] = React.useState<boolean[]>(Array(11).fill(false)); 
-  
+  const [searchTerm, setSearchTerm] = useState<string>('');  
 
-  const handleChange = (index: number) => {
-    const newCheckboxes = [...checkboxes];
-    newCheckboxes[index] = !newCheckboxes[index];
-    setCheckboxes(newCheckboxes);
-  };  
-  const states = [ " CT ", " DE ", " ME ", " MD ", " MA ", " NH ", " NJ ", " NY ", " PA ", " RI ", " VT "];
   
   const getForms = async () => {
     const allForms = await getAllForms();
