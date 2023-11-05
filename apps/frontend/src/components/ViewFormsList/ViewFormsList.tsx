@@ -21,23 +21,16 @@ import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import { useSort } from '../../hooks/useSort';
-<<<<<<< HEAD
 import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
 } from '../../hooks/useSort/sortFunctions';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
-=======
-import { lastUpdatedCompareFunction, nameCompareFunction } from '../../hooks/useSort/sortFunctions';
-import { useFilter } from '../../hooks/useFilter/useFilter';
-import { formFilterFunction } from '../../hooks/useFilter/filterFunctions';
->>>>>>> 0b9efb9 (Create custom hooks for sorting and filtering)
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
-<<<<<<< HEAD
 
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigate = useNavigate();
@@ -46,8 +39,6 @@ export default function ViewFormsList() {
   const navigateToForm = (formId: string) => {
     navigate(`/form/${formId}`);
   };
-=======
->>>>>>> 0b9efb9 (Create custom hooks for sorting and filtering)
 
   const getForms = async () => {
     const allForms = await getAllForms();
@@ -55,9 +46,7 @@ export default function ViewFormsList() {
     setAllForms(allForms);
   };
 
-
   // sort forms
-<<<<<<< HEAD
   const compareFunction =
     sortBy === SortOptions.NAME
       ? nameCompareFunction
@@ -86,13 +75,6 @@ export default function ViewFormsList() {
     setForms,
     searchTerm
   );
-=======
-  const compareFunction = sortBy === SortOptions.NAME ? nameCompareFunction : lastUpdatedCompareFunction;
-  const { sortedData: sortedForms, setSortOrder} = useSort(forms, compareFunction);
-
-  // filter forms by search term
-const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, formFilterFunction);
->>>>>>> 0b9efb9 (Create custom hooks for sorting and filtering)
 
   useEffect(() => {
     getForms();
@@ -147,13 +129,8 @@ const {filteredData: filteredForms, setSearchTerm} = useFilter(sortedForms, form
           </Flex>
         ) : (
           <Tbody>
-<<<<<<< HEAD
             {forms.map((form) => (
               <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
-=======
-            {filteredForms.map((form) => (
-              <Tr key={form.id}>
->>>>>>> 0b9efb9 (Create custom hooks for sorting and filtering)
                 <Td>
                   {form.adminNotes.length > 0
                     ? new Date(
