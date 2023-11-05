@@ -14,10 +14,13 @@ const phoneNumber = z.string().regex(phoneNumberRegex);
 
 // Schema to convert input to javascript date object
 const dateSchema = z.coerce.date();
-
 const adminNoteSchema = z.object({
   note: z.string(),
   updatedAt: dateSchema,
+});
+
+export const readSchema = z.object({
+  read: z.boolean(),
 });
 
 export const adminNotesSchema = adminNoteSchema.array();
@@ -64,4 +67,5 @@ export const formSchema = z.object({
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
   adminNotes: adminNotesSchema,
+  read: z.boolean().optional(),
 });
