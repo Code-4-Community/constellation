@@ -1,19 +1,15 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import { createTableIfNotExists } from '../db/createTable.js';
-import { updateDocumentAdminNotes } from '../db/utils.js';
-import { adminNotesSchema } from '../schema/schema.js';
+import { markFormAsRead } from '../db/utils.js';
 import { createResponse } from '../utils/createResponse.js';
 import { validateMethodType } from '../utils/validateMethodType.js';
 import { validateRequestBody } from '../utils/validateRequestBody.js';
+import { readSchema } from '../schema/schema.js';
 /**
- * An HTTP post method to add one form to the QLDB table.
+ * An HTTP patch method to mark a form as read in the QLDB table.
  */
-export const patchFormHandler = async (event: APIGatewayEvent) => {
-  let response = validateMethodType(
-    event.httpMethod,
-    'PATCH',
-    'patchFormHandler'
-  );
+export const markAsReadHandler = async (event: APIGatewayEvent) => {
+  let response = validateMethodType(event.httpMethod, 'PATCH', 'markAsRead');
   if (response) {
     return response;
   }
@@ -24,14 +20,18 @@ export const patchFormHandler = async (event: APIGatewayEvent) => {
   const id = event.pathParameters!.id!;
   const JSONBody = JSON.parse(event.body!);
 
-  const isValidBody = validateRequestBody(JSONBody, adminNotesSchema);
-  if (isValidBody) {
-    return isValidBody;
+  const isInvalidBody = validateRequestBody(JSONBody, readSchema);
+  if (isInvalidBody) {
+    return isInvalidBody;
   }
 
   try {
     await createTableIfNotExists();
-    await updateDocumentAdminNotes(id, JSONBody);
+    // Check if the "read" property is included in the request body
+    if (JSONBody.hasOwnProperty('read')) {
+      // If the "read" property is included, update the document's "read" property
+      await markFormAsRead(id);
+    }
     return createResponse(201);
   } catch (error) {
     console.error(error);
