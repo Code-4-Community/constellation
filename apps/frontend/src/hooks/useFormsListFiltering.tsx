@@ -14,7 +14,10 @@ export default function useFormsListFiltering(
   setForms: (data: FormData[]) => void,
   searchTerm: string
 ) {
+<<<<<<< HEAD
   
+=======
+>>>>>>> main
   // should contain hospital abbreviations as represented in the keys
   // of the HospitalsDropdownValues enum / as they appear in the
   // "hospital" column of the table (e.g., ["BOSHOSPITAL"])
@@ -80,4 +83,8 @@ export default function useFormsListFiltering(
     setHospitalsToFilter: setHospitalsToFilter,
     setStatesToFilter: setStatesToFilter,
   };
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

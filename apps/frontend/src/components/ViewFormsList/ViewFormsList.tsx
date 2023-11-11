@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Box,
   Center,
@@ -16,18 +16,39 @@ import {
   Link,
   Input,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { getAllForms } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
+<<<<<<< HEAD
 import MultiSelect from './MultiSelectBoxes';
 
 
+=======
+import useFormsListFiltering from '../../hooks/useFormsListFiltering';
+import { useSort } from '../../hooks/useSort';
+import {
+  lastUpdatedCompareFunction,
+  nameCompareFunction,
+} from '../../utils/sortFunctions';
+>>>>>>> main
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
+<<<<<<< HEAD
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
   const [searchTerm, setSearchTerm] = useState<string>('');  
+=======
+
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const navigate = useNavigate();
+
+  //navigate to an user's form based on the formId
+  const navigateToForm = (formId: string) => {
+    navigate(`/form/${formId}`);
+  };
+>>>>>>> main
 
   
   const getForms = async () => {
@@ -37,28 +58,8 @@ export default function ViewFormsList() {
   };
 
   // sort forms
-  useEffect(() => {
-    if (sortBy === SortOptions.NAME) {
-      forms.sort((a, b) =>
-        a.guardianForm.childsName.localeCompare(b.guardianForm.childsName)
-      );
-    } else if (sortBy === SortOptions.LASTUPDATED) {
-      forms.sort(
-        (a, b) =>
-          (b.adminNotes.length > 0
-            ? new Date(b.adminNotes[0].updatedAt).getTime()
-            : new Date(b.guardianForm.date).getTime()) -
-          (a.adminNotes.length > 0
-            ? new Date(a.adminNotes[0].updatedAt).getTime()
-            : new Date(a.guardianForm.date).getTime())
-      );
-    
-    }
-    if (sortOrder === SortOrder.DESC) {
-      forms.reverse();
-    }
-  }, [sortBy, sortOrder, forms]);
 
+<<<<<<< HEAD
   // filter forms by search term
   useEffect(() => {
     if (searchTerm.length > 0) {
@@ -70,22 +71,36 @@ export default function ViewFormsList() {
             ...form.guardianForm.address,
           });
           console.log(formValues);
+=======
+  const compareFunction =
+    sortBy === SortOptions.NAME
+      ? nameCompareFunction
+      : lastUpdatedCompareFunction;
+  const { setSortOrder } = useSort(forms, compareFunction, setForms);
 
-          for (const val of formValues) {
-            if (
-              typeof val === 'string' &&
-              val.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return true;
-            }
-          }
-          return false;
-        })
-      );
-    } else {
-      setForms(allForms);
-    }
-  }, [searchTerm]);
+  /* Filter forms by search term and lists of hospital and state filtering options;
+     the setters returned by the filtering hook allow the hospitals and states to
+     filter for to be updated
+
+     Note: hospitalsToFilter should contain only hospital abbreviations as represented
+     in the keys of the HospitalsDropdownValues enum / as they appear in the
+     "hospital" column of the table (e.g., ["BOSHOSPITAL"])
+>>>>>>> main
+
+     Note: statesToFilter should contain only state abbreviations as represented in
+     the keys of the StatesDropdownValues enum / as they appear in the "location"
+     column of the table (e.g., ["MA", "NH"])
+
+     After filtering by search term, the forms list will be filtered such that only
+     forms whose hospital is in the hospitalsToFilter array and whose state is in
+     the statesToFilter array will be shown; if an array is empty, then that type
+     of filtering will not be performed
+  */
+  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
+    forms,
+    setForms,
+    searchTerm
+  );
 
   useEffect(() => {
     getForms();
@@ -108,11 +123,11 @@ export default function ViewFormsList() {
           <option value={SortOptions.NAME}>Sort by Name</option>
           <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
         </Select>
-        <Select 
-        width="25%" 
-        mb={2} 
-        mr={4}
-        onChange={(event) => setSortOrder(event.target.value as SortOrder)}
+        <Select
+          width="25%"
+          mb={2}
+          mr={4}
+          onChange={(event) => setSortOrder(event.target.value as SortOrder)}
         >
           <option value={SortOrder.ASC}>Ascending</option>
           <option value={SortOrder.DESC}>Descending</option>
@@ -143,7 +158,7 @@ export default function ViewFormsList() {
         ) : (
           <Tbody>
             {forms.map((form) => (
-              <Tr key={form.id}>
+              <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
                 <Td>
                   {form.adminNotes.length > 0
                     ? new Date(
@@ -151,11 +166,7 @@ export default function ViewFormsList() {
                       ).toLocaleDateString()
                     : new Date(form.guardianForm.date).toLocaleDateString()}
                 </Td>
-                <Td>
-                  <Link href={`/form/${form.id}`}>
-                    {form.guardianForm.childsName}
-                  </Link>
-                </Td>
+                <Td>{form.guardianForm.childsName}</Td>
                 <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
                 <Td>{form.medicalForm.hospital}</Td>
                 <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
