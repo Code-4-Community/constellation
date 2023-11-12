@@ -5,6 +5,8 @@ import { formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import GrantFormPage from './GrantFormPage';
 import MedicalFormPage from './MedicalFormPage';
+import { medicalFormInitialValues } from '../components/form/MedicalForm';
+import { grantFormInitialValues } from '../components/form/GrantForm';
 
 const FormPage: React.FC = () => {
   const onSubmit = async (
@@ -14,6 +16,7 @@ const FormPage: React.FC = () => {
     try {
       await submitForm(values);
     } finally {
+      actions.resetForm(); // Reset the form here
       actions.setSubmitting(false);
     }
   };
@@ -21,7 +24,10 @@ const FormPage: React.FC = () => {
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={{}}
+      initialValues={{
+        medicalForm: medicalFormInitialValues,
+        guardianForm: grantFormInitialValues,
+      }}
       validationSchema={formSchema}
     >
       {(form) => (

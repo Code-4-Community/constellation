@@ -5,6 +5,27 @@ import React from 'react';
 import FormField from './FormField';
 import { StatesDropdownValues } from '../../enums/DropdownValues';
 
+export const grantFormInitialValues = {
+  childsName: '',
+  dob: '',
+  gender: '',
+  guardianName: '',
+  address: {
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+  },
+  phone: '',
+  cellPhone: '',
+  email: '',
+  requestedGrantAmount: '',
+  intendedUseOfGrant: '',
+  signature: '',
+  date: '',
+  notes: '',
+};
+
 const GrantForm: React.FC = () => {
   return (
     <>

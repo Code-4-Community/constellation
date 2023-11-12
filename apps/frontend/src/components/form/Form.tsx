@@ -16,8 +16,7 @@ interface FormProps
   onSubmit: (values: FormValues) => Promise<void>;
   initialValues?: FormikProps<FormValues>['initialValues'];
 }
-export type FormValues = Record<string, string | undefined>;
-
+export type FormValues = Record<string, unknown>;
 /**
  * A generic form component that contains the logic for handing form state and submission.
  * To be used in conjunction with other Field components.

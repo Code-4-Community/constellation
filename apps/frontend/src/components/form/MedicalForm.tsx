@@ -7,6 +7,29 @@ import {
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
 
+export const medicalFormInitialValues = {
+  childsDiagnosis: '',
+  otherDiagnosis: '',
+  dateOfDiagnosis: '',
+  childsPhysician: '',
+  hospital: '',
+  otherHospital: '',
+  address: {
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+  },
+  phone: '',
+  descriptionOfCondition: '',
+  medicalProfessionalName: '',
+  medicalProfessionalTitle: '',
+  signature: '',
+  date: '',
+  socialWorkersEmail: '',
+  notes: '',
+};
+
 const MedicalForm: React.FC = () => {
   return (
     <>
