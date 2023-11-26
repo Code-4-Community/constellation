@@ -18,9 +18,19 @@ const FormPage: React.FC = () => {
     }
   };
 
+  /**
+   * Determines whether the submit button should be enabled.
+   *
+   * @param values the values currently entered into the form
+   * @returns true iff the values can be parsed successfully
+   */
   const enableButton = (values: FormValues): boolean => {
-    console.log(values);
-    return true;
+    try {
+      formSchema.validateSync(values);
+      return true;
+    } catch (e) {
+      return false;
+    }
   };
 
   return (
