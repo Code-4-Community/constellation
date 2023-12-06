@@ -7,12 +7,33 @@ import {
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
 
-const MedicalForm: React.FC = () => {
+const FinancialAssistanceForm: React.FC = () => {
   return (
     <>
       <FormField
+        inputVariant="text"
+        name="financialAssistanceForm.childsName"
+        isRequired
+        displayName="Child Name"
+      />
+
+      <FormField
+        inputVariant="date"
+        name="financialAssistanceForm.dob"
+        isRequired
+        displayName="Date of Birth"
+      />
+
+      <FormField
+        inputVariant="text"
+        name="guardianForm.guardianName"
+        displayName="Parent/Legal Guardian Name"
+        isRequired
+      />
+
+      <FormField
         inputVariant="select"
-        name="medicalForm.childsDiagnosis"
+        name="financialAssistanceForm.childsDiagnosis"
         displayName="Child's Diagnosis"
         isRequired
         description="Select Child's Diagnosis"
@@ -21,27 +42,27 @@ const MedicalForm: React.FC = () => {
 
       <FormField
         inputVariant="text"
-        name="medicalForm.otherDiagnosis"
+        name="financialAssistanceForm.otherDiagnosis"
         displayName="If Other, please specify the type of cancer"
       />
 
       <FormField
         inputVariant="date"
-        name="medicalForm.dateOfDiagnosis"
+        name="financialAssistanceForm.dateOfDiagnosis"
         displayName="Date of Diagnosis"
         isRequired
       />
 
       <FormField
         inputVariant="text"
-        name="medicalForm.childsPhysician"
+        name="financialAssistanceForm.childsPhysician"
         displayName="Child's Physician"
         isRequired
       />
 
       <FormField
         inputVariant="select"
-        name="medicalForm.hospital"
+        name="financialAssistanceForm.hospital"
         displayName="Hospital"
         isRequired
         description="Select Hospital"
@@ -50,27 +71,27 @@ const MedicalForm: React.FC = () => {
 
       <FormField
         inputVariant="text"
-        name="medicalForm.otherHospital"
+        name="financialAssistanceForm.otherHospital"
         displayName="If Other, please specify the hospital name"
       />
 
       <FormField
         inputVariant="text"
-        name="medicalForm.address.street"
+        name="financialAssistanceForm.address.street"
         displayName="Address"
         isRequired
       />
 
       <FormField
         inputVariant="text"
-        name="medicalForm.address.city"
+        name="financialAssistanceForm.address.city"
         displayName="City"
         isRequired
       />
 
       <FormField
         inputVariant="select"
-        name="medicalForm.address.state"
+        name="financialAssistanceForm.address.state"
         displayName="State"
         isRequired
         description="Select State"
@@ -79,60 +100,41 @@ const MedicalForm: React.FC = () => {
 
       <FormField
         inputVariant="text"
-        name="medicalForm.address.zipcode"
+        name="financialAssistanceForm.address.zipcode"
         displayName="Zip Code"
         isRequired
       />
 
       <FormField
+        inputVariant="money"
+        name="guardianForm.requestedGrantAmount"
+        displayName="Requested Grant Amount (in USD)"
+      />
+
+      <FormField
+        inputVariant="textArea"
+        name="guardianForm.intendedUseOfGrant"
+        displayName="Intended Use of Grant"
+        description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
+      />
+
+      <FormField
         inputVariant="phoneNumber"
         name="medicalForm.phone"
-        displayName="Phone"
-        isRequired
-      />
-
-      <FormField
-        inputVariant="text"
-        name="medicalForm.descriptionOfCondition"
-        displayName="Please describe the child's medical condition and anticipated hospital stay"
-      />
-
-      <FormField
-        inputVariant="text"
-        name="medicalForm.medicalProfessionalName"
-        displayName="Doctor's Name"
-      />
-
-      <FormField
-        inputVariant="text"
-        name="medicalForm.medicalProfessionalTitle"
-        displayName="Doctor's Title"
-      />
-
-      <FormField
-        inputVariant="text"
-        name="medicalForm.signature"
-        displayName="Doctor's Signature"
-        isRequired
-      />
-
-      <FormField
-        inputVariant="date"
-        name="medicalForm.date"
-        displayName="Date Signed"
+        displayName="Phone Number of the Medical Professional"
         isRequired
       />
 
       <FormField
         inputVariant="email"
-        name="medicalForm.socialWorkersEmail"
-        displayName="Social Worker's Email Address"
+        name="financialAssistanceForm.medicalProfessionalEmail"
+        displayName="Business Email Address of the Medical Professional"
         isRequired
       />
 
       <FormField
         inputVariant="textArea"
-        name="medicalForm.notes"
+        name="financialAssistanceForm.notes"
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
       />
@@ -140,4 +142,4 @@ const MedicalForm: React.FC = () => {
   );
 };
 
-export default MedicalForm;
+export default FinancialAssistanceForm;

@@ -1,12 +1,14 @@
 import { Button, Center, Spacer } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
-import { formSchema } from '../types/formSchema';
+import {
+  formSchema,
+  medicalFormSchema,
+  guardianFormSchema,
+} from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import GrantFormPage from './GrantFormPage';
 import MedicalFormPage from './MedicalFormPage';
-import { medicalFormInitialValues } from '../components/form/MedicalForm';
-import { grantFormInitialValues } from '../components/form/GrantForm';
 
 const FormPage: React.FC = () => {
   const onSubmit = async (
@@ -25,8 +27,8 @@ const FormPage: React.FC = () => {
     <Formik
       onSubmit={onSubmit}
       initialValues={{
-        medicalForm: medicalFormInitialValues,
-        guardianForm: grantFormInitialValues,
+        medicalForm: medicalFormSchema.getDefault(),
+        guardianForm: guardianFormSchema.getDefault(),
       }}
       validationSchema={formSchema}
     >
