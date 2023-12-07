@@ -29,7 +29,18 @@ const FormInput: React.FC<FormInputProps> = ({
   if (variant === 'text' || variant === 'email' || variant === 'date') {
     return <Input {...field} id={id} type={variant} />;
   } else if (variant === 'number' || variant === 'money') {
-    return <NumberInput inputVariant={variant} field={field} id={id} />;
+    return (
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          color="gray.300"
+          fontSize="1.2em"
+          children="$"
+        />
+        <Input type="number" {...field} id={id} />
+      </InputGroup>
+    );
+    // return <NumberInput inputVariant={variant} field={field} id={id} />;
   } else if (variant === 'phoneNumber') {
     return (
       <InputGroup>
