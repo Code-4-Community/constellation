@@ -1,8 +1,8 @@
 import {
+  Input,
   InputGroup,
   InputLeftElement,
   NumberInput,
-  NumberInputField,
 } from '@chakra-ui/react';
 import { InputVariant } from '../../../types/input';
 import { FieldInputProps } from 'formik';
@@ -29,7 +29,7 @@ const NumberInputView: React.FC<NumberInputProps> = ({
             children="$"
           />
         ) : null}
-        <NumberInputField {...field} id={id} type="number" paddingLeft={8}/>
+        <Input type="number" {...field} id={id} paddingLeft={8} />
       </NumberInput>
     </InputGroup>
   );
