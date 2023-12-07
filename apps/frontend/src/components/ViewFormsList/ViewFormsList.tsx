@@ -13,7 +13,6 @@ import {
   Th,
   Thead,
   Tr,
-  Link,
   Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +21,7 @@ import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 import { useSort } from '../../hooks/useSort';
+import MultiSelect from './MultiSelectBoxes';
 import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
@@ -30,28 +30,54 @@ export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
-
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigate = useNavigate();
-
   //navigate to an user's form based on the formId
   const navigateToForm = (formId: string) => {
     navigate(`/form/${formId}`);
   };
-
   const getForms = async () => {
     const allForms = await getAllForms();
     setForms(allForms);
     setAllForms(allForms);
   };
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      setForms(
+        allForms.filter((form) => {
+          const formValues = Object.values({
+            ...form.guardianForm,
+            ...form.medicalForm,
+            ...form.guardianForm.address,
+          });
+          console.log(formValues);
+        } 
+        )
+      )
+      }
+    }
+  ); 
+  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
+    forms,
+    setForms,
+    searchTerm
+  );
+  useEffect(() => {
+    getForms();
+  }, []);
+  const compareFunction =
+  sortBy === SortOptions.NAME
+    ? nameCompareFunction
+    : lastUpdatedCompareFunction;
+  const { setSortOrder } = useSort(forms, compareFunction, setForms);
+
+
 
   // sort forms
 
-  const compareFunction =
-    sortBy === SortOptions.NAME
-      ? nameCompareFunction
-      : lastUpdatedCompareFunction;
-  const { setSortOrder } = useSort(forms, compareFunction, setForms);
+  // filter forms by search term
+
+
 
   /* Filter forms by search term and lists of hospital and state filtering options;
      the setters returned by the filtering hook allow the hospitals and states to
@@ -70,21 +96,17 @@ export default function ViewFormsList() {
      the statesToFilter array will be shown; if an array is empty, then that type
      of filtering will not be performed
   */
-  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
-    forms,
-    setForms,
-    searchTerm
-  );
 
-  useEffect(() => {
-    getForms();
-  }, []);
 
+
+  // event handler for all the checkboozes to a empty list until the boxes are checked then the list appends the checked boxes
+  // keep the hosptial names as long and add the full names to the lists as well
   return (
     <Box p={1}>
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
+      <MultiSelect></MultiSelect>      
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"
@@ -149,4 +171,4 @@ export default function ViewFormsList() {
       </Table>
     </Box>
   );
-}
+}; 
