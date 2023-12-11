@@ -6,8 +6,16 @@ import {
   HospitalsDropdownValues,
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
+import { useStateFormContext} from '../../components/form/StateFormContext';
 
 const MedicalForm: React.FC = () => {
+
+  const {isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
+
+  const handleStateSelectChange = (selectedState: string) => {
+    toggleOtherStates(selectedState);
+  };
+
   return (
     <>
       <FormField
@@ -17,12 +25,14 @@ const MedicalForm: React.FC = () => {
         isRequired
         description="Select Child's Diagnosis"
         selectList={Object.entries(CancersDropdownValues)}
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.otherDiagnosis"
         displayName="If Other, please specify the type of cancer"
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -30,6 +40,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.dateOfDiagnosis"
         displayName="Date of Diagnosis"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -37,6 +48,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.childsPhysician"
         displayName="Child's Physician"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -46,12 +58,14 @@ const MedicalForm: React.FC = () => {
         isRequired
         description="Select Hospital"
         selectList={Object.entries(HospitalsDropdownValues)}
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.otherHospital"
         displayName="If Other, please specify the hospital name"
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -59,6 +73,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.address.street"
         displayName="Address"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -66,6 +81,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.address.city"
         displayName="City"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -75,6 +91,8 @@ const MedicalForm: React.FC = () => {
         isRequired
         description="Select State"
         selectList={Object.entries(StatesDropdownValues)}
+        onChange={(value: string) => handleStateSelectChange(value)}
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -82,6 +100,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.address.zipcode"
         displayName="Zip Code"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -89,24 +108,28 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.phone"
         displayName="Phone"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.descriptionOfCondition"
         displayName="Please describe the child's medical condition and anticipated hospital stay"
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.medicalProfessionalName"
         displayName="Doctor's Name"
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
         inputVariant="text"
         name="medicalForm.medicalProfessionalTitle"
         displayName="Doctor's Title"
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -114,6 +137,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.signature"
         displayName="Doctor's Signature"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -121,6 +145,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.date"
         displayName="Date Signed"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -128,6 +153,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.socialWorkersEmail"
         displayName="Social Worker's Email Address"
         isRequired
+        isDisabled={isOtherStatesSelected}
       />
 
       <FormField
@@ -135,6 +161,7 @@ const MedicalForm: React.FC = () => {
         name="medicalForm.notes"
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
+        isDisabled={isOtherStatesSelected}
       />
     </>
   );

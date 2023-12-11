@@ -17,6 +17,8 @@ interface FormInputProps {
   id: string;
   description?: string;
   selectList?: string[][];
+  onChange?: (value: any) => void;
+  isDisabled?: boolean;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -25,11 +27,33 @@ const FormInput: React.FC<FormInputProps> = ({
   id,
   description,
   selectList,
+  onChange,
+  isDisabled,
 }) => {
+
+  const handleChange = (value: any) => {
+    field.onChange({
+      target: {
+        value,
+        name: field.name,
+      },
+    });
+
+    if (onChange) {
+      onChange(value);
+    }
+  };
+
   if (variant === 'text' || variant === 'email' || variant === 'date') {
-    return <Input {...field} id={id} type={variant} />;
+    return <Input {...field} id={id} type={variant} 
+    onChange={(e) => handleChange(e.target.value)}
+    isDisabled={isDisabled} 
+    />;
   } else if (variant === 'number' || variant === 'money') {
-    return <NumberInput inputVariant={variant} field={field} id={id} />;
+    return <NumberInput inputVariant={variant} field={field} id={id} 
+    onChange={(value) => handleChange(value)}
+    isDisabled={isDisabled} 
+    />;
   } else if (variant === 'phoneNumber') {
     return (
       <InputGroup>
@@ -37,13 +61,19 @@ const FormInput: React.FC<FormInputProps> = ({
           pointerEvents="none"
           children={<PhoneIcon color="gray.300" />}
         />
-        <Input type="text" {...field} id={id} />
+        <Input type="text" {...field} id={id}
+        onChange={(e) => handleChange(e.target.value)}
+        isDisabled={isDisabled } 
+        />
       </InputGroup>
     );
   } else if (variant === 'textArea') {
     return (
       <>
-        <Textarea {...field} id={'useOfGrant'} />
+        <Textarea {...field} id={'useOfGrant'} 
+        onChange={(e) => handleChange(e.target.value)}
+        isDisabled={isDisabled} 
+        />
         <FormHelperText>{description}</FormHelperText>
       </>
     );
@@ -54,6 +84,8 @@ const FormInput: React.FC<FormInputProps> = ({
         id={id}
         selectList={selectList}
         field={field}
+        onChange={(value) => handleChange(value)}
+        isDisabled={isDisabled}
       />
     );
   }

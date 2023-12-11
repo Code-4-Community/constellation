@@ -11,13 +11,30 @@ interface NumberInputProps {
   inputVariant: InputVariant;
   id: string;
   field: FieldInputProps<any>;
+  onChange?: (value: any) => void;
+  isDisabled?: boolean;
 }
 
 const NumberInputView: React.FC<NumberInputProps> = ({
   inputVariant,
   id,
   field,
+  onChange,
+  isDisabled,
 }) => {
+
+  const handleChange = (value: string) => {
+    field.onChange({
+      target: {
+        value,
+        name: field.name,
+      },
+    });
+
+    if (onChange) {
+      onChange(value);
+    }
+  };
   return (
     <InputGroup>
       <NumberInput>
@@ -29,7 +46,10 @@ const NumberInputView: React.FC<NumberInputProps> = ({
             children="$"
           />
         ) : null}
-        <NumberInputField {...field} id={id} type="number" paddingLeft={8}/>
+        <NumberInputField {...field} id={id} type="number" paddingLeft={8}
+        onChange={(e) => handleChange(e.target.value)}
+        disabled={isDisabled} 
+         />
       </NumberInput>
     </InputGroup>
   );

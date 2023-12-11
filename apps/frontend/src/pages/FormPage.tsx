@@ -5,8 +5,11 @@ import { formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import GrantFormPage from './GrantFormPage';
 import MedicalFormPage from './MedicalFormPage';
+import { useStateFormContext } from '../components/form/StateFormContext';
 
 const FormPage: React.FC = () => {
+  const { isOtherStatesSelected } = useStateFormContext();
+
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<any>
@@ -27,7 +30,7 @@ const FormPage: React.FC = () => {
   const enableButton = (values: FormValues): boolean => {
     try {
       formSchema.validateSync(values);
-      return true;
+      return !(isOtherStatesSelected);
     } catch (e) {
       return false;
     }
