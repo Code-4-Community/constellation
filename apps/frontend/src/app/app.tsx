@@ -9,7 +9,7 @@ import ViewFormsList from '../components/ViewFormsList/ViewFormsList';
 import NotFoundPage from '../pages/404';
 import FormPage from '../pages/FormPage';
 import OneFormPage from '../pages/OneFormPage';
-import { FormProvider } from '../components/form/StateFormContext';
+import { FormProvider } from '../hooks/useStateFormContext';
 
 Amplify.configure(awsExports);
 

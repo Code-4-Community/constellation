@@ -6,11 +6,11 @@ import {
   HospitalsDropdownValues,
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
-import { useStateFormContext} from '../../components/form/StateFormContext';
+import { useStateFormContext } from '../../hooks/useStateFormContext';
 
 const MedicalForm: React.FC = () => {
 
-  const {isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
+  const { isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
 
   const handleStateSelectChange = (selectedState: string) => {
     toggleOtherStates(selectedState);

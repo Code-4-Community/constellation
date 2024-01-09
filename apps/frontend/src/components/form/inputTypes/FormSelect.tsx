@@ -19,17 +19,22 @@ const FormSelect: React.FC<FormSelectProps> = ({
   isDisabled,
 }) => {
 
-  const handleStateSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    field.onChange(event);
+  const handleChange = (value: any) => {
+    field.onChange({
+      target: {
+        value,
+        name: field.name,
+      },
+    });
+
     if (onChange) {
-      onChange(selectedValue);
+      onChange(value);
     }
   };
 
   return (
     <Select placeholder={placeholder} size="md" {...field} id={id} 
-    onChange={(event) => handleStateSelectChange(event)}
+    onChange={(e) => handleChange(e.target.value)}
     isDisabled={isDisabled}
     >
       {selectList.map(([key, value]) => {

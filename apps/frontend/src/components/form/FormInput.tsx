@@ -9,7 +9,7 @@ import {
 import { FieldInputProps } from 'formik';
 import { InputVariant } from '../../types/input';
 import FormSelect from './inputTypes/FormSelect';
-import NumberInput from './inputTypes/NumberInput';
+// import NumberInput from './inputTypes/NumberInput';
 
 interface FormInputProps {
   variant: InputVariant;
@@ -50,20 +50,31 @@ const FormInput: React.FC<FormInputProps> = ({
     isDisabled={isDisabled} 
     />;
   } else if (variant === 'number' || variant === 'money') {
-    return <NumberInput inputVariant={variant} field={field} id={id} 
-    onChange={(value) => handleChange(value)}
-    isDisabled={isDisabled} 
-    />;
-  } else if (variant === 'phoneNumber') {
     return (
       <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          color="gray.300"
+          fontSize="1.2em"
+          children="$"
+        />
+        <Input type="number" {...field} id={id} 
+        onChange={(e) => handleChange(e.target.value)}
+        isDisabled={isDisabled} 
+        />
+      </InputGroup>
+    );
+    // return <NumberInput inputVariant={variant} field={field} id={id} />;
+  } else if (variant === 'phoneNumber') {
+    return (
+      <InputGroup> 
         <InputLeftElement
           pointerEvents="none"
           children={<PhoneIcon color="gray.300" />}
         />
         <Input type="text" {...field} id={id}
         onChange={(e) => handleChange(e.target.value)}
-        isDisabled={isDisabled } 
+        isDisabled={isDisabled} 
         />
       </InputGroup>
     );

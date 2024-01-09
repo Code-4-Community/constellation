@@ -1,11 +1,15 @@
 import { Button, Center, Spacer, Tooltip } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
-import { formSchema } from '../types/formSchema';
+import {
+  formSchema,
+  medicalFormSchema,
+  guardianFormSchema,
+} from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import GrantFormPage from './GrantFormPage';
 import MedicalFormPage from './MedicalFormPage';
-import { useStateFormContext } from '../components/form/StateFormContext';
+import { useStateFormContext } from '../hooks/useStateFormContext';
 
 const FormPage: React.FC = () => {
   const { isOtherStatesSelected } = useStateFormContext();
@@ -17,6 +21,7 @@ const FormPage: React.FC = () => {
     try {
       await submitForm(values);
     } finally {
+      actions.resetForm(); // Reset the form here
       actions.setSubmitting(false);
     }
   };
@@ -30,7 +35,7 @@ const FormPage: React.FC = () => {
   const enableButton = (values: FormValues): boolean => {
     try {
       formSchema.validateSync(values);
-      return !(isOtherStatesSelected);
+      return !(isOtherStatesSelected); // Disables the submit button if user selected "Other" for state
     } catch (e) {
       return false;
     }
@@ -39,7 +44,10 @@ const FormPage: React.FC = () => {
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={{}}
+      initialValues={{
+        medicalForm: medicalFormSchema.getDefault(),
+        guardianForm: guardianFormSchema.getDefault(),
+      }}
       validationSchema={formSchema}
     >
       {(form) => (

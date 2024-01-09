@@ -4,11 +4,11 @@
 import React from 'react';
 import FormField from './FormField';
 import { StatesDropdownValues } from '../../enums/DropdownValues';
-import { useStateFormContext} from '../../components/form/StateFormContext';
+import { useStateFormContext } from '../../hooks/useStateFormContext';
 
 const GrantForm: React.FC = () => {
 
-  const {isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
+  const { isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
 
   const handleStateSelectChange = (selectedState: string) => {
     toggleOtherStates(selectedState);
