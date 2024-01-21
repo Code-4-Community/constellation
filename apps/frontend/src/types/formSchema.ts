@@ -2,14 +2,14 @@ import type { Asserts } from 'yup';
 import * as Yup from 'yup';
 
 const addressSchema = Yup.object({
-  street: Yup.string().min(1).required(),
-  city: Yup.string().min(1).required(),
-  state: Yup.string().min(1).required(),
-  zipcode: Yup.string().length(5).required(),
+  street: Yup.string().min(1).required().default(''),
+  city: Yup.string().min(1).required().default(''),
+  state: Yup.string().min(1).required().default(''),
+  zipcode: Yup.string().length(5).required().default(''),
 });
 
 const adminNoteSchema = Yup.object().shape({
-  note: Yup.string().required(),
+  note: Yup.string().required().default(''),
   updatedAt: Yup.date()
     .default(() => new Date())
     .required(),
@@ -23,46 +23,45 @@ export const adminNotesSchema = Yup.array()
 export type AdminNotes = Asserts<typeof adminNotesSchema>;
 
 export const guardianFormSchema = Yup.object().shape({
-  childsName: Yup.string().min(1).required(),
+  childsName: Yup.string().min(1).required().default(''),
   dob: Yup.date()
     .default(() => new Date())
     .required(),
-  gender: Yup.string().min(1),
-  guardianName: Yup.string().min(1).required(),
+  gender: Yup.string().min(1).default(undefined),
+  guardianName: Yup.string().min(1).required().default(''),
   address: addressSchema,
-  phone: Yup.string().required(),
-  cellPhone: Yup.string(),
-  email: Yup.string().email().required(),
-  requestedGrantAmount: Yup.number().positive(),
-  intendedUseOfGrant: Yup.string(),
-  signature: Yup.string().min(1).required(),
+  phone: Yup.string().required().default(''),
+  cellPhone: Yup.string().default(undefined),
+  email: Yup.string().email().required().default(''),
+  requestedGrantAmount: Yup.number().positive().default(undefined),
+  intendedUseOfGrant: Yup.string().default(undefined),
+  signature: Yup.string().min(1).required().default(''),
   date: Yup.date()
     .default(() => new Date())
     .required(),
 });
 
 export const medicalFormSchema = Yup.object().shape({
-  childsDiagnosis: Yup.string().min(1).required(),
-  otherDiagnosis: Yup.string(),
+  childsDiagnosis: Yup.string().min(1).required().default(''),
+  otherDiagnosis: Yup.string().default(undefined),
   dateOfDiagnosis: Yup.date()
     .default(() => new Date())
     .required(),
-  childsPhysician: Yup.string().min(1).required(),
-  hospital: Yup.string().min(1).required(),
-  otherHospital: Yup.string(),
+  childsPhysician: Yup.string().min(1).required().default(''),
+  hospital: Yup.string().min(1).required().default(''),
+  otherHospital: Yup.string().default(undefined),
   address: addressSchema,
-  phone: Yup.string().required(),
-  descriptionOfCondition: Yup.string(),
-  medicalProfessionalName: Yup.string(),
-  medicalProfessionalTitle: Yup.string(),
-  signature: Yup.string().min(1).required(),
+  phone: Yup.string().required().default(''),
+  descriptionOfCondition: Yup.string().default(undefined),
+  medicalProfessionalName: Yup.string().default(undefined),
+  medicalProfessionalTitle: Yup.string().default(undefined),
+  signature: Yup.string().min(1).required().default(''),
   date: Yup.date()
     .default(() => new Date())
     .required(),
-  socialWorkersEmail: Yup.string().email().required(),
-  notes: Yup.string(),
+  socialWorkersEmail: Yup.string().email().required().default(''),
+  notes: Yup.string().default(undefined),
 });
-
 export const formSchema = Yup.object().shape({
   id: Yup.string().default(''),
   guardianForm: guardianFormSchema,

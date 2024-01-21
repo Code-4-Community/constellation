@@ -8,8 +8,12 @@ import { readSchema } from '../schema/schema.js';
 /**
  * An HTTP patch method to mark a form as read in the QLDB table.
  */
-export const markAsReadHandler = async (event: APIGatewayEvent) => {
-  let response = validateMethodType(event.httpMethod, 'PATCH', 'markAsRead');
+export const markFormAsReadHandler = async (event: APIGatewayEvent) => {
+  let response = validateMethodType(
+    event.httpMethod,
+    'PATCH',
+    'markFormAsRead'
+  );
   if (response) {
     return response;
   }
