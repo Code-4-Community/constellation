@@ -5,8 +5,11 @@ import { formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import GrantFormPage from './GrantFormPage';
 import MedicalFormPage from './MedicalFormPage';
+import { useState } from 'react';
 
 const FormPage: React.FC = () => {
+  const formProgress = useState<number>(0);
+
   const onSubmit = async (
     values: FormValues,
     actions: FormikHelpers<any>
@@ -18,6 +21,21 @@ const FormPage: React.FC = () => {
     }
   };
 
+  const getDeepValues = (obj: Object): string[] => {
+    console.log(obj);
+    var values: string[] = [];
+
+    for (const val of Object.values(obj)) {
+      if (typeof val === "object") {
+        values = values.concat(getDeepValues(val));
+      } else {
+        values.push(String(val));
+      }
+    }
+
+    return values;
+  }
+
   /**
    * Determines whether the submit button should be enabled.
    *
@@ -25,6 +43,7 @@ const FormPage: React.FC = () => {
    * @returns true iff the values can be parsed successfully
    */
   const enableButton = (values: FormValues): boolean => {
+    console.log(getDeepValues(values).filter(entry => entry.length > 0).length);
     try {
       formSchema.validateSync(values);
       return true;
