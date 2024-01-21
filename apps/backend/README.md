@@ -86,7 +86,7 @@ image_repositories = []
 resolve_s3 = true
 confirm_changeset = true
 disable_rollback = true
-parameter_overrides = "EnvName='dev', QldbLedgerName='constellation-dev', QldbDeletionProtection='false', QLDBSendCommandRoleName='QLDBSendCommandRole-dev'"
+parameter_overrides = "EnvName='dev', QldbLedgerName='constellation-dev', QldbDeletionProtection='false', QLDBSendCommandRoleName='QLDBSendCommandRole-dev', UserPoolArn='arn:aws:cognito-idp:us-east-1:489881683177:userpool/us-east-1_ItaXWUupj'"
 ```
 
 Then run:
