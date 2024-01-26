@@ -4,6 +4,7 @@ import { Auth } from 'aws-amplify';
 import {
   GET_ALL_FORMS_URL,
   GET_FORM_BY_ID_URL,
+  MARK_FORM_AS_READ_URL,
   PATCH_ADMIN_NOTES_URL,
   POST_FORM_URL,
 } from '../constants/endpoints';
@@ -55,4 +56,10 @@ export const patchAdminNotes = async (
   notes: AdminNotes
 ): Promise<AxiosResponse> => {
   return await authenticatedAxios.patch(PATCH_ADMIN_NOTES_URL(id), notes);
+};
+
+export const markFormAsRead = async (id: string): Promise<AxiosResponse> => {
+  return await authenticatedAxios.patch(MARK_FORM_AS_READ_URL(id), {
+    read: true,
+  });
 };

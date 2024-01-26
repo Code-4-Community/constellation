@@ -17,7 +17,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { getAllForms } from '../../utils/sendRequest';
+import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
@@ -34,9 +34,10 @@ export default function ViewFormsList() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigate = useNavigate();
 
-  //navigate to an user's form based on the formId
+  //navigate to an user's form based on the formId, and update its read state
   const navigateToForm = (formId: string) => {
     navigate(`/form/${formId}`);
+    markFormAsRead(formId);
   };
 
   const getForms = async () => {
@@ -114,6 +115,7 @@ export default function ViewFormsList() {
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
           <Tr>
+            <Th></Th>
             <Th>Last Updated</Th>
             <Th>Child Name</Th>
             <Th>Date of Birth</Th>
@@ -131,6 +133,14 @@ export default function ViewFormsList() {
           <Tbody>
             {forms.map((form) => (
               <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
+                <Td
+                  style={{
+                    color: '#3275a8',
+                    fontSize: '24pt',
+                  }}
+                >
+                  {form.read === undefined || !form.read ? '●' : ''}
+                </Td>
                 <Td>
                   {form.adminNotes.length > 0
                     ? new Date(
