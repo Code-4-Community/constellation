@@ -27,14 +27,14 @@ export const guardianFormSchema = Yup.object().shape({
   dob: Yup.date()
     .default(() => new Date())
     .required(),
-  gender: Yup.string().min(1).default(''),
+  gender: Yup.string().min(1).default(undefined),
   guardianName: Yup.string().min(1).required().default(''),
   address: addressSchema,
   phone: Yup.string().required().default(''),
-  cellPhone: Yup.string().default(''),
+  cellPhone: Yup.string().default(undefined),
   email: Yup.string().email().required().default(''),
-  requestedGrantAmount: Yup.number().positive().default(0),
-  intendedUseOfGrant: Yup.string().default(''),
+  requestedGrantAmount: Yup.number().positive().default(undefined),
+  intendedUseOfGrant: Yup.string().default(undefined),
   signature: Yup.string().min(1).required().default(''),
   date: Yup.date()
     .default(() => new Date())
@@ -43,28 +43,29 @@ export const guardianFormSchema = Yup.object().shape({
 
 export const medicalFormSchema = Yup.object().shape({
   childsDiagnosis: Yup.string().min(1).required().default(''),
-  otherDiagnosis: Yup.string().default(''),
+  otherDiagnosis: Yup.string().default(undefined),
   dateOfDiagnosis: Yup.date()
     .default(() => new Date())
     .required(),
   childsPhysician: Yup.string().min(1).required().default(''),
   hospital: Yup.string().min(1).required().default(''),
-  otherHospital: Yup.string().default(''),
+  otherHospital: Yup.string().default(undefined),
   address: addressSchema,
   phone: Yup.string().required().default(''),
-  descriptionOfCondition: Yup.string().default(''),
-  medicalProfessionalName: Yup.string().default(''),
-  medicalProfessionalTitle: Yup.string().default(''),
+  descriptionOfCondition: Yup.string().default(undefined),
+  medicalProfessionalName: Yup.string().default(undefined),
+  medicalProfessionalTitle: Yup.string().default(undefined),
   signature: Yup.string().min(1).required().default(''),
   date: Yup.date()
     .default(() => new Date())
     .required(),
   socialWorkersEmail: Yup.string().email().required().default(''),
-  notes: Yup.string().default(''),
+  notes: Yup.string().default(undefined),
 });
 export const formSchema = Yup.object().shape({
   id: Yup.string().default(''),
   guardianForm: guardianFormSchema,
   medicalForm: medicalFormSchema,
   adminNotes: adminNotesSchema,
+  read: Yup.boolean().optional()
 });

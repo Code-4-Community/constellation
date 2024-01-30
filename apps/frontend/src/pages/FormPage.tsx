@@ -18,12 +18,8 @@ const FormPage: React.FC = () => {
     values: FormValues,
     actions: FormikHelpers<any>
   ): Promise<void> => {
-    try {
-      await submitForm(values);
-    } finally {
-      actions.resetForm(); // Reset the form here
-      actions.setSubmitting(false);
-    }
+    await submitForm(values, actions.resetForm);
+    actions.setSubmitting(false);
   };
 
   /**
