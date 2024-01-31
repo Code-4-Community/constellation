@@ -26,10 +26,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
         name: field.name,
       },
     });
-
-    if (onChange) {
-      onChange(value);
-    }
+    onChange?.(value);
   };
 
   return (

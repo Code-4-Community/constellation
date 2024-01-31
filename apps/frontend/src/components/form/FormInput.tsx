@@ -9,7 +9,6 @@ import {
 import { FieldInputProps } from 'formik';
 import { InputVariant } from '../../types/input';
 import FormSelect from './inputTypes/FormSelect';
-// import NumberInput from './inputTypes/NumberInput';
 
 interface FormInputProps {
   variant: InputVariant;
@@ -38,15 +37,11 @@ const FormInput: React.FC<FormInputProps> = ({
         name: field.name,
       },
     });
-
-    if (onChange) {
-      onChange(value);
-    }
+    onChange?.(value);
   };
 
   if (variant === 'text' || variant === 'email' || variant === 'date') {
     return <Input {...field} id={id} type={variant} 
-    onChange={(e) => handleChange(e.target.value)}
     isDisabled={isDisabled} 
     />;
   } else if (variant === 'number' || variant === 'money') {
@@ -59,12 +54,10 @@ const FormInput: React.FC<FormInputProps> = ({
           children="$"
         />
         <Input type="number" {...field} id={id} 
-        onChange={(e) => handleChange(e.target.value)}
         isDisabled={isDisabled} 
         />
       </InputGroup>
     );
-    // return <NumberInput inputVariant={variant} field={field} id={id} />;
   } else if (variant === 'phoneNumber') {
     return (
       <InputGroup> 
@@ -73,7 +66,6 @@ const FormInput: React.FC<FormInputProps> = ({
           children={<PhoneIcon color="gray.300" />}
         />
         <Input type="text" {...field} id={id}
-        onChange={(e) => handleChange(e.target.value)}
         isDisabled={isDisabled} 
         />
       </InputGroup>
@@ -82,7 +74,6 @@ const FormInput: React.FC<FormInputProps> = ({
     return (
       <>
         <Textarea {...field} id={'useOfGrant'} 
-        onChange={(e) => handleChange(e.target.value)}
         isDisabled={isDisabled} 
         />
         <FormHelperText>{description}</FormHelperText>
