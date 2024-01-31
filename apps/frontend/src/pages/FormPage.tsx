@@ -12,7 +12,8 @@ import MedicalFormPage from './MedicalFormPage';
 import { useStateFormContext } from '../hooks/useStateFormContext';
 
 const FormPage: React.FC = () => {
-  const { isOtherStatesSelected } = useStateFormContext();
+  const { isOtherStatesSelectedGrant, isOtherStatesSelectedMedical } =
+    useStateFormContext();
 
   const onSubmit = async (
     values: FormValues,
@@ -31,7 +32,7 @@ const FormPage: React.FC = () => {
   const enableButton = (values: FormValues): boolean => {
     try {
       formSchema.validateSync(values);
-      return !(isOtherStatesSelected); // Disables the submit button if user selected "Other" for state
+      return !(isOtherStatesSelectedGrant || isOtherStatesSelectedMedical); // Disables the submit button if user selected "Other" for state
     } catch (e) {
       return false;
     }

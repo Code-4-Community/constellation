@@ -7,13 +7,16 @@ import { StatesDropdownValues } from '../../enums/DropdownValues';
 import { useStateFormContext } from '../../hooks/useStateFormContext';
 
 const GrantForm: React.FC = () => {
-
-  const { isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
+  const {
+    isOtherStatesSelectedGrant,
+    toggleOtherStatesGrant,
+    isOtherStatesSelectedMedical,
+  } = useStateFormContext();
 
   const handleStateSelectChange = (selectedState: string) => {
-    toggleOtherStates(selectedState);
+    toggleOtherStatesGrant(selectedState);
   };
-  
+
   return (
     <>
       <FormField
@@ -21,7 +24,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.childsName"
         isRequired
         displayName="Child Name"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -29,14 +32,14 @@ const GrantForm: React.FC = () => {
         name="guardianForm.dob"
         isRequired
         displayName="Date of Birth"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
         inputVariant="text"
         name="guardianForm.gender"
         displayName="Gender"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -44,7 +47,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.guardianName"
         displayName="Parent/Legal Guardian Name"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -52,7 +55,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.address.street"
         displayName="Address"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -60,7 +63,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.address.city"
         displayName="City"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -78,7 +81,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.address.zipcode"
         displayName="Zip Code"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -86,14 +89,14 @@ const GrantForm: React.FC = () => {
         name="guardianForm.phone"
         displayName="Phone Number"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
         inputVariant="phoneNumber"
         name="guardianForm.cellPhone"
         displayName="Cell Phone Number"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -101,14 +104,14 @@ const GrantForm: React.FC = () => {
         name="guardianForm.email"
         displayName="Email Address"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
         inputVariant="money"
         name="guardianForm.requestedGrantAmount"
         displayName="Requested Grant Amount (in USD)"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -116,7 +119,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.intendedUseOfGrant"
         displayName="Intended Use of Grant"
         description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -124,7 +127,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.signature"
         displayName="Parent/Legal Guardian Signature"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -132,7 +135,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.date"
         displayName="Date"
         isRequired
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
 
       <FormField
@@ -140,7 +143,7 @@ const GrantForm: React.FC = () => {
         name="guardianForm.notes"
         displayName="Notes"
         description="This space is for recording any thoughts/questions you may have"
-        isDisabled={isOtherStatesSelected}
+        isDisabled={isOtherStatesSelectedGrant || isOtherStatesSelectedMedical}
       />
     </>
   );

@@ -18,7 +18,6 @@ const FormSelect: React.FC<FormSelectProps> = ({
   onChange,
   isDisabled,
 }) => {
-
   const handleChange = (value: any) => {
     field.onChange({
       target: {
@@ -26,16 +25,17 @@ const FormSelect: React.FC<FormSelectProps> = ({
         name: field.name,
       },
     });
-
-    if (onChange) {
-      onChange(value);
-    }
+    onChange?.(value);
   };
 
   return (
-    <Select placeholder={placeholder} size="md" {...field} id={id} 
-    onChange={(e) => handleChange(e.target.value)}
-    isDisabled={isDisabled}
+    <Select
+      placeholder={placeholder}
+      size="md"
+      {...field}
+      id={id}
+      onChange={(e) => handleChange(e.target.value)}
+      isDisabled={isDisabled}
     >
       {selectList.map(([key, value]) => {
         return (
