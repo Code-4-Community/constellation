@@ -16,10 +16,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import {
-  getAllForms,
-  markFormAsRead
-} from '../../utils/sendRequest';
+import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
@@ -85,12 +82,31 @@ export default function ViewFormsList() {
     getForms();
   }, []);
 
+  const csv_input = document.getElementById('csv_upload');
+  csv_input?.addEventListener('change', function () {
+    console.log('upload');
+    const files = (csv_input as HTMLInputElement).files;
+    if (files?.length === 1) {
+      const uploadedFile = files[0];
+      if (uploadedFile.type === 'text/csv') {
+      } else {
+        alert('Please upload a CSV file.');
+      }
+    }
+  });
+
   return (
     <Box p={1}>
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <CSVImportButton />
+      <label htmlFor="csv_upload">Upload CSV:</label>
+      <input
+        id="csv_upload"
+        name="csv_upload"
+        type="file"
+        accept=".csv"
+      ></input>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"
