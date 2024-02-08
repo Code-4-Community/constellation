@@ -51,5 +51,5 @@ export const formSchema = Yup.object().shape({
   id: Yup.string().default(''),
   financialAssistanceForm: financialAssistanceFormSchema,
   adminNotes: adminNotesSchema,
-  read: Yup.boolean(),
+  read: Yup.boolean().default(false),
 });
