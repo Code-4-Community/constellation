@@ -66,6 +66,7 @@ const FormPage: React.FC = () => {
       await submitForm(values, actions.resetForm);
     } finally {
       actions.setSubmitting(false);
+      setStep(0);
     }
   };
 
