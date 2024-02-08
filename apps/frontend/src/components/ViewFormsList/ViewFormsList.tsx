@@ -72,7 +72,7 @@ export default function ViewFormsList() {
      of filtering will not be performed
   */
   const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
-    forms,
+    allForms,
     setForms,
     searchTerm
   );
