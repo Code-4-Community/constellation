@@ -72,7 +72,7 @@ export default function ViewFormsList() {
      of filtering will not be performed
   */
   const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
-    forms,
+    allForms,
     setForms,
     searchTerm
   );
@@ -146,12 +146,18 @@ export default function ViewFormsList() {
                     ? new Date(
                         form.adminNotes[0].updatedAt
                       ).toLocaleDateString()
-                    : new Date(form.guardianForm.date).toLocaleDateString()}
+                    : new Date(
+                        form.financialAssistanceForm.date
+                      ).toLocaleDateString()}
                 </Td>
-                <Td>{form.guardianForm.childsName}</Td>
-                <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
-                <Td>{form.medicalForm.hospital}</Td>
-                <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
+                <Td>{form.financialAssistanceForm.childsName}</Td>
+                <Td>
+                  {new Date(
+                    form.financialAssistanceForm.dob
+                  ).toLocaleDateString()}
+                </Td>
+                <Td>{form.financialAssistanceForm.hospital}</Td>
+                <Td>{`${form.financialAssistanceForm.hospitalAddress.city}, ${form.financialAssistanceForm.hospitalAddress.state}`}</Td>
               </Tr>
             ))}
           </Tbody>

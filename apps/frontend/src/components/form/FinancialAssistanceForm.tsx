@@ -7,7 +7,7 @@ import {
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
 
-const FinancialAssistanceForm: React.FC = () => {
+export const ChildInfoSection: React.FC = () => {
   return (
     <>
       <FormField
@@ -26,11 +26,87 @@ const FinancialAssistanceForm: React.FC = () => {
 
       <FormField
         inputVariant="text"
-        name="guardianForm.guardianName"
+        name="financialAssistanceForm.guardianName"
         displayName="Parent/Legal Guardian Name"
         isRequired
       />
+    </>
+  );
+};
 
+export const GrantDetailsSection: React.FC = () => {
+  return (
+    <>
+      <FormField
+        inputVariant="money"
+        name="financialAssistanceForm.requestedGrantAmount"
+        displayName="Requested Grant Amount (in USD)"
+      />
+
+      <FormField
+        inputVariant="textArea"
+        name="financialAssistanceForm.intendedUseOfGrant"
+        displayName="Intended Use of Grant"
+        description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
+      />
+    </>
+  );
+};
+
+export const HospitalInfoSection: React.FC = () => {
+  return (
+    <>
+      <FormField
+        inputVariant="select"
+        name="financialAssistanceForm.hospital"
+        displayName="Hospital"
+        isRequired
+        description="Select Hospital"
+        selectList={Object.entries(HospitalsDropdownValues)}
+      />
+
+      <FormField
+        inputVariant="text"
+        name="financialAssistanceForm.otherHospital"
+        displayName="If Other, please specify the hospital name"
+      />
+
+      <FormField
+        inputVariant="text"
+        name="financialAssistanceForm.hospitalAddress.street"
+        displayName="Address"
+        isRequired
+      />
+
+      <FormField
+        inputVariant="text"
+        name="financialAssistanceForm.hospitalAddress.city"
+        displayName="City"
+        isRequired
+      />
+
+      <FormField
+        inputVariant="select"
+        name="financialAssistanceForm.hospitalAddress.state"
+        displayName="State"
+        isRequired
+        description="Select State"
+        selectList={Object.entries(StatesDropdownValues)}
+      />
+
+      <FormField
+        inputVariant="text"
+        name="financialAssistanceForm.hospitalAddress.zipcode"
+        displayName="Zip Code"
+        isRequired
+      />
+    </>
+  );
+};
+
+export const MedDetailsSection: React.FC = () => {
+  return (
+    <>
       <FormField
         inputVariant="select"
         name="financialAssistanceForm.childsDiagnosis"
@@ -59,68 +135,16 @@ const FinancialAssistanceForm: React.FC = () => {
         displayName="Child's Physician"
         isRequired
       />
+    </>
+  );
+};
 
-      <FormField
-        inputVariant="select"
-        name="financialAssistanceForm.hospital"
-        displayName="Hospital"
-        isRequired
-        description="Select Hospital"
-        selectList={Object.entries(HospitalsDropdownValues)}
-      />
-
-      <FormField
-        inputVariant="text"
-        name="financialAssistanceForm.otherHospital"
-        displayName="If Other, please specify the hospital name"
-      />
-
-      <FormField
-        inputVariant="text"
-        name="financialAssistanceForm.address.street"
-        displayName="Address"
-        isRequired
-      />
-
-      <FormField
-        inputVariant="text"
-        name="financialAssistanceForm.address.city"
-        displayName="City"
-        isRequired
-      />
-
-      <FormField
-        inputVariant="select"
-        name="financialAssistanceForm.address.state"
-        displayName="State"
-        isRequired
-        description="Select State"
-        selectList={Object.entries(StatesDropdownValues)}
-      />
-
-      <FormField
-        inputVariant="text"
-        name="financialAssistanceForm.address.zipcode"
-        displayName="Zip Code"
-        isRequired
-      />
-
-      <FormField
-        inputVariant="money"
-        name="guardianForm.requestedGrantAmount"
-        displayName="Requested Grant Amount (in USD)"
-      />
-
-      <FormField
-        inputVariant="textArea"
-        name="guardianForm.intendedUseOfGrant"
-        displayName="Intended Use of Grant"
-        description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
-      />
-
+export const MedProfessionalDetailsSection: React.FC = () => {
+  return (
+    <>
       <FormField
         inputVariant="phoneNumber"
-        name="medicalForm.phone"
+        name="financialAssistanceForm.medicalProfessionalPhone"
         displayName="Phone Number of the Medical Professional"
         isRequired
       />
@@ -131,15 +155,17 @@ const FinancialAssistanceForm: React.FC = () => {
         displayName="Business Email Address of the Medical Professional"
         isRequired
       />
-
-      <FormField
-        inputVariant="textArea"
-        name="financialAssistanceForm.notes"
-        displayName="Notes"
-        description="This space is for recording any thoughts/questions you may have"
-      />
     </>
   );
 };
 
-export default FinancialAssistanceForm;
+export const NotesSection: React.FC = () => {
+  return (
+    <FormField
+      inputVariant="textArea"
+      name="financialAssistanceForm.notes"
+      displayName="Notes"
+      placeholder="This space is for recording any thoughts/questions you may have"
+    />
+  );
+};
