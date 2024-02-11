@@ -16,6 +16,7 @@ import {
   Link,
   Input,
   Text,
+  Button,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
@@ -83,34 +84,29 @@ export default function ViewFormsList() {
     getForms();
   }, []);
 
-  useEffect(() => {
+  function handleFileUpload() {
     const csv_input = document.getElementById('csv_upload');
-    csv_input?.addEventListener('change', function () {
-      console.log('upload');
-      setUploadedCSV(null);
-      const files = (csv_input as HTMLInputElement).files;
-      if (files?.length === 1) {
-        const uploadedFile = files[0];
-        if (uploadedFile.type === 'text/csv') {
-          setUploadedCSV(uploadedFile);
-        } else {
-          alert('Please upload a CSV file.');
-        }
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    const csv_import_button = document.getElementById('csv_import');
-    csv_import_button?.addEventListener('change', function () {
-      console.log('import');
-      if (uploadedCSV === null) {
-        alert('Please upload a file first.');
+    console.log('upload');
+    setUploadedCSV(null);
+    const files = (csv_input as HTMLInputElement).files;
+    if (files?.length === 1) {
+      const uploadedFile = files[0];
+      if (uploadedFile.type === 'text/csv') {
+        setUploadedCSV(uploadedFile);
       } else {
-        // endpoint call
+        alert('Please upload a CSV file.');
       }
-    });
-  }, []);
+    }
+  }
+
+  function handleImportButtonClick() {
+    console.log('import');
+    if (uploadedCSV === null) {
+      alert('Please upload a CSV file first.');
+    } else {
+      // endpoint call
+    }
+  }
 
   return (
     <Box p={1}>
@@ -120,6 +116,7 @@ export default function ViewFormsList() {
       <Box
         display="flex"
         flexDirection="column"
+        alignItems="start"
         rowGap="5px"
         mb="10px"
         marginLeft="auto"
@@ -132,14 +129,15 @@ export default function ViewFormsList() {
           name="csv_upload"
           type="file"
           accept=".csv"
+          onChange={handleFileUpload}
         ></input>
-        <input
+        <Button
           id="csv_import"
           name="csv_import"
-          type="button"
-          value="Import"
-          width="auto"
-        ></input>
+          onClick={handleImportButtonClick}
+        >
+          Import
+        </Button>
       </Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
