@@ -6,14 +6,10 @@ import {
   HospitalsDropdownValues,
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
-import { 
-  useStateFormContext
-} from '../../hooks/useStateFormContext';
+import { useStateFormContext } from '../../hooks/useStateFormContext';
 
 export const ChildInfoSection: React.FC = () => {
-  const {
-    isOtherStatesSelected,
-  } = useStateFormContext();
+  const { isOtherStatesSelected } = useStateFormContext();
 
   return (
     <>
@@ -45,9 +41,7 @@ export const ChildInfoSection: React.FC = () => {
 };
 
 export const GrantDetailsSection: React.FC = () => {
-  const {
-    isOtherStatesSelected
-  } = useStateFormContext();
+  const { isOtherStatesSelected } = useStateFormContext();
   return (
     <>
       <FormField
@@ -68,16 +62,12 @@ export const GrantDetailsSection: React.FC = () => {
   );
 };
 
-
 export const HospitalInfoSection: React.FC = () => {
-const {
-  isOtherStatesSelected,
-  toggleOtherStates,
-} = useStateFormContext();
+  const { isOtherStatesSelected, toggleOtherStates } = useStateFormContext();
 
-const handleStateSelectChange = (selectedState: string) => {
-  toggleOtherStates(selectedState);
-};  
+  const handleStateSelectChange = (selectedState: string) => {
+    toggleOtherStates(selectedState);
+  };
   return (
     <>
       <FormField
@@ -135,9 +125,7 @@ const handleStateSelectChange = (selectedState: string) => {
 };
 
 export const MedDetailsSection: React.FC = () => {
-  const {
-    isOtherStatesSelected
-  } = useStateFormContext();
+  const { isOtherStatesSelected } = useStateFormContext();
   return (
     <>
       <FormField
@@ -177,9 +165,7 @@ export const MedDetailsSection: React.FC = () => {
 };
 
 export const MedProfessionalDetailsSection: React.FC = () => {
-  const {
-    isOtherStatesSelected
-  } = useStateFormContext();
+  const { isOtherStatesSelected } = useStateFormContext();
   return (
     <>
       <FormField
@@ -202,9 +188,7 @@ export const MedProfessionalDetailsSection: React.FC = () => {
 };
 
 export const NotesSection: React.FC = () => {
-  const {
-    isOtherStatesSelected
-  } = useStateFormContext();
+  const { isOtherStatesSelected } = useStateFormContext();
   return (
     <FormField
       inputVariant="textArea"

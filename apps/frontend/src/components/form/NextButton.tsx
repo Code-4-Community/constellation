@@ -6,9 +6,18 @@ interface NextButtonProps {
   isDisabled?: boolean;
 }
 
-const NextButton: React.FC<NextButtonProps> = ({ nextStep, option, isDisabled }) => {
+const NextButton: React.FC<NextButtonProps> = ({
+  nextStep,
+  option,
+  isDisabled,
+}) => {
   return (
-    <Button colorScheme="teal" onClick={nextStep} ml={2} isDisabled={isDisabled}>
+    <Button
+      colorScheme="teal"
+      onClick={nextStep}
+      ml={2}
+      isDisabled={isDisabled}
+    >
       {option}
     </Button>
   );

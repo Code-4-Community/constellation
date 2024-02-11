@@ -68,7 +68,12 @@ const FormInput: React.FC<FormInputProps> = ({
   } else if (variant === 'textArea') {
     return (
       <>
-        <Textarea {...field} id={'useOfGrant'} isDisabled={isDisabled} placeholder={placeholder} />
+        <Textarea
+          {...field}
+          id={'useOfGrant'}
+          isDisabled={isDisabled}
+          placeholder={placeholder}
+        />
         <FormHelperText>{description}</FormHelperText>
       </>
     );

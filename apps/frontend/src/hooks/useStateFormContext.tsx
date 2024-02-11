@@ -6,14 +6,13 @@ interface StateFormContextProps {
 }
 
 const StateFormContext = createContext<StateFormContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const FormProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isOtherStatesSelected, setIsOtherStatesSelected] =
-    useState(false);
+  const [isOtherStatesSelected, setIsOtherStatesSelected] = useState(false);
 
   const toggleOtherStates = (selectedState: string) => {
     setIsOtherStatesSelected(selectedState === 'OTHERSTATES');
@@ -21,9 +20,7 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <StateFormContext.Provider
-      value={{isOtherStatesSelected,
-        toggleOtherStates,
-      }}
+      value={{ isOtherStatesSelected, toggleOtherStates }}
     >
       {children}
     </StateFormContext.Provider>

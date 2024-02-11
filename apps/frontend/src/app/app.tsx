@@ -9,7 +9,7 @@ import ViewFormsList from '../components/ViewFormsList/ViewFormsList';
 import NotFoundPage from '../pages/404';
 import FormPage from '../pages/FormPage';
 import OneFormPage from '../pages/OneFormPage';
-import { FormProvider} from '../hooks/useStateFormContext';
+import { FormProvider } from '../hooks/useStateFormContext';
 
 Amplify.configure(awsExports);
 
@@ -18,7 +18,14 @@ function ConstellationRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/form" element={<FormProvider><FormPage /></FormProvider> } />
+        <Route
+          path="/form"
+          element={
+            <FormProvider>
+              <FormPage />
+            </FormProvider>
+          }
+        />
         <Route
           path="/all-forms"
           element={

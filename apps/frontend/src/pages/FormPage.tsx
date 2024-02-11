@@ -58,7 +58,7 @@ const FormPage: React.FC = () => {
 
   const onSubmit = async (
     values: FormValues,
-    actions: FormikHelpers<any>
+    actions: FormikHelpers<any>,
   ): Promise<void> => {
     try {
       await submitForm(values, actions.resetForm);
@@ -68,9 +68,7 @@ const FormPage: React.FC = () => {
     }
   };
 
-  const {
-    isOtherStatesSelected,
-  } = useStateFormContext();
+  const { isOtherStatesSelected } = useStateFormContext();
 
   return (
     <Formik
@@ -119,7 +117,11 @@ const FormPage: React.FC = () => {
               )}
 
               {step > 0 && step < numOfSections && eligibleToSubmit && (
-                <NextButton option={'Next'} nextStep={nextStep} isDisabled={isOtherStatesSelected} />
+                <NextButton
+                  option={'Next'}
+                  nextStep={nextStep}
+                  isDisabled={isOtherStatesSelected}
+                />
               )}
 
               {eligibleToSubmit &&
