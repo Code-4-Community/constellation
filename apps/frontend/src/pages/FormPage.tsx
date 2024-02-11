@@ -27,6 +27,7 @@ import { useState } from 'react';
 import NextButton from '../components/form/NextButton';
 import Header from '../components/header/Header';
 import SubmitButton from '../components/form/SubmitButton';
+import { FormProvider } from '../hooks/useStateFormContext';
 
 const FormPage: React.FC = () => {
   const sections: { [key: number]: JSX.Element } = {
@@ -81,6 +82,7 @@ const FormPage: React.FC = () => {
       {(form) => (
         <Container>
           <Header />
+          <FormProvider>
           <Heading size="md" textAlign="center">
             Application for Financial Assistance
           </Heading>
@@ -125,6 +127,7 @@ const FormPage: React.FC = () => {
                 SubmitButton({ form })}
             </Center>
           </Form>
+          </FormProvider>
         </Container>
       )}
     </Formik>
