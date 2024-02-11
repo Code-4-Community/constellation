@@ -18,6 +18,7 @@ interface FormInputProps {
   selectList?: string[][];
   onChange?: (value: any) => void;
   isDisabled?: boolean;
+  placeholder?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -28,6 +29,7 @@ const FormInput: React.FC<FormInputProps> = ({
   selectList,
   onChange,
   isDisabled,
+  placeholder,
 }) => {
   const handleChange = (value: any) => {
     field.onChange({
@@ -66,7 +68,7 @@ const FormInput: React.FC<FormInputProps> = ({
   } else if (variant === 'textArea') {
     return (
       <>
-        <Textarea {...field} id={'useOfGrant'} isDisabled={isDisabled} />
+        <Textarea {...field} id={'useOfGrant'} isDisabled={isDisabled} placeholder={placeholder} />
         <FormHelperText>{description}</FormHelperText>
       </>
     );

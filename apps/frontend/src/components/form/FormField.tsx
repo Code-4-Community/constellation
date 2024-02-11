@@ -12,6 +12,7 @@ interface FormFieldProps {
   selectList?: string[][];
   onChange?: (value: any) => void;
   isDisabled?: boolean;
+  placeholder?: string;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -23,6 +24,7 @@ const FormField: React.FC<FormFieldProps> = ({
   selectList,
   onChange,
   isDisabled,
+  placeholder,
 }) => {
   const fieldType = (() => {
     if (inputVariant === 'money' || inputVariant === 'number') {
@@ -50,6 +52,7 @@ const FormField: React.FC<FormFieldProps> = ({
             selectList={selectList}
             onChange={onChange}
             isDisabled={isDisabled}
+            placeholder={placeholder}
           />
         </FormControl>
       )}

@@ -6,13 +6,15 @@ import { createResponse } from '../utils/createResponse.js';
 import { validateMethodType } from '../utils/validateMethodType.js';
 import { validateRequestBody } from '../utils/validateRequestBody.js';
 /**
- * An HTTP post method to add one form to the QLDB table.
+ * An HTTP patch method to add one form to the QLDB table.
  */
-export const patchFormHandler = async (event: APIGatewayEvent) => {
+export const updateDocumentAdminNotesHandler = async (
+  event: APIGatewayEvent
+) => {
   let response = validateMethodType(
     event.httpMethod,
     'PATCH',
-    'patchFormHandler'
+    'updateDocumentAdminNotesHandler'
   );
   if (response) {
     return response;
