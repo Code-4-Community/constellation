@@ -17,6 +17,7 @@ interface FormInputProps {
   id: string;
   description?: string;
   selectList?: string[][];
+  placeholder?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -25,6 +26,7 @@ const FormInput: React.FC<FormInputProps> = ({
   id,
   description,
   selectList,
+  placeholder,
 }) => {
   if (variant === 'text' || variant === 'email' || variant === 'date') {
     return <Input {...field} id={id} type={variant} />;
@@ -54,7 +56,7 @@ const FormInput: React.FC<FormInputProps> = ({
   } else if (variant === 'textArea') {
     return (
       <>
-        <Textarea {...field} id={'useOfGrant'} />
+        <Textarea {...field} id={'useOfGrant'} placeholder={placeholder} />
         <FormHelperText>{description}</FormHelperText>
       </>
     );

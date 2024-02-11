@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ViewAdminNotes } from '../components/adminNotes/AdminNotes';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { GuardianForm } from '../components/viewForm/GuardianForm';
-import { MedicalForm } from '../components/viewForm/MedicalForm';
+import { FinancialAssistanceForm } from '../components/viewForm/FinancialAssistanceForm';
 import { FormData } from '../types/formData';
 import { formSchema } from '../types/formSchema';
 import { getFormById } from '../utils/sendRequest';
@@ -41,7 +40,7 @@ const OneFormPage: React.FC = () => {
           padding="16px"
           marginBottom="24px"
         >
-          Form: {formData?.guardianForm.childsName || id}
+          Form: {formData?.financialAssistanceForm.childsName || id}
         </Heading>
         {formData == null && (
           <Flex>
@@ -50,8 +49,11 @@ const OneFormPage: React.FC = () => {
             <Spacer />
           </Flex>
         )}
-        {formData && <GuardianForm guardianForm={formData.guardianForm} />}
-        {formData && <MedicalForm medicalForm={formData.medicalForm} />}
+        {formData && (
+          <FinancialAssistanceForm
+            financialAssistanceForm={formData.financialAssistanceForm}
+          />
+        )}
         {formData && <ViewAdminNotes notes={formData.adminNotes} />}
       </Container>
     );

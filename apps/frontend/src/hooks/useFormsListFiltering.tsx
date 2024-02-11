@@ -35,11 +35,9 @@ export default function useFormsListFiltering(
     if (searchTerm.length > 0) {
       formsToDisplay = formsToDisplay.filter((form) => {
         const formValues = Object.values({
-          ...form.guardianForm,
-          ...form.medicalForm,
-          ...form.guardianForm.address,
+          ...form.financialAssistanceForm,
+          ...form.financialAssistanceForm.hospitalAddress,
         });
-        console.log(formValues);
 
         for (const val of formValues) {
           if (
@@ -61,14 +59,18 @@ export default function useFormsListFiltering(
     // filter by hospital
     if (hospitalsToFilter.length > 0) {
       formsToDisplay = formsToDisplay.filter((form) =>
-        (hospitalsToFilter as string[]).includes(form.medicalForm.hospital)
+        (hospitalsToFilter as string[]).includes(
+          form.financialAssistanceForm.hospital
+        )
       );
     }
 
     // filter by state ("location")
     if (statesToFilter.length > 0) {
       formsToDisplay = formsToDisplay.filter((form) =>
-        (statesToFilter as string[]).includes(form.guardianForm.address.state)
+        (statesToFilter as string[]).includes(
+          form.financialAssistanceForm.hospitalAddress.state
+        )
       );
     }
 

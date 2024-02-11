@@ -10,6 +10,7 @@ interface FormFieldProps {
   description?: string;
   isRequired?: boolean;
   selectList?: string[][];
+  placeholder?: string;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -19,6 +20,7 @@ const FormField: React.FC<FormFieldProps> = ({
   description,
   isRequired,
   selectList,
+  placeholder,
 }) => {
   const fieldType = (() => {
     if (inputVariant === 'money' || inputVariant === 'number') {
@@ -44,6 +46,7 @@ const FormField: React.FC<FormFieldProps> = ({
             id={name}
             description={description}
             selectList={selectList}
+            placeholder={placeholder}
           />
         </FormControl>
       )}
