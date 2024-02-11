@@ -18,7 +18,11 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
+import {
+  getAllForms,
+  markFormAsRead,
+  putMultipleCSVForms,
+} from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
@@ -85,27 +89,31 @@ export default function ViewFormsList() {
     getForms();
   }, []);
 
+  // called when the user uploads a new file via the "choose file" button
+  // stores the uploaded file if it is a CSV file, or alerts the user
+  // if they uploaded the wrong file type
   function handleFileUpload() {
-    const csv_input = document.getElementById('csv_upload');
-    console.log('upload');
+    const csv_input = document.getElementById('csv_upload') as HTMLInputElement;
+    const files = csv_input.files;
     setUploadedCSV(null);
-    const files = (csv_input as HTMLInputElement).files;
     if (files?.length === 1) {
       const uploadedFile = files[0];
       if (uploadedFile.type === 'text/csv') {
         setUploadedCSV(uploadedFile);
       } else {
         alert('Please upload a CSV file.');
+        csv_input.value = '';
       }
     }
   }
 
-  function handleImportButtonClick() {
-    console.log('import');
+  // calls the endpoint to import CSV form data if a CSV file has been
+  // uploaded, or alerts the user otherwise
+  async function handleImportButtonClick() {
     if (uploadedCSV === null) {
       alert('Please upload a CSV file first.');
     } else {
-      // endpoint call
+      putMultipleCSVForms(await uploadedCSV?.text());
     }
   }
 
