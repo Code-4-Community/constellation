@@ -1,12 +1,10 @@
 import {
   Box,
-  Button,
   Center,
   Container,
   Heading,
   Spacer,
   Text,
-  Tooltip,
 } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
@@ -27,8 +25,7 @@ import { useState } from 'react';
 import NextButton from '../components/form/NextButton';
 import Header from '../components/header/Header';
 import SubmitButton from '../components/form/SubmitButton';
-import { FormProvider } from '../hooks/useStateFormContext';
-
+import { useStateFormContext } from '../hooks/useStateFormContext';
 const FormPage: React.FC = () => {
   const sections: { [key: number]: JSX.Element } = {
     1: <ChildInfoSection />,
@@ -71,6 +68,10 @@ const FormPage: React.FC = () => {
     }
   };
 
+  const {
+    isOtherStatesSelected,
+  } = useStateFormContext();
+
   return (
     <Formik
       onSubmit={onSubmit}
@@ -82,7 +83,6 @@ const FormPage: React.FC = () => {
       {(form) => (
         <Container>
           <Header />
-          <FormProvider>
           <Heading size="md" textAlign="center">
             Application for Financial Assistance
           </Heading>
@@ -119,7 +119,7 @@ const FormPage: React.FC = () => {
               )}
 
               {step > 0 && step < numOfSections && eligibleToSubmit && (
-                <NextButton option={'Next'} nextStep={nextStep} />
+                <NextButton option={'Next'} nextStep={nextStep} isDisabled={isOtherStatesSelected} />
               )}
 
               {eligibleToSubmit &&
@@ -127,7 +127,6 @@ const FormPage: React.FC = () => {
                 SubmitButton({ form })}
             </Center>
           </Form>
-          </FormProvider>
         </Container>
       )}
     </Formik>
