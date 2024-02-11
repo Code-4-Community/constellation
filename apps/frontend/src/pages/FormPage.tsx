@@ -111,7 +111,11 @@ const FormPage: React.FC = () => {
             <Center mt={4}>
               {step > 1 && eligibleToSubmit && (
                 <>
-                  <NextButton option={'Previous'} nextStep={prevStep} />
+                  <NextButton
+                    option={'Previous'}
+                    nextStep={prevStep}
+                    isDisabled={isOtherStatesSelected}
+                  />
                   <Spacer />
                 </>
               )}
