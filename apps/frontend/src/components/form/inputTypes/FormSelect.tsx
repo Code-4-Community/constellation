@@ -6,7 +6,7 @@ interface FormSelectProps {
   selectList: string[][];
   id: string;
   field: FieldInputProps<any>;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
   isDisabled?: boolean;
 }
 
@@ -18,23 +18,13 @@ const FormSelect: React.FC<FormSelectProps> = ({
   onChange,
   isDisabled,
 }) => {
-  const handleChange = (value: any) => {
-    field.onChange({
-      target: {
-        value,
-        name: field.name,
-      },
-    });
-    onChange?.(value);
-  };
-
   return (
     <Select
       placeholder={placeholder}
       size="md"
       {...field}
       id={id}
-      onChange={(e) => handleChange(e.target.value)}
+      onChange={(e) => onChange(e.target.value)}
       isDisabled={isDisabled}
     >
       {selectList.map(([key, value]) => {

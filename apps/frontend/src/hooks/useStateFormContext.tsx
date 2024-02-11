@@ -1,10 +1,8 @@
 import React, { createContext, useContext, ReactNode, useState } from 'react';
 
 interface StateFormContextProps {
-  isOtherStatesSelectedGrant: boolean;
-  toggleOtherStatesGrant: (selectedString: string) => void;
-  isOtherStatesSelectedMedical: boolean;
-  toggleOtherStatesMedical: (selectedString: string) => void;
+  isOtherStatesSelected: boolean;
+  toggleOtherStates: (selectedString: string) => void;
 }
 
 const StateFormContext = createContext<StateFormContextProps | undefined>(
@@ -14,25 +12,17 @@ const StateFormContext = createContext<StateFormContextProps | undefined>(
 export const FormProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isOtherStatesSelectedGrant, setIsOtherStatesSelectedGrant] =
-    useState(false);
-  const [isOtherStatesSelectedMedical, setIsOtherStatesSelectedMedical] =
+  const [isOtherStatesSelected, setIsOtherStatesSelected] =
     useState(false);
 
-  const toggleOtherStatesGrant = (selectedState: string) => {
-    setIsOtherStatesSelectedGrant(selectedState === 'OTHERSTATES');
-  };
-  const toggleOtherStatesMedical = (selectedState: string) => {
-    setIsOtherStatesSelectedMedical(selectedState === 'OTHERSTATES');
+  const toggleOtherStates = (selectedState: string) => {
+    setIsOtherStatesSelected(selectedState === 'OTHERSTATES');
   };
 
   return (
     <StateFormContext.Provider
-      value={{
-        isOtherStatesSelectedGrant,
-        toggleOtherStatesGrant,
-        isOtherStatesSelectedMedical,
-        toggleOtherStatesMedical,
+      value={{isOtherStatesSelected,
+        toggleOtherStates,
       }}
     >
       {children}
