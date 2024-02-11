@@ -18,7 +18,6 @@ const NumberInputView: React.FC<NumberInputProps> = ({
   id,
   field,
 }) => {
-
   return (
     <InputGroup>
       <NumberInput>
@@ -30,8 +29,7 @@ const NumberInputView: React.FC<NumberInputProps> = ({
             children="$"
           />
         ) : null}
-        <Input type="number" {...field} id={id} paddingLeft={8}
-        />
+        <Input type="number" {...field} id={id} paddingLeft={8} />
       </NumberInput>
     </InputGroup>
   );
