@@ -10,6 +10,8 @@ interface FormFieldProps {
   description?: string;
   isRequired?: boolean;
   selectList?: string[][];
+  onChange?: (value: any) => void;
+  isDisabled?: boolean;
   placeholder?: string;
 }
 
@@ -20,6 +22,8 @@ const FormField: React.FC<FormFieldProps> = ({
   description,
   isRequired,
   selectList,
+  onChange,
+  isDisabled,
   placeholder,
 }) => {
   const fieldType = (() => {
@@ -46,6 +50,8 @@ const FormField: React.FC<FormFieldProps> = ({
             id={name}
             description={description}
             selectList={selectList}
+            onChange={onChange}
+            isDisabled={isDisabled}
             placeholder={placeholder}
           />
         </FormControl>
