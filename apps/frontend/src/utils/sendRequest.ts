@@ -67,11 +67,18 @@ export const markFormAsRead = async (id: string): Promise<AxiosResponse> => {
 
 export const putMultipleCSVForms = async (
   rawCSVData: string
-)/*: Promise<AxiosResponse>*/ => {
-  /*return await authenticatedAxios.post(PUT_MULTIPLE_CSV_FORMS_URL, {
-    csvData: rawCSVData
-  })*/
+): Promise<void> => {
   console.log({
     csvData: rawCSVData
   });
+
+  try {
+    await authenticatedAxios.put(PUT_MULTIPLE_CSV_FORMS_URL, {
+      csvData: rawCSVData
+    })
+    alert('Forms successfully imported!');
+  } catch (error) {
+    console.log('axios error making post request', error);
+    alert('Error importing forms');
+  }
 }
