@@ -68,10 +68,6 @@ export const markFormAsRead = async (id: string): Promise<AxiosResponse> => {
 export const putMultipleCSVForms = async (
   rawCSVData: string
 ): Promise<void> => {
-  console.log({
-    csvData: rawCSVData
-  });
-
   try {
     await authenticatedAxios.put(PUT_MULTIPLE_CSV_FORMS_URL, {
       csvData: rawCSVData
