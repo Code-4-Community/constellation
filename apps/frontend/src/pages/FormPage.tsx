@@ -1,12 +1,10 @@
 import {
   Box,
-  Button,
   Center,
   Container,
   Heading,
   Spacer,
   Text,
-  Tooltip,
 } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
@@ -27,7 +25,7 @@ import { useState } from 'react';
 import NextButton from '../components/form/NextButton';
 import Header from '../components/header/Header';
 import SubmitButton from '../components/form/SubmitButton';
-
+import { useStateFormContext } from '../hooks/useStateFormContext';
 const FormPage: React.FC = () => {
   const sections: { [key: number]: JSX.Element } = {
     1: <ChildInfoSection />,
@@ -60,7 +58,7 @@ const FormPage: React.FC = () => {
 
   const onSubmit = async (
     values: FormValues,
-    actions: FormikHelpers<any>
+    actions: FormikHelpers<any>,
   ): Promise<void> => {
     try {
       await submitForm(values, actions.resetForm);
@@ -69,6 +67,8 @@ const FormPage: React.FC = () => {
       setStep(0);
     }
   };
+
+  const { isOtherStatesSelected } = useStateFormContext();
 
   return (
     <Formik
@@ -111,13 +111,21 @@ const FormPage: React.FC = () => {
             <Center mt={4}>
               {step > 1 && eligibleToSubmit && (
                 <>
-                  <NextButton option={'Previous'} nextStep={prevStep} />
+                  <NextButton
+                    option={'Previous'}
+                    nextStep={prevStep}
+                    isDisabled={isOtherStatesSelected}
+                  />
                   <Spacer />
                 </>
               )}
 
               {step > 0 && step < numOfSections && eligibleToSubmit && (
-                <NextButton option={'Next'} nextStep={nextStep} />
+                <NextButton
+                  option={'Next'}
+                  nextStep={nextStep}
+                  isDisabled={isOtherStatesSelected}
+                />
               )}
 
               {eligibleToSubmit &&
