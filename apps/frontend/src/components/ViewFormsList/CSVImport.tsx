@@ -1,36 +1,35 @@
 import { Box, Text, Button } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useRef } from 'react';
 import { putMultipleCSVForms } from '../../utils/sendRequest';
 
+/**
+ * A component that allows the user to upload a CSV file from their
+ * computer to import completed forms into the database. Includes a
+ * text description and the Import button.
+ */
 export default function CSVImport() {
-  const [uploadedCSV, setUploadedCSV] = useState<File | null>(null);
+  const inputFile = useRef<HTMLInputElement>(null);
 
-  // called when the user uploads a new file via the "choose file" button
-  // stores the uploaded file if it is a CSV file, or alerts the user
-  // if they uploaded the wrong file type
-  function handleFileUpload() {
-    const csv_input = document.getElementById('csv_upload') as HTMLInputElement;
-    const files = csv_input.files;
-    setUploadedCSV(null);
+  // called after the user uploads a file
+  // sends the uploaded file to the endpoint if it is a CSV file, or
+  // alerts the user if they uploaded the wrong file type
+  async function handleFileUpload() {
+    const file_input = inputFile.current!;
+    const files = file_input.files;
     if (files?.length === 1) {
       const uploadedFile = files[0];
       if (uploadedFile.type === 'text/csv') {
-        setUploadedCSV(uploadedFile);
+        putMultipleCSVForms(await uploadedFile.text());
       } else {
         alert('Please upload a CSV file');
-        csv_input.value = '';
       }
     }
+    file_input.value = '';
   }
 
-  // calls the endpoint to import CSV form data if a CSV file has been
-  // uploaded, or alerts the user otherwise
-  async function handleImportButtonClick() {
-    if (uploadedCSV === null) {
-      alert('Please upload a CSV file first');
-    } else {
-      putMultipleCSVForms(await uploadedCSV?.text());
-    }
+  // clicks the hidden file input
+  function handleImportButtonClick() {
+    inputFile.current?.click();
   }
 
   return (
@@ -46,12 +45,14 @@ export default function CSVImport() {
     >
       <Text>Upload a CSV file to import completed forms:</Text>
       <input
-        id="csv_upload"
-        name="csv_upload"
+        id="hidden_file_input"
+        name="hidden_file_input"
         type="file"
         accept=".csv"
+        ref={inputFile}
         onChange={handleFileUpload}
-      ></input>
+        style={{ display: 'none' }}
+      />
       <Button
         id="csv_import"
         name="csv_import"
