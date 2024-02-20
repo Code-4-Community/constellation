@@ -113,6 +113,21 @@ export const HospitalInfoSection: React.FC = () => {
         onChange={(value: string) => handleStateSelectChange(value)}
       />
 
+      {isOtherStatesSelected && (
+        <p>
+          We apologize we must currently give preference to families located
+          near us (within the New England area). Below you can find resources
+          for families for families from other organizations that may be able to
+          better assist you at this time: <br />
+          <a
+            href="https://cac2.org/impact-areas/family-support/hope-portal"
+            style={{ color: 'blue' }}
+          >
+            VISIT THE HOPE PORTAL NOW
+          </a>
+        </p>
+      )}
+
       <FormField
         inputVariant="text"
         name="financialAssistanceForm.hospitalAddress.zipcode"
