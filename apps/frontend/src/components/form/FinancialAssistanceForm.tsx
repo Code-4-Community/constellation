@@ -117,7 +117,7 @@ export const HospitalInfoSection: React.FC = () => {
         <p>
           We apologize we must currently give preference to families located
           near us (within the New England area). Below you can find resources
-          for families for families from other organizations that may be able to
+          for families from other organizations that may be able to
           better assist you at this time: <br />
           <a
             href="https://cac2.org/impact-areas/family-support/hope-portal"
