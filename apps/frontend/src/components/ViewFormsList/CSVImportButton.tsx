@@ -1,35 +1,33 @@
-import { Box, Text, Button } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { putMultipleCSVForms } from '../../utils/sendRequest';
 
 /**
- * A component that allows the user to upload a CSV file from their
- * computer to import completed forms into the database. Includes a
- * text description and the Import button.
+ * A button component that allows the user to upload a CSV file
+ * from their computer to import completed forms into the database.
  */
-export default function CSVImport() {
-  const inputFile = useRef<HTMLInputElement>(null);
+export default function CSVImportButton() {
+  const fileInput = useRef<HTMLInputElement>(null);
 
   // called after the user uploads a file
   // sends the uploaded file to the endpoint if it is a CSV file, or
   // alerts the user if they uploaded the wrong file type
   async function handleFileUpload() {
-    const file_input = inputFile.current!;
-    const files = file_input.files;
-    if (files?.length === 1) {
+    const files = fileInput.current?.files;
+    if (files && files.length === 1) {
       const uploadedFile = files[0];
       if (uploadedFile.type === 'text/csv') {
         putMultipleCSVForms(await uploadedFile.text());
       } else {
         alert('Please upload a CSV file');
       }
+      fileInput.current.value = '';
     }
-    file_input.value = '';
   }
 
   // clicks the hidden file input
   function handleImportButtonClick() {
-    inputFile.current?.click();
+    fileInput.current?.click();
   }
 
   return (
@@ -43,13 +41,12 @@ export default function CSVImport() {
       marginRight="auto"
       width="98%"
     >
-      <Text>Upload a CSV file to import completed forms:</Text>
       <input
         id="hidden_file_input"
         name="hidden_file_input"
         type="file"
         accept=".csv"
-        ref={inputFile}
+        ref={fileInput}
         onChange={handleFileUpload}
         style={{ display: 'none' }}
       />
@@ -58,7 +55,7 @@ export default function CSVImport() {
         name="csv_import"
         onClick={handleImportButtonClick}
       >
-        Import
+        Import Forms from CSV
       </Button>
     </Box>
   );
