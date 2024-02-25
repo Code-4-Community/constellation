@@ -25,7 +25,7 @@ import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
 } from '../../utils/sortFunctions';
-import CSVImport from './CSVImport';
+import CSVImportButton from './CSVImportButton';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
@@ -87,7 +87,7 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <CSVImport />
+      <CSVImportButton />
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"
