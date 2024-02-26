@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Center,
@@ -13,11 +13,13 @@ import {
   Th,
   Thead,
   Tr,
-  Link,
   Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
+import {
+  getAllForms,
+  markFormAsRead
+} from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
@@ -26,6 +28,8 @@ import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
 } from '../../utils/sortFunctions';
+import CSVImportButton from './CSVImportButton';
+
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
@@ -86,6 +90,7 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
+      <CSVImportButton />
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"
