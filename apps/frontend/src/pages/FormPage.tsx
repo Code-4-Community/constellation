@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
+import FormSection from '../components/form/FormSection';
 import { financialAssistanceFormSchema, formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import Confirmation from '../components/form/branches/Confirmation';
@@ -26,6 +27,7 @@ import NextButton from '../components/form/NextButton';
 import Header from '../components/header/Header';
 import SubmitButton from '../components/form/SubmitButton';
 import { useStateFormContext } from '../hooks/useStateFormContext';
+import CSVImportButton from '../components/ViewFormsList/CSVImportButton';
 const FormPage: React.FC = () => {
   const sections: { [key: number]: JSX.Element } = {
     1: <ChildInfoSection />,
@@ -58,7 +60,7 @@ const FormPage: React.FC = () => {
 
   const onSubmit = async (
     values: FormValues,
-    actions: FormikHelpers<any>,
+    actions: FormikHelpers<any>
   ): Promise<void> => {
     try {
       await submitForm(values, actions.resetForm);
@@ -106,7 +108,7 @@ const FormPage: React.FC = () => {
               />
             )}
 
-            {sections[step]}
+            {/*{sections[step]}
 
             <Center mt={4}>
               {step > 1 && eligibleToSubmit && (
@@ -131,7 +133,12 @@ const FormPage: React.FC = () => {
               {eligibleToSubmit &&
                 step === numOfSections &&
                 SubmitButton({ form })}
-            </Center>
+            </Center>*/}
+            <FormSection title="Background/Contact Information">
+              <br />
+              {sections[step]}
+              <br />
+            </FormSection>
           </Form>
         </Container>
       )}
