@@ -191,7 +191,7 @@ Dev:
 ```
 git checkout develop
 npm run build
-sam deploy —config-env prod
+sam deploy --config-env prod
 ```
 
 Prod:
