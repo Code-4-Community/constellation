@@ -9,11 +9,11 @@ import { validateRequestBody } from '../utils/validateRequestBody.js';
 /**
  * An HTTP post method to add one form to the QLDB table.
  */
-export const putFormHandler = async (event: APIGatewayEvent) => {
+export const postFormHandler = async (event: APIGatewayEvent) => {
   let isValidResponse = validateMethodType(
     event.httpMethod,
     'POST',
-    'putFormHandler'
+    'postFormHandler'
   );
   if (isValidResponse) {
     return isValidResponse;

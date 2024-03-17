@@ -161,11 +161,11 @@ Resources:
         Variables:
           ENV_NAME: !Ref EnvName
 
-  # This is a Lambda function config associated with the source code: putForm.ts
-  putFormFunction:
+  # This is a Lambda function config associated with the source code: postForm.ts
+  postFormFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: dist/handlers/putForm.putFormHandler
+      Handler: dist/handlers/postForm.postFormHandler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
@@ -184,6 +184,27 @@ Resources:
         Variables:
           ENV_NAME: !Ref EnvName
 
+  postMultipleCSVFormsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/postMultipleCSVForms.postMultipleCSVFormsHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: An HTTP post method to add one form to the QLDB table.
+      Role: !GetAtt QLDBSendCommandRole.Arn
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /forms
+            Method: POST
+            RestApiId: !Ref ApiGateway
+      Environment:
+        Variables:
+          ENV_NAME: !Ref EnvName
   updateDocumentAdminNotesFunction:
     Type: AWS::Serverless::Function
     Properties:
