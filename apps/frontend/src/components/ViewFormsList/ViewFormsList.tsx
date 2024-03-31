@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Center,
@@ -16,7 +16,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { getAllForms } from '../../utils/sendRequest';
+import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import { SortOptions, SortOrder } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
@@ -26,58 +26,53 @@ import {
   lastUpdatedCompareFunction,
   nameCompareFunction,
 } from '../../utils/sortFunctions';
+import CSVImportButton from './CSVImportButton';
+
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const navigate = useNavigate();
-  //navigate to an user's form based on the formId
+
+  //navigate to an user's form based on the formId, and update its read state
   const navigateToForm = (formId: string) => {
     navigate(`/form/${formId}`);
+    markFormAsRead(formId);
   };
+
   const getForms = async () => {
     const allForms = await getAllForms();
     setForms(allForms);
     setAllForms(allForms);
   };
+
   useEffect(() => {
     if (searchTerm.length > 0) {
       setForms(
         allForms.filter((form) => {
           const formValues = Object.values({
-            ...form.guardianForm,
-            ...form.medicalForm,
-            ...form.guardianForm.address,
+            ...form.financialAssistanceForm,
           });
           console.log(formValues);
-        } 
-        )
-      )
-      }
+        })
+      );
     }
-  ); 
-  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
-    forms,
-    setForms,
-    searchTerm
-  );
+  });
+
   useEffect(() => {
     getForms();
   }, []);
+
   const compareFunction =
-  sortBy === SortOptions.NAME
-    ? nameCompareFunction
-    : lastUpdatedCompareFunction;
+    sortBy === SortOptions.NAME
+      ? nameCompareFunction
+      : lastUpdatedCompareFunction;
   const { setSortOrder } = useSort(forms, compareFunction, setForms);
-
-
 
   // sort forms
 
   // filter forms by search term
-
-
 
   /* Filter forms by search term and lists of hospital and state filtering options;
      the setters returned by the filtering hook allow the hospitals and states to
@@ -96,8 +91,11 @@ export default function ViewFormsList() {
      the statesToFilter array will be shown; if an array is empty, then that type
      of filtering will not be performed
   */
-
-
+  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
+    allForms,
+    setForms,
+    searchTerm
+  );
 
   // event handler for all the checkboozes to a empty list until the boxes are checked then the list appends the checked boxes
   // keep the hosptial names as long and add the full names to the lists as well
@@ -106,7 +104,8 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <MultiSelect></MultiSelect>      
+      <MultiSelect></MultiSelect>
+      <CSVImportButton />
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Select
           width="25%"
@@ -136,6 +135,7 @@ export default function ViewFormsList() {
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
           <Tr>
+            <Th></Th>
             <Th>Last Updated</Th>
             <Th>Child Name</Th>
             <Th>Date of Birth</Th>
@@ -153,17 +153,31 @@ export default function ViewFormsList() {
           <Tbody>
             {forms.map((form) => (
               <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
+                <Td
+                  style={{
+                    color: '#3275a8',
+                    fontSize: '24pt',
+                  }}
+                >
+                  {form.read === undefined || !form.read ? '●' : ''}
+                </Td>
                 <Td>
                   {form.adminNotes.length > 0
                     ? new Date(
                         form.adminNotes[0].updatedAt
                       ).toLocaleDateString()
-                    : new Date(form.guardianForm.date).toLocaleDateString()}
+                    : new Date(
+                        form.financialAssistanceForm.date
+                      ).toLocaleDateString()}
                 </Td>
-                <Td>{form.guardianForm.childsName}</Td>
-                <Td>{new Date(form.guardianForm.dob).toLocaleDateString()}</Td>
-                <Td>{form.medicalForm.hospital}</Td>
-                <Td>{`${form.guardianForm.address.city}, ${form.guardianForm.address.state}`}</Td>
+                <Td>{form.financialAssistanceForm.childsName}</Td>
+                <Td>
+                  {new Date(
+                    form.financialAssistanceForm.dob
+                  ).toLocaleDateString()}
+                </Td>
+                <Td>{form.financialAssistanceForm.hospital}</Td>
+                <Td>{`${form.financialAssistanceForm.hospitalAddress.city}, ${form.financialAssistanceForm.hospitalAddress.state}`}</Td>
               </Tr>
             ))}
           </Tbody>
@@ -171,4 +185,4 @@ export default function ViewFormsList() {
       </Table>
     </Box>
   );
-}; 
+}

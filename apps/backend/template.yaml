@@ -42,6 +42,10 @@ Parameters:
     Type: String
     Description: 'Name of QLDB Send Command Role'
 
+  UserPoolArn:
+    Type: String
+    Description: 'Resource name of Cognito user group for authorization'
+
 Resources:
   # Defines an IAM role for Lambdas that allows them to:
   # 1. interact with the QLDB transactional data API
@@ -80,7 +84,7 @@ Resources:
       Auth:
         Authorizers:
           CognitoAuthorizer:
-            UserPoolArn: arn:aws:cognito-idp:us-east-1:489881683177:userpool/us-east-1_ItaXWUupj
+            UserPoolArn: !Ref UserPoolArn
 
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction

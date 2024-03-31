@@ -1,68 +1,139 @@
-import { Button, Center, Spacer, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Container,
+  Heading,
+  Spacer,
+  Text,
+} from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
-import { formSchema } from '../types/formSchema';
+import { financialAssistanceFormSchema, formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
-import GrantFormPage from './GrantFormPage';
-import MedicalFormPage from './MedicalFormPage';
+import Confirmation from '../components/form/branches/Confirmation';
+import Message from '../components/form/branches/Message';
+import {
+  ChildInfoSection,
+  MedDetailsSection,
+  HospitalInfoSection,
+  GrantDetailsSection,
+  MedProfessionalDetailsSection,
+  NotesSection,
+} from '../components/form/FinancialAssistanceForm';
 
+import { useState } from 'react';
+import NextButton from '../components/form/NextButton';
+import Header from '../components/header/Header';
+import SubmitButton from '../components/form/SubmitButton';
+import { useStateFormContext } from '../hooks/useStateFormContext';
 const FormPage: React.FC = () => {
+  const sections: { [key: number]: JSX.Element } = {
+    1: <ChildInfoSection />,
+    2: <MedDetailsSection />,
+    3: <HospitalInfoSection />,
+    4: <GrantDetailsSection />,
+    5: <MedProfessionalDetailsSection />,
+    6: <NotesSection />,
+  };
+  const [step, setStep] = useState<number>(0);
+  const [eligibleToSubmit, setEligibleToSubmit] = useState<boolean>(true);
+  const numOfSections = 6;
+
+  const handleFinancialAssistanceForm = (response: boolean) => {
+    if (response) {
+      setStep(1);
+    } else {
+      setEligibleToSubmit(false);
+    }
+  };
+
+  // Navigation Logic
+  const nextStep = () => {
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const prevStep = () => {
+    setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : 1));
+  };
+
   const onSubmit = async (
     values: FormValues,
-    actions: FormikHelpers<any>
+    actions: FormikHelpers<any>,
   ): Promise<void> => {
     try {
-      await submitForm(values);
+      await submitForm(values, actions.resetForm);
     } finally {
       actions.setSubmitting(false);
+      setStep(0);
     }
   };
 
-  /**
-   * Determines whether the submit button should be enabled.
-   *
-   * @param values the values currently entered into the form
-   * @returns true iff the values can be parsed successfully
-   */
-  const enableButton = (values: FormValues): boolean => {
-    try {
-      formSchema.validateSync(values);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
+  const { isOtherStatesSelected } = useStateFormContext();
 
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={{}}
+      initialValues={{
+        financialAssistanceForm: financialAssistanceFormSchema.getDefault(),
+      }}
       validationSchema={formSchema}
     >
       {(form) => (
-        <Form>
-          <GrantFormPage />
+        <Container>
+          <Header />
+          <Heading size="md" textAlign="center">
+            Application for Financial Assistance
+          </Heading>
+          <Text textAlign="center" padding="2">
+            (to be completed by medical professional)
+          </Text>
 
-          <Spacer height={16} />
+          <Box height="5vh" />
 
-          <MedicalFormPage />
+          <Form>
+            {step === 0 && eligibleToSubmit && (
+              <Confirmation
+                confirmationQuestion={'Are you a medical professional?'}
+                onConfirm={handleFinancialAssistanceForm}
+              />
+            )}
 
-          <Center>
-            <Tooltip
-              label="Fill out all required fields first!"
-              isDisabled={enableButton(form.values)}
-            >
-              <Button
-                mt={4}
-                colorScheme="teal"
-                onClick={form.submitForm}
-                isDisabled={!enableButton(form.values)}
-              >
-                Submit
-              </Button>
-            </Tooltip>
-          </Center>
-        </Form>
+            {!eligibleToSubmit && (
+              <Message
+                message={
+                  'You must be a medical professional to fill out this form.'
+                }
+              />
+            )}
+
+            {sections[step]}
+
+            <Center mt={4}>
+              {step > 1 && eligibleToSubmit && (
+                <>
+                  <NextButton
+                    option={'Previous'}
+                    nextStep={prevStep}
+                    isDisabled={isOtherStatesSelected}
+                  />
+                  <Spacer />
+                </>
+              )}
+
+              {step > 0 && step < numOfSections && eligibleToSubmit && (
+                <NextButton
+                  option={'Next'}
+                  nextStep={nextStep}
+                  isDisabled={isOtherStatesSelected}
+                />
+              )}
+
+              {eligibleToSubmit &&
+                step === numOfSections &&
+                SubmitButton({ form })}
+            </Center>
+          </Form>
+        </Container>
       )}
     </Formik>
   );

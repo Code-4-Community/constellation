@@ -26,46 +26,29 @@ export const readSchema = z.object({
 export const adminNotesSchema = adminNoteSchema.array();
 export type AdminNotes = z.infer<typeof adminNotesSchema>;
 
-// Part of form to be filled out by the child's parent/legal guardian
-const guardianFormSchema = z.object({
+// Schema for the financial assistance form.
+const financialAssistanceFormSchema = z.object({
   childsName: z.string().min(1),
   dob: dateSchema,
-  gender: z.string().optional(),
   guardianName: z.string().min(1),
-  address: addressSchema,
-  phone: phoneNumber,
-  cellPhone: phoneNumber.optional(),
-  email: z.string().email(),
-  requestedGrantAmount: z.number().positive().optional(),
-  intendedUseOfGrant: z.string().optional(),
-  signature: z.string().min(1), // Not sure how this will be formated
-  date: dateSchema,
-  notes: z.string().optional(),
-});
-
-// Part of form to be filled out by a medical professional
-const medicalFormSchema = z.object({
   childsDiagnosis: z.string().min(1),
   otherDiagnosis: z.string().optional(),
   dateOfDiagnosis: dateSchema,
   childsPhysician: z.string().min(1),
   hospital: z.string().min(1),
   otherHospital: z.string().optional(),
-  address: addressSchema,
-  phone: phoneNumber,
-  descriptionOfCondition: z.string().optional(),
-  medicalProfessionalName: z.string().optional(),
-  medicalProfessionalTitle: z.string().optional(),
-  signature: z.string().min(1),
-  date: dateSchema,
-  socialWorkersEmail: z.string().email(),
+  hospitalAddress: addressSchema,
+  requestedGrantAmount: z.number().positive().optional(),
+  intendedUseOfGrant: z.string().optional(),
+  medicalProfessionalPhone: phoneNumber,
+  medicalProfessionalEmail: z.string().email(),
   notes: z.string().optional(),
+  date: dateSchema,
 });
 
 export const formSchema = z.object({
   id: z.string(),
-  guardianForm: guardianFormSchema,
-  medicalForm: medicalFormSchema,
+  financialAssistanceForm: financialAssistanceFormSchema,
   adminNotes: adminNotesSchema,
-  read: z.boolean().optional(),
+  read: z.boolean(),
 });

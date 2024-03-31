@@ -40,8 +40,8 @@ export async function updateDocumentAdminNotes(id: string, notes: AdminNotes) {
 export async function markFormAsRead(id: string) {
   return await qldbDriver.executeLambda(async (txn) => {
     return await txn.execute(
-      `UPDATE ${tableName} as f SET f.read = true where f.id = ?`,
+      `UPDATE ${tableName} as f SET f."read" = 'true' where f.id = ?`,
       id
     );
   });
-} 
+}

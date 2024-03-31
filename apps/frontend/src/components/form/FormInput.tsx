@@ -9,7 +9,6 @@ import {
 import { FieldInputProps } from 'formik';
 import { InputVariant } from '../../types/input';
 import FormSelect from './inputTypes/FormSelect';
-import NumberInput from './inputTypes/NumberInput';
 
 interface FormInputProps {
   variant: InputVariant;
@@ -17,6 +16,9 @@ interface FormInputProps {
   id: string;
   description?: string;
   selectList?: string[][];
+  onChange?: (value: any) => void;
+  isDisabled?: boolean;
+  placeholder?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -25,11 +27,34 @@ const FormInput: React.FC<FormInputProps> = ({
   id,
   description,
   selectList,
+  onChange,
+  isDisabled,
+  placeholder,
 }) => {
+  const handleChange = (value: any) => {
+    field.onChange({
+      target: {
+        value,
+        name: field.name,
+      },
+    });
+    onChange?.(value);
+  };
+
   if (variant === 'text' || variant === 'email' || variant === 'date') {
-    return <Input {...field} id={id} type={variant} />;
+    return <Input {...field} id={id} type={variant} isDisabled={isDisabled} />;
   } else if (variant === 'number' || variant === 'money') {
-    return <NumberInput inputVariant={variant} field={field} id={id} />;
+    return (
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          color="gray.300"
+          fontSize="1.2em"
+          children="$"
+        />
+        <Input type="number" {...field} id={id} isDisabled={isDisabled} />
+      </InputGroup>
+    );
   } else if (variant === 'phoneNumber') {
     return (
       <InputGroup>
@@ -37,13 +62,18 @@ const FormInput: React.FC<FormInputProps> = ({
           pointerEvents="none"
           children={<PhoneIcon color="gray.300" />}
         />
-        <Input type="text" {...field} id={id} />
+        <Input type="text" {...field} id={id} isDisabled={isDisabled} />
       </InputGroup>
     );
   } else if (variant === 'textArea') {
     return (
       <>
-        <Textarea {...field} id={'useOfGrant'} />
+        <Textarea
+          {...field}
+          id={'useOfGrant'}
+          isDisabled={isDisabled}
+          placeholder={placeholder}
+        />
         <FormHelperText>{description}</FormHelperText>
       </>
     );
@@ -54,6 +84,8 @@ const FormInput: React.FC<FormInputProps> = ({
         id={id}
         selectList={selectList}
         field={field}
+        onChange={(value) => handleChange(value)}
+        isDisabled={isDisabled}
       />
     );
   }

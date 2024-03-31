@@ -12,3 +12,8 @@ export const POST_FORM_URL = `${BASE_URL}/form`;
 
 export const PATCH_ADMIN_NOTES_URL = (id: string) =>
   `${BASE_URL}/form/${id}/notes`;
+
+export const MARK_FORM_AS_READ_URL = (id: string) =>
+  `${BASE_URL}/form/${id}/read`;
+
+export const PUT_MULTIPLE_CSV_FORMS_URL = `${BASE_URL}/forms`
