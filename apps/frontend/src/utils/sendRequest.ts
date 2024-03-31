@@ -7,6 +7,7 @@ import {
   MARK_FORM_AS_READ_URL,
   PATCH_ADMIN_NOTES_URL,
   POST_FORM_URL,
+  PUT_MULTIPLE_CSV_FORMS_URL,
 } from '../constants/endpoints';
 import { FormData } from '../types/formData';
 import { AdminNotes, formSchema } from '../types/formSchema';
@@ -63,3 +64,17 @@ export const markFormAsRead = async (id: string): Promise<AxiosResponse> => {
     read: true,
   });
 };
+
+export const putMultipleCSVForms = async (
+  rawCSVData: string
+): Promise<void> => {
+  try {
+    await authenticatedAxios.put(PUT_MULTIPLE_CSV_FORMS_URL, {
+      csvData: rawCSVData
+    })
+    alert('Forms successfully imported!');
+  } catch (error) {
+    console.log('axios error making post request', error);
+    alert('Error importing forms');
+  }
+}
