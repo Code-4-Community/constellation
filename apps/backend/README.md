@@ -93,7 +93,7 @@ Then run:
 
 ```
 npm run build
-sam deploy —config-env dev
+sam deploy --config-env dev
 ```
 
 2. The other option is to walk through setting up the configuration yourself, by running:
@@ -191,7 +191,7 @@ Dev:
 ```
 git checkout develop
 npm run build
-sam deploy —config-env prod
+sam deploy --config-env prod
 ```
 
 Prod:
@@ -199,7 +199,7 @@ Prod:
 ```
 git checkout develop
 npm run build
-sam deploy —config-env dev
+sam deploy --config-env dev
 ```
 
 ## Add a resource to your application
