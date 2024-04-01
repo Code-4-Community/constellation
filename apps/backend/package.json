@@ -11,6 +11,7 @@
     "@aws-sdk/lib-dynamodb": "^3.188.0",
     "@aws-sdk/node-http-handler": "^3.267.0",
     "amazon-qldb-driver-nodejs": "^3.0.1",
+    "csv-parse": "^5.5.5",
     "ion-js": "^4.3.0",
     "jsbi": "^3.2.5",
     "source-map-support": "^0.5.21",
