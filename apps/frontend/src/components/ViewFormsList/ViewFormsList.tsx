@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Center,
   Flex,
   Heading,
-  Select,
   Spacer,
   Spinner,
   Table,
@@ -13,15 +12,11 @@ import {
   Th,
   Thead,
   Tr,
-  Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import {
-  getAllForms,
-  markFormAsRead
-} from '../../utils/sendRequest';
+import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
-import { SortOptions, SortOrder } from '../../enums/SortOrder';
+import { SortOptions } from '../../enums/SortOrder';
 import useFormsListFiltering from '../../hooks/useFormsListFiltering';
 import { useSort } from '../../hooks/useSort';
 import {
@@ -29,13 +24,12 @@ import {
   nameCompareFunction,
 } from '../../utils/sortFunctions';
 import CSVImportButton from './CSVImportButton';
+import ViewFormsOptions from './ViewFormsOptions';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
   const [allForms, setAllForms] = useState<FormData[]>([]); // this is used to get all forms again after removing a filter/search term
-  const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
 
-  const [searchTerm, setSearchTerm] = useState<string>('');
   const navigate = useNavigate();
 
   //navigate to an user's form based on the formId, and update its read state
@@ -50,37 +44,6 @@ export default function ViewFormsList() {
     setAllForms(allForms);
   };
 
-  // sort forms
-
-  const compareFunction =
-    sortBy === SortOptions.NAME
-      ? nameCompareFunction
-      : lastUpdatedCompareFunction;
-  const { setSortOrder } = useSort(forms, compareFunction, setForms);
-
-  /* Filter forms by search term and lists of hospital and state filtering options;
-     the setters returned by the filtering hook allow the hospitals and states to
-     filter for to be updated
-
-     Note: hospitalsToFilter should contain only hospital abbreviations as represented
-     in the keys of the HospitalsDropdownValues enum / as they appear in the
-     "hospital" column of the table (e.g., ["BOSHOSPITAL"])
-
-     Note: statesToFilter should contain only state abbreviations as represented in
-     the keys of the StatesDropdownValues enum / as they appear in the "location"
-     column of the table (e.g., ["MA", "NH"])
-
-     After filtering by search term, the forms list will be filtered such that only
-     forms whose hospital is in the hospitalsToFilter array and whose state is in
-     the statesToFilter array will be shown; if an array is empty, then that type
-     of filtering will not be performed
-  */
-  const { setHospitalsToFilter, setStatesToFilter } = useFormsListFiltering(
-    allForms,
-    setForms,
-    searchTerm
-  );
-
   useEffect(() => {
     getForms();
   }, []);
@@ -90,33 +53,12 @@ export default function ViewFormsList() {
       <Center mb={1}>
         <Heading size="xl">Submitted Forms</Heading>
       </Center>
-      <CSVImportButton />
-      <Box display="flex" flexDirection="row" justifyContent="space-between">
-        <Select
-          width="25%"
-          mb={2}
-          ml={4}
-          onChange={(event) => setSortBy(event.target.value as SortOptions)}
-        >
-          <option value={SortOptions.NAME}>Sort by Name</option>
-          <option value={SortOptions.LASTUPDATED}>Sort by Last Updated</option>
-        </Select>
-        <Select
-          width="25%"
-          mb={2}
-          mr={4}
-          onChange={(event) => setSortOrder(event.target.value as SortOrder)}
-        >
-          <option value={SortOrder.ASC}>Ascending</option>
-          <option value={SortOrder.DESC}>Descending</option>
-        </Select>
-        <Input
-          width="25%"
-          mr={4}
-          placeholder="Search"
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
+      <Box mb={8}>
+        <CSVImportButton />
       </Box>
+
+      <ViewFormsOptions forms={forms} allForms={allForms} setForms={setForms} />
+
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
         <Thead>
           <Tr>

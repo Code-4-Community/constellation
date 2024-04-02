@@ -10,42 +10,25 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
 import { financialAssistanceFormSchema, formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
-import Confirmation from '../components/form/branches/Confirmation';
 import Message from '../components/form/branches/Message';
-import {
-  ChildInfoSection,
-  MedDetailsSection,
-  HospitalInfoSection,
-  GrantDetailsSection,
-  MedProfessionalDetailsSection,
-  NotesSection,
-} from '../components/form/FinancialAssistanceForm';
-
 import { useState } from 'react';
 import NextButton from '../components/form/NextButton';
 import Header from '../components/header/Header';
 import SubmitButton from '../components/form/SubmitButton';
-import { useStateFormContext } from '../hooks/useStateFormContext';
-const FormPage: React.FC = () => {
-  const sections: { [key: number]: JSX.Element } = {
-    1: <ChildInfoSection />,
-    2: <MedDetailsSection />,
-    3: <HospitalInfoSection />,
-    4: <GrantDetailsSection />,
-    5: <MedProfessionalDetailsSection />,
-    6: <NotesSection />,
-  };
-  const [step, setStep] = useState<number>(0);
-  const [eligibleToSubmit, setEligibleToSubmit] = useState<boolean>(true);
-  const numOfSections = 6;
+import FormPageSections from '../components/form/branches/FormPageSections';
 
-  const handleFinancialAssistanceForm = (response: boolean) => {
-    if (response) {
-      setStep(1);
-    } else {
-      setEligibleToSubmit(false);
-    }
-  };
+const FormPage: React.FC = () => {
+  const [isMedicalProfessional, setIsMedicalProfessional] = useState<
+    boolean | undefined
+  >(undefined);
+
+  const [isValidState, setIsValidState] = useState<boolean | undefined>(
+    undefined
+  );
+
+  const [step, setStep] = useState<number>(0);
+
+  const numOfSections = 7;
 
   // Navigation Logic
   const nextStep = () => {
@@ -53,22 +36,35 @@ const FormPage: React.FC = () => {
   };
 
   const prevStep = () => {
-    setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : 1));
+    setStep((prevStep) => (prevStep > 0 ? prevStep - 1 : 1));
   };
 
   const onSubmit = async (
     values: FormValues,
-    actions: FormikHelpers<any>,
+    actions: FormikHelpers<any>
   ): Promise<void> => {
     try {
       await submitForm(values, actions.resetForm);
     } finally {
       actions.setSubmitting(false);
       setStep(0);
+      setIsMedicalProfessional(undefined);
+      setIsValidState(undefined);
     }
   };
 
-  const { isOtherStatesSelected } = useStateFormContext();
+  const showBranchMedical = isMedicalProfessional === false && step === 1;
+  const showBranchState = isValidState === false && step === 2;
+
+  const disableNextButton =
+    (step === 0 && isMedicalProfessional === undefined) ||
+    (step === 1 && isValidState === undefined);
+
+  const showNextButton =
+    step < numOfSections && !showBranchMedical && !showBranchState;
+
+  const showSubmitButton =
+    isMedicalProfessional && isValidState && step === numOfSections;
 
   return (
     <Formik
@@ -91,46 +87,58 @@ const FormPage: React.FC = () => {
           <Box height="5vh" />
 
           <Form>
-            {step === 0 && eligibleToSubmit && (
-              <Confirmation
-                confirmationQuestion={'Are you a medical professional?'}
-                onConfirm={handleFinancialAssistanceForm}
+            {!showBranchMedical && !showBranchState && (
+              <FormPageSections
+                sectionNum={step}
+                isMedicalProfessional={isMedicalProfessional}
+                setIsMedicalProfessional={setIsMedicalProfessional}
+                isValidState={isValidState}
+                setIsValidState={setIsValidState}
               />
             )}
 
-            {!eligibleToSubmit && (
-              <Message
-                message={
-                  'You must be a medical professional to fill out this form.'
-                }
-              />
+            {showBranchMedical && (
+              <Message>
+                <Text>
+                  You must be a medical professional to fill out this form.
+                </Text>
+              </Message>
             )}
 
-            {sections[step]}
+            {showBranchState && (
+              <Message>
+                <Text>
+                  We apologize we must currently give preference to families
+                  located near us (within the New England area). Below you can
+                  find resources for families from other organizations that may
+                  be able to better assist you at this time:
+                  <a
+                    href="https://cac2.org/impact-areas/family-support/hope-portal"
+                    style={{ color: 'blue', display: 'block' }}
+                  >
+                    VISIT THE HOPE PORTAL NOW
+                  </a>
+                </Text>
+              </Message>
+            )}
 
             <Center mt={4}>
-              {step > 1 && eligibleToSubmit && (
+              {step > 0 && (
                 <>
-                  <NextButton
-                    option={'Previous'}
-                    nextStep={prevStep}
-                    isDisabled={isOtherStatesSelected}
-                  />
+                  <NextButton option={'Previous'} nextStep={prevStep} />
                   <Spacer />
                 </>
               )}
 
-              {step > 0 && step < numOfSections && eligibleToSubmit && (
+              {showNextButton && (
                 <NextButton
                   option={'Next'}
                   nextStep={nextStep}
-                  isDisabled={isOtherStatesSelected}
+                  isDisabled={disableNextButton}
                 />
               )}
 
-              {eligibleToSubmit &&
-                step === numOfSections &&
-                SubmitButton({ form })}
+              {showSubmitButton && SubmitButton({ form })}
             </Center>
           </Form>
         </Container>
