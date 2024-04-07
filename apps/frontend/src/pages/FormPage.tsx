@@ -135,9 +135,7 @@ const FormPage: React.FC = () => {
                 SubmitButton({ form })}
             </Center>*/}
             <FormSection title="Background/Contact Information">
-              <br />
               {sections[step]}
-              <br />
             </FormSection>
           </Form>
         </Container>
