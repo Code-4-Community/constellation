@@ -15,7 +15,6 @@ const NextButton: React.FC<NextButtonProps> = ({
     <Button
       colorScheme="teal"
       onClick={nextStep}
-      ml={2}
       isDisabled={isDisabled}
     >
       {option}
