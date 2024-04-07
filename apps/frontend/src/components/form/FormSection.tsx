@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import NextButton from './NextButton';
 
 interface FormSectionProps {
@@ -14,12 +14,18 @@ interface FormSectionProps {
 export default function FormSection({ title, children }: FormSectionProps) {
   return (
     <Box>
-      <Box bg="#832BBE">
-        {title}
-        {children}
+      <Box bg="#422669" padding="3" marginBottom="3">
+        <Box color="#FFFFFF" marginBottom="3">
+          {title}
+        </Box>
+        <Box bg="#FFFFFF" paddingLeft="3" paddingRight="3">
+          {children}
+        </Box>
       </Box>
-      <NextButton option="Previous" nextStep={() => {}} />
-      <NextButton option="Next" nextStep={() => {}} />
+      <Flex justifyContent="space-between">
+        <NextButton option="Previous" nextStep={() => {}} />
+        <NextButton option="Next" nextStep={() => {}} />
+      </Flex>
     </Box>
   );
 }
