@@ -10,6 +10,7 @@ import NotFoundPage from '../pages/404';
 import FormPage from '../pages/FormPage';
 import OneFormPage from '../pages/OneFormPage';
 import { FormProvider } from '../hooks/useStateFormContext';
+import poppinsTheme from '../theme';
 
 Amplify.configure(awsExports);
 
@@ -51,7 +52,7 @@ function ConstellationRoutes() {
 export function App() {
   return (
     <Authenticator.Provider>
-      <ChakraProvider>
+      <ChakraProvider theme={poppinsTheme}>
         <ConstellationRoutes />
       </ChakraProvider>
     </Authenticator.Provider>
