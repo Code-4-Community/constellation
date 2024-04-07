@@ -9,6 +9,19 @@ export async function insertDocument(
   });
 }
 
+export async function insertDocuments(
+  documents: Record<string, any>[]
+): Promise<void> {
+  await qldbDriver.executeLambda(async (txn) => {
+    const placeholders = documents.map(() => '(?)').join(',');
+
+    await txn.execute(
+      `INSERT INTO ${tableName} VALUES ${placeholders}`,
+      documents
+    );
+  });
+}
+
 export async function fetchDocuments() {
   return await qldbDriver.executeLambda(async (txn) => {
     const result = await txn.execute(`SELECT * from ${tableName}`);
