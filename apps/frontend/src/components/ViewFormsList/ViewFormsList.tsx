@@ -59,7 +59,7 @@ export default function ViewFormsList() {
 
       <ViewFormsOptions forms={forms} allForms={allForms} setForms={setForms} />
 
-      <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
+      <Table marginLeft="auto" marginRight="auto" width="98%" variant="simple">
         <Thead>
           <Tr>
             <Th></Th>
