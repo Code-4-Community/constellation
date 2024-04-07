@@ -59,15 +59,16 @@ export default function ViewFormsList() {
 
       <ViewFormsOptions forms={forms} allForms={allForms} setForms={setForms} />
 
-      <Table marginLeft="auto" marginRight="auto" width="98%" variant="striped">
+      <Table marginLeft="auto" marginRight="auto" width="98%" variant="simple">
         <Thead>
           <Tr>
             <Th></Th>
-            <Th>Last Updated</Th>
-            <Th>Child Name</Th>
-            <Th>Date of Birth</Th>
-            <Th>Hospital</Th>
-            <Th>Location</Th>
+            <Th></Th>
+            <Th sx={{ color: '#000000', fontSize: '23px'}}>Last Updated</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px'}}>Child Name</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px'}}>Date of Birth</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px'}}>Hospital</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px'}}>Location</Th>
           </Tr>
         </Thead>
         {forms === null ? (
@@ -78,33 +79,36 @@ export default function ViewFormsList() {
           </Flex>
         ) : (
           <Tbody>
-            {forms.map((form) => (
-              <Tr key={form.id} onClick={() => navigateToForm(form.id)}>
+            {forms.map((form, index) => (
+              <Tr key={form.id} onClick={() => navigateToForm(form.id)} sx={{
+                color: index % 2 === 0 ? '#000000' : '#555555',
+              }}>
+                <Td sx={{fontSize: '20px'}}>{`${index + 1}.`}</Td>
                 <Td
                   style={{
-                    color: '#3275a8',
+                    color: '#E3670C',
                     fontSize: '24pt',
                   }}
                 >
                   {form.read === undefined || !form.read ? '●' : ''}
                 </Td>
-                <Td>
+                <Td sx={{ fontSize: '20px' }}>
                   {form.adminNotes.length > 0
                     ? new Date(
-                        form.adminNotes[0].updatedAt
-                      ).toLocaleDateString()
+                      form.adminNotes[0].updatedAt
+                    ).toLocaleDateString()
                     : new Date(
-                        form.financialAssistanceForm.date
-                      ).toLocaleDateString()}
+                      form.financialAssistanceForm.date
+                    ).toLocaleDateString()}
                 </Td>
-                <Td>{form.financialAssistanceForm.childsName}</Td>
-                <Td>
+                <Td sx={{ fontSize: '20px' }}>{form.financialAssistanceForm.childsName}</Td>
+                <Td sx={{ fontSize: '20px' }}>
                   {new Date(
                     form.financialAssistanceForm.dob
                   ).toLocaleDateString()}
                 </Td>
-                <Td>{form.financialAssistanceForm.hospital}</Td>
-                <Td>{`${form.financialAssistanceForm.hospitalAddress.city}, ${form.financialAssistanceForm.hospitalAddress.state}`}</Td>
+                <Td sx={{ fontSize: '20px' }}>{form.financialAssistanceForm.hospital}</Td>
+                <Td sx={{ fontSize: '20px' }}>{`${form.financialAssistanceForm.hospitalAddress.city}, ${form.financialAssistanceForm.hospitalAddress.state}`}</Td>
               </Tr>
             ))}
           </Tbody>
