@@ -1,10 +1,11 @@
 import { Container, Text } from '@chakra-ui/react';
+import { ReactNode } from 'react';
 
 type MessageProps = {
-  message: string;
+  children: ReactNode;
 };
 
-const Message = ({ message }: MessageProps) => {
+const Message: React.FC<MessageProps> = ({ children }) => {
   return (
     <Container
       maxW="container.md"
@@ -13,7 +14,7 @@ const Message = ({ message }: MessageProps) => {
       borderRadius="lg"
       boxShadow="lg"
     >
-      <Text>{message}</Text>
+      {children}
     </Container>
   );
 };

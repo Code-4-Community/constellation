@@ -22,10 +22,10 @@ export default function FormSection({ title, children }: FormSectionProps) {
           {children}
         </Box>
       </Box>
-      <Flex justifyContent="space-between">
+      {/* <Flex justifyContent="space-between">
         <NextButton option="Previous" nextStep={() => {}} />
         <NextButton option="Next" nextStep={() => {}} />
-      </Flex>
+      </Flex> */}
     </Box>
   );
 }
