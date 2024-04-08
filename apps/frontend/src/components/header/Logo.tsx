@@ -1,14 +1,14 @@
 export default function LogoSvg() {
   return (
     <svg
-      width="130"
-      height="98"
-      viewBox="0 0 130 98"
+      width="86"
+      height="65"
+      viewBox="0 0 86 65"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xlinkHref="http://www.w3.org/1999/xlink"
     >
-      <rect width="130" height="98" fill="url(#pattern0_403_629)" />
+      <rect width="86" height="65" fill="url(#pattern0_403_629)" />
       <defs>
         <pattern
           id="pattern0_403_629"

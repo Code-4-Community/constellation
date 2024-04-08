@@ -75,73 +75,70 @@ const FormPage: React.FC = () => {
       validationSchema={formSchema}
     >
       {(form) => (
-        <Container>
+        <Box>
           <Header />
-          <Heading size="md" textAlign="center">
-            Application for Financial Assistance
-          </Heading>
-          <Text textAlign="center" padding="2">
-            (to be completed by medical professional)
-          </Text>
+          <Container>
+            <Heading size="md" textAlign="center" fontSize="40px" mb="40px">
+              Financial Assistance Form
+            </Heading>
 
-          <Box height="5vh" />
-
-          <Form>
-            {!showBranchMedical && !showBranchState && (
-              <FormPageSections
-                sectionNum={step}
-                isMedicalProfessional={isMedicalProfessional}
-                setIsMedicalProfessional={setIsMedicalProfessional}
-                isValidState={isValidState}
-                setIsValidState={setIsValidState}
-              />
-            )}
-
-            {showBranchMedical && (
-              <Message>
-                <Text>
-                  You must be a medical professional to fill out this form.
-                </Text>
-              </Message>
-            )}
-
-            {showBranchState && (
-              <Message>
-                <Text>
-                  We apologize we must currently give preference to families
-                  located near us (within the New England area). Below you can
-                  find resources for families from other organizations that may
-                  be able to better assist you at this time:
-                  <a
-                    href="https://cac2.org/impact-areas/family-support/hope-portal"
-                    style={{ color: 'blue', display: 'block' }}
-                  >
-                    VISIT THE HOPE PORTAL NOW
-                  </a>
-                </Text>
-              </Message>
-            )}
-
-            <Center mt={4}>
-              {step > 0 && (
-                <>
-                  <NextButton option={'Previous'} nextStep={prevStep} />
-                  <Spacer />
-                </>
-              )}
-
-              {showNextButton && (
-                <NextButton
-                  option={'Next'}
-                  nextStep={nextStep}
-                  isDisabled={disableNextButton}
+            <Form>
+              {!showBranchMedical && !showBranchState && (
+                <FormPageSections
+                  sectionNum={step}
+                  isMedicalProfessional={isMedicalProfessional}
+                  setIsMedicalProfessional={setIsMedicalProfessional}
+                  isValidState={isValidState}
+                  setIsValidState={setIsValidState}
                 />
               )}
 
-              {showSubmitButton && SubmitButton({ form })}
-            </Center>
-          </Form>
-        </Container>
+              {showBranchMedical && (
+                <Message>
+                  <Text>
+                    You must be a medical professional to fill out this form.
+                  </Text>
+                </Message>
+              )}
+
+              {showBranchState && (
+                <Message>
+                  <Text>
+                    We apologize we must currently give preference to families
+                    located near us (within the New England area). Below you can
+                    find resources for families from other organizations that
+                    may be able to better assist you at this time:
+                    <a
+                      href="https://cac2.org/impact-areas/family-support/hope-portal"
+                      style={{ color: 'blue', display: 'block' }}
+                    >
+                      VISIT THE HOPE PORTAL NOW
+                    </a>
+                  </Text>
+                </Message>
+              )}
+
+              <Center mt={4}>
+                {step > 0 && (
+                  <>
+                    <NextButton option={'Previous'} nextStep={prevStep} />
+                    <Spacer />
+                  </>
+                )}
+
+                {showNextButton && (
+                  <NextButton
+                    option={'Next'}
+                    nextStep={nextStep}
+                    isDisabled={disableNextButton}
+                  />
+                )}
+
+                {showSubmitButton && SubmitButton({ form })}
+              </Center>
+            </Form>
+          </Container>
+        </Box>
       )}
     </Formik>
   );
