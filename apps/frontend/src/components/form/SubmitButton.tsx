@@ -29,8 +29,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ form }) => (
       isDisabled={enableButton(form.values)}
     >
       <Button
-        mt={4}
-        colorScheme="teal"
+        bg="#E3670C"
+        _hover={{ bg: "#E3670C61" }}
+        textColor="#FFFFFF"
         onClick={form.submitForm}
         isDisabled={!enableButton(form.values)}
       >
