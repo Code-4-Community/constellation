@@ -10,7 +10,7 @@ export const getAllFormsHandler = async (event: APIGatewayEvent) => {
   let response = validateMethodType(
     event.httpMethod,
     'GET',
-    'getAllFormsHandler'
+    'getAllFormsHandler',
   );
   if (response) {
     return response;

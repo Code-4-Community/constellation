@@ -23,7 +23,7 @@ const FormPage: React.FC = () => {
   >(undefined);
 
   const [isValidState, setIsValidState] = useState<boolean | undefined>(
-    undefined
+    undefined,
   );
 
   const [step, setStep] = useState<number>(0);
@@ -41,7 +41,7 @@ const FormPage: React.FC = () => {
 
   const onSubmit = async (
     values: FormValues,
-    actions: FormikHelpers<any>
+    actions: FormikHelpers<any>,
   ): Promise<void> => {
     try {
       await submitForm(values, actions.resetForm);

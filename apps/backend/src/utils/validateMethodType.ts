@@ -4,12 +4,12 @@ import { createResponse } from './createResponse.js';
 export const validateMethodType = (
   type: string,
   expectedType: string,
-  endpointName: string
+  endpointName: string,
 ) => {
   if (type !== expectedType) {
     return createResponse(
       400,
-      `${endpointName} only accepts ${expectedType} method, you tried: ${type} method.`
+      `${endpointName} only accepts ${expectedType} method, you tried: ${type} method.`,
     );
   }
 };

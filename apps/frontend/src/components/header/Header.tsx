@@ -3,7 +3,6 @@ import { Box, Link } from '@chakra-ui/react';
 import Logo from './Logo';
 
 const Header: React.FC = () => {
-
   return (
     <Box
       display="flex"

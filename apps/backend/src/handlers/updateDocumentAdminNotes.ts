@@ -9,12 +9,12 @@ import { validateRequestBody } from '../utils/validateRequestBody.js';
  * An HTTP patch method to add one form to the QLDB table.
  */
 export const updateDocumentAdminNotesHandler = async (
-  event: APIGatewayEvent
+  event: APIGatewayEvent,
 ) => {
   let response = validateMethodType(
     event.httpMethod,
     'PATCH',
-    'updateDocumentAdminNotesHandler'
+    'updateDocumentAdminNotesHandler',
   );
   if (response) {
     return response;

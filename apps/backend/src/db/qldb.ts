@@ -31,7 +31,7 @@ export const qldbDriver: QldbDriver = new QldbDriver(
   serviceConfigurationOptions,
   lowLevelClientHttpOptions,
   maxConcurrentTransactions,
-  retryConfig
+  retryConfig,
 );
 
 export const tableName = 'Forms';

@@ -4,10 +4,10 @@ import Header from '../components/header/Header';
 import { Login } from '../components/auth/Login';
 
 const LoginPage: React.FC = () => (
-    <Container>
-      <Header />
-      <Login />
-    </Container>
-  );
-  
-  export default LoginPage;
+  <Container>
+    <Header />
+    <Login />
+  </Container>
+);
+
+export default LoginPage;
