@@ -113,7 +113,7 @@ export default function ViewFormsList() {
                 <Td sx={{ fontSize: "20px" }}>{`${index + 1}.`}</Td>
                 <Td
                   style={{
-                    color: "#E3670C",
+                    color: "#EA6824",
                     fontSize: "24pt",
                   }}
                 >
