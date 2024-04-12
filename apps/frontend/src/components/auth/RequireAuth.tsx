@@ -23,10 +23,16 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
           justifyContent="space-between"
           alignItems="end"
         >
-          <Button height="45.8px" onClick={signOut}>
+          <Button
+            backgroundColor="#E3670C"
+            color="#FFFFFF"
+            fontSize="30.82px"
+            height="45.8px"
+            onClick={signOut}
+          >
             Sign Out
           </Button>
-          <Heading size="m">Logged in as: {user.attributes?.email}</Heading>
+          <Heading size="20px">Logged in as: {user.attributes?.email}</Heading>
         </Box>
       </Box>
       {children}

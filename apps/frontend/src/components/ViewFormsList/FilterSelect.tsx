@@ -52,7 +52,7 @@ const FilterSelect = <T extends FilterOptions>({
         borderWidth="1px"
         padding="10px"
         borderRadius="md"
-        width="25%"
+        width="100%"
       >
         {title}
       </MenuButton>
