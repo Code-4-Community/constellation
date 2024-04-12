@@ -32,15 +32,15 @@ const FormPage: React.FC = () => {
   const numOfSections = 7;
 
   const sectionTitles = [
-    "",
-    "",
-    "Background Information",
-    "Child Health Information",
-    "Hospital Information",
-    "Grant Request Information",
-    "Medical Professional",
-    "Additional Comments"
-  ]
+    '',
+    '',
+    'Background Information',
+    'Child Health Information',
+    'Hospital Information',
+    'Grant Request Information',
+    'Medical Professional',
+    'Additional Comments',
+  ];
 
   // Navigation Logic
   const nextStep = () => {
@@ -96,13 +96,15 @@ const FormPage: React.FC = () => {
 
             <Form>
               {!showBranchMedical && !showBranchState && (
-                <FormPageSections
-                  sectionNum={step}
-                  isMedicalProfessional={isMedicalProfessional}
-                  setIsMedicalProfessional={setIsMedicalProfessional}
-                  isValidState={isValidState}
-                  setIsValidState={setIsValidState}
-                />
+                <FormSection title={sectionTitles[step]}>
+                  <FormPageSections
+                    sectionNum={step}
+                    isMedicalProfessional={isMedicalProfessional}
+                    setIsMedicalProfessional={setIsMedicalProfessional}
+                    isValidState={isValidState}
+                    setIsValidState={setIsValidState}
+                  />
+                </FormSection>
               )}
 
               {showBranchMedical && (

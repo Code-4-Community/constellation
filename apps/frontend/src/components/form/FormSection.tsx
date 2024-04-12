@@ -14,13 +14,19 @@ interface FormSectionProps {
 export default function FormSection({ title, children }: FormSectionProps) {
   return (
     <Box>
-      <Box bg="#422669" padding="3" marginBottom="3">
+      <Box bg="#422669" borderRadius="10px" padding="3" marginBottom="3">
         <Box color="#FFFFFF" marginBottom="3">
           {title}
         </Box>
-        <Box bg="#FFFFFF" paddingLeft="3" paddingRight="3">
+        <Flex
+          bg="#FFFFFF"
+          flexDirection="column"
+          rowGap="20px"
+          borderRadius="10px"
+          padding="20px"
+        >
           {children}
-        </Box>
+        </Flex>
       </Box>
       {/* <Flex justifyContent="space-between">
         <NextButton option="Previous" nextStep={() => {}} />
