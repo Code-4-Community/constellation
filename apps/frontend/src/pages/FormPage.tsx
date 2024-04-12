@@ -32,8 +32,8 @@ const FormPage: React.FC = () => {
   const numOfSections = 7;
 
   const sectionTitles = [
-    '',
-    '',
+    'Identity Verification',
+    'Location Verification',
     'Background Information',
     'Child Health Information',
     'Hospital Information',
