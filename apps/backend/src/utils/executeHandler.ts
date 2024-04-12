@@ -9,7 +9,7 @@ import { createResponse } from './createResponse.js';
  */
 export const executeHandler = async (
   event: APIGatewayEvent,
-  handlerFunction: () => Promise<string | undefined>
+  handlerFunction: () => Promise<string | undefined>,
 ) => {
   // All log statements are written to CloudWatch
   console.info('received:', event);
@@ -22,7 +22,7 @@ export const executeHandler = async (
 
     // All log statements are written to CloudWatch
     console.info(
-      `response from: ${event.path} statusCode: ${response.statusCode}`
+      `response from: ${event.path} statusCode: ${response.statusCode}`,
     );
 
     return response;

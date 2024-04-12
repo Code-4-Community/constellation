@@ -12,7 +12,7 @@ export const markFormAsReadHandler = async (event: APIGatewayEvent) => {
   let response = validateMethodType(
     event.httpMethod,
     'PATCH',
-    'markFormAsRead'
+    'markFormAsRead',
   );
   if (response) {
     return response;

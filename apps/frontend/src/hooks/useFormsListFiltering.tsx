@@ -14,7 +14,7 @@ import { FormData } from '../types/formData';
 export default function useFormsListFiltering(
   forms: FormData[],
   setForms: (data: FormData[]) => void,
-  searchTerm: string
+  searchTerm: string,
 ) {
   // should contain hospital names as represented in the values
   // of the HospitalsDropdownValues enum / as they appear in the
@@ -26,7 +26,7 @@ export default function useFormsListFiltering(
   // should contain state names as represented in the values of
   // the StatesDropdownValues enum (e.g., ["Connecticut"])
   const [statesIncluded, setStatesIncluded] = useState<StatesDropdownValues[]>(
-    Object.values(StatesDropdownValues)
+    Object.values(StatesDropdownValues),
   );
 
   const filterBySearchTerm = (formsToDisplay: FormData[]) => {
@@ -62,8 +62,8 @@ export default function useFormsListFiltering(
         HospitalsDropdownValues[
           form.financialAssistanceForm
             .hospital as keyof typeof HospitalsDropdownValues
-        ]
-      )
+        ],
+      ),
     );
 
     // filter by state
@@ -72,8 +72,8 @@ export default function useFormsListFiltering(
         StatesDropdownValues[
           form.financialAssistanceForm.hospitalAddress
             .state as keyof typeof StatesDropdownValues
-        ]
-      )
+        ],
+      ),
     );
 
     setForms(formsToDisplay);

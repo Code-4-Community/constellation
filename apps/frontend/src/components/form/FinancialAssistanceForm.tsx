@@ -110,7 +110,7 @@ export const HospitalInfoSection: React.FC = () => {
         isRequired
         description="Select State"
         selectList={Object.entries(StatesDropdownValues).filter(
-          ([k, v]) => v !== StatesDropdownValues.OTHERSTATES
+          ([k, v]) => v !== StatesDropdownValues.OTHERSTATES,
         )}
         onChange={(value: string) => handleStateSelectChange(value)}
       />

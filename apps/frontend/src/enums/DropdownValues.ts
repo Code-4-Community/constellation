@@ -22,11 +22,11 @@ export enum HospitalsDropdownValues {
 }
 
 export enum StatesDropdownValues {
-    CT = 'Connecticut',
-    ME = 'Maine',
-    MA = 'Massachusetts',
-    NH = 'New Hampshire',
-    RI = 'Rhode Island',
-    VT = 'Vermont',
-    OTHERSTATES = 'Other',
+  CT = 'Connecticut',
+  ME = 'Maine',
+  MA = 'Massachusetts',
+  NH = 'New Hampshire',
+  RI = 'Rhode Island',
+  VT = 'Vermont',
+  OTHERSTATES = 'Other',
 }

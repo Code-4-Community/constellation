@@ -3,12 +3,8 @@
   "resourceName": "constellationtestdb3db1c5",
   "serviceType": "imported",
   "region": "us-east-1",
-  "usernameAttributes": [
-    "email"
-  ],
-  "requiredAttributes": [
-    "email"
-  ],
+  "usernameAttributes": ["email"],
+  "requiredAttributes": ["email"],
   "passwordPolicyMinLength": 8,
   "passwordPolicyCharacters": [
     "Requires Lowercase",
@@ -17,10 +13,6 @@
     "Requires Symbols"
   ],
   "mfaConfiguration": "OPTIONAL",
-  "autoVerifiedAttributes": [
-    "email"
-  ],
-  "mfaTypes": [
-    "SMS Text Message"
-  ]
+  "autoVerifiedAttributes": ["email"],
+  "mfaTypes": ["SMS Text Message"]
 }
