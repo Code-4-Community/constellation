@@ -12,7 +12,12 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   }
   return (
     <>
-      <Box display="flex" padding="8" justifyContent="space-between">
+      <Box
+        display="flex"
+        padding="8"
+        justifyContent="space-between"
+        width="100%"
+      >
         <PortalHeader />
         <Box
           display="flex"
@@ -20,13 +25,21 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
           pr="8"
           pl="8"
           py="4"
-          justifyContent="space-between"
+          justifyContent="flex-start"
+          rowGap="10px"
           alignItems="end"
         >
-          <Button height="45.8px" onClick={signOut}>
+          <Button
+            height="45.8px"
+            onClick={signOut}
+            backgroundColor="#EA6824"
+            color="#FFFFFF"
+          >
             Sign Out
           </Button>
-          <Heading size="m">Logged in as: {user.attributes?.email}</Heading>
+          <Heading size="m" textAlign="right">
+            Logged in as: {user.attributes?.email}
+          </Heading>
         </Box>
       </Box>
       {children}
