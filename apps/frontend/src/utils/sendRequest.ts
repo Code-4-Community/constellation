@@ -26,7 +26,7 @@ authenticatedAxios.interceptors.request.use(async (config) => {
 
 export const submitForm = async (
   body: FormValues,
-  callback?: () => void,
+  callback?: () => void
 ): Promise<void> => {
   try {
     await axios.post(POST_FORM_URL, formSchema.cast(body));
@@ -54,7 +54,7 @@ export const getFormById = async (id: string): Promise<AxiosResponse> => {
 
 export const patchAdminNotes = async (
   id: string,
-  notes: AdminNotes,
+  notes: AdminNotes
 ): Promise<AxiosResponse> => {
   return await authenticatedAxios.patch(PATCH_ADMIN_NOTES_URL(id), notes);
 };
@@ -66,7 +66,7 @@ export const markFormAsRead = async (id: string): Promise<AxiosResponse> => {
 };
 
 export const putMultipleCSVForms = async (
-  rawCSVData: string,
+  rawCSVData: string
 ): Promise<void> => {
   try {
     await authenticatedAxios.post(POST_MULTIPLE_CSV_FORMS_URL, {

@@ -46,7 +46,7 @@ export const FinancialAssistanceForm: React.FC<
       <FieldView
         fieldName="Date of diagnosis"
         value={new Date(
-          financialAssistanceForm.dateOfDiagnosis,
+          financialAssistanceForm.dateOfDiagnosis
         ).toLocaleDateString()}
       />
       <FieldView

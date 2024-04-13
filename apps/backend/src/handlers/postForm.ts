@@ -13,7 +13,7 @@ export const postFormHandler = async (event: APIGatewayEvent) => {
   let isValidResponse = validateMethodType(
     event.httpMethod,
     'POST',
-    'postFormHandler',
+    'postFormHandler'
   );
   if (isValidResponse) {
     return isValidResponse;
@@ -35,7 +35,7 @@ export const postFormHandler = async (event: APIGatewayEvent) => {
   const response = createResponse(201);
   // All log statements are written to CloudWatch
   console.info(
-    `response from: ${event.path} statusCode: ${response.statusCode}`,
+    `response from: ${event.path} statusCode: ${response.statusCode}`
   );
   return response;
 };
