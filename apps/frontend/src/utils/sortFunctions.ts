@@ -2,7 +2,7 @@ import { FormData } from '../types/formData';
 
 export const nameCompareFunction = (a: FormData, b: FormData) =>
   a.financialAssistanceForm.childsName.localeCompare(
-    b.financialAssistanceForm.childsName,
+    b.financialAssistanceForm.childsName
   );
 
 export const lastUpdatedCompareFunction = (a: FormData, b: FormData) =>

@@ -10,7 +10,7 @@ export const getFormByIdHandler = async (event: APIGatewayEvent) => {
   let response = validateMethodType(
     event.httpMethod,
     'GET',
-    'getFormByIdHandler',
+    'getFormByIdHandler'
   );
   if (response) {
     return response;

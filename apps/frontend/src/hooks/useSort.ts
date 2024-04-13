@@ -4,7 +4,7 @@ import { SortOrder } from '../enums/SortOrder';
 export const useSort = <FormData>(
   forms: FormData[],
   compareFunction: (a: FormData, b: FormData) => number,
-  setForms: (data: FormData[]) => void,
+  setForms: (data: FormData[]) => void
 ) => {
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
 

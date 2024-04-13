@@ -3,7 +3,7 @@ import { formSchema, adminNotesSchema, readSchema } from '../schema/schema.js';
 
 export const validateRequestBody = (
   jsonBody: JSON[],
-  schema: typeof adminNotesSchema | typeof formSchema | typeof readSchema,
+  schema: typeof adminNotesSchema | typeof formSchema | typeof readSchema
 ): HTTPResponse | undefined => {
   try {
     schema.parse(jsonBody);
