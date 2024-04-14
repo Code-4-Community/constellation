@@ -108,28 +108,32 @@ const FormPage: React.FC = () => {
               )}
 
               {showBranchMedical && (
-                <Message>
-                  <Text>
-                    You must be a medical professional to fill out this form.
-                  </Text>
-                </Message>
+                <FormSection title="">
+                  <Message>
+                    <Text>
+                      You must be a medical professional to fill out this form.
+                    </Text>
+                  </Message>
+                </FormSection>
               )}
 
               {showBranchState && (
-                <Message>
-                  <Text>
-                    We apologize we must currently give preference to families
-                    located near us (within the New England area). Below you can
-                    find resources for families from other organizations that
-                    may be able to better assist you at this time:
-                    <a
-                      href="https://cac2.org/impact-areas/family-support/hope-portal"
-                      style={{ color: 'blue', display: 'block' }}
-                    >
-                      VISIT THE HOPE PORTAL NOW
-                    </a>
-                  </Text>
-                </Message>
+                <FormSection title="">
+                  <Message>
+                    <Text>
+                      We apologize we must currently give preference to families
+                      located near us (within the New England area). Below you can
+                      find resources for families from other organizations that
+                      may be able to better assist you at this time:
+                      <a
+                        href="https://cac2.org/impact-areas/family-support/hope-portal"
+                        style={{ color: 'blue', display: 'block' }}
+                      >
+                        VISIT THE HOPE PORTAL NOW
+                      </a>
+                    </Text>
+                  </Message>
+                </FormSection>
               )}
 
               <Center mt={4}>
