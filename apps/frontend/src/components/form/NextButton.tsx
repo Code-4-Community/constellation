@@ -13,9 +13,10 @@ const NextButton: React.FC<NextButtonProps> = ({
 }) => {
   return (
     <Button
-      colorScheme="teal"
+      bg="#EA6824"
+      _hover={{ bg: "#FF4D00" }}
+      textColor="#FFFFFF"
       onClick={nextStep}
-      ml={2}
       isDisabled={isDisabled}
     >
       {option}

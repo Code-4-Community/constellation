@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { FormValues } from '../components/form/Form';
+import FormSection from '../components/form/FormSection';
 import { financialAssistanceFormSchema, formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
 import Message from '../components/form/branches/Message';
@@ -29,6 +30,17 @@ const FormPage: React.FC = () => {
   const [step, setStep] = useState<number>(0);
 
   const numOfSections = 7;
+
+  const sectionTitles = [
+    'Identity Verification',
+    'Location Verification',
+    'Background Information',
+    'Child Health Information',
+    'Hospital Information',
+    'Grant Request Information',
+    'Medical Professional',
+    'Additional Comments',
+  ];
 
   // Navigation Logic
   const nextStep = () => {
@@ -84,38 +96,44 @@ const FormPage: React.FC = () => {
 
             <Form>
               {!showBranchMedical && !showBranchState && (
-                <FormPageSections
-                  sectionNum={step}
-                  isMedicalProfessional={isMedicalProfessional}
-                  setIsMedicalProfessional={setIsMedicalProfessional}
-                  isValidState={isValidState}
-                  setIsValidState={setIsValidState}
-                />
+                <FormSection title={sectionTitles[step]}>
+                  <FormPageSections
+                    sectionNum={step}
+                    isMedicalProfessional={isMedicalProfessional}
+                    setIsMedicalProfessional={setIsMedicalProfessional}
+                    isValidState={isValidState}
+                    setIsValidState={setIsValidState}
+                  />
+                </FormSection>
               )}
 
               {showBranchMedical && (
-                <Message>
-                  <Text>
-                    You must be a medical professional to fill out this form.
-                  </Text>
-                </Message>
+                <FormSection title="">
+                  <Message>
+                    <Text>
+                      You must be a medical professional to fill out this form.
+                    </Text>
+                  </Message>
+                </FormSection>
               )}
 
               {showBranchState && (
-                <Message>
-                  <Text>
-                    We apologize we must currently give preference to families
-                    located near us (within the New England area). Below you can
-                    find resources for families from other organizations that
-                    may be able to better assist you at this time:
-                    <a
-                      href="https://cac2.org/impact-areas/family-support/hope-portal"
-                      style={{ color: 'blue', display: 'block' }}
-                    >
-                      VISIT THE HOPE PORTAL NOW
-                    </a>
-                  </Text>
-                </Message>
+                <FormSection title="">
+                  <Message>
+                    <Text>
+                      We apologize we must currently give preference to families
+                      located near us (within the New England area). Below you can
+                      find resources for families from other organizations that
+                      may be able to better assist you at this time:
+                      <a
+                        href="https://cac2.org/impact-areas/family-support/hope-portal"
+                        style={{ color: 'blue', display: 'block' }}
+                      >
+                        VISIT THE HOPE PORTAL NOW
+                      </a>
+                    </Text>
+                  </Message>
+                </FormSection>
               )}
 
               <Center mt={4}>
