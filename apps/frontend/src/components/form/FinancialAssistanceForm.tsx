@@ -7,6 +7,7 @@ import {
   StatesDropdownValues,
 } from '../../enums/DropdownValues';
 import { useStateFormContext } from '../../hooks/useStateFormContext';
+import { Box, Text } from '@chakra-ui/react';
 
 export const ChildInfoSection: React.FC = () => {
   const { isOtherStatesSelected } = useStateFormContext();
@@ -21,13 +22,18 @@ export const ChildInfoSection: React.FC = () => {
         isDisabled={isOtherStatesSelected}
       />
 
-      <FormField
-        inputVariant="date"
-        name="financialAssistanceForm.dob"
-        isRequired
-        displayName="Date of Birth"
-        isDisabled={isOtherStatesSelected}
-      />
+      <Box>
+        <FormField
+          inputVariant="date"
+          name="financialAssistanceForm.dob"
+          isRequired
+          displayName="Date of Birth"
+          isDisabled={isOtherStatesSelected}
+        />
+        <Text>
+          The cutoff age for applications is 26 years old.
+        </Text>
+      </Box>
 
       <FormField
         inputVariant="text"
