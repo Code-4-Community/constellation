@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Center,
   Container,
   Heading,
@@ -11,12 +12,12 @@ import { FormValues } from '../components/form/Form';
 import FormSection from '../components/form/FormSection';
 import { financialAssistanceFormSchema, formSchema } from '../types/formSchema';
 import { submitForm } from '../utils/sendRequest';
-import Message from '../components/form/branches/Message';
 import { useState } from 'react';
 import NextButton from '../components/form/NextButton';
 import Header from '../components/header/Header';
 import SubmitButton from '../components/form/SubmitButton';
 import FormPageSections from '../components/form/branches/FormPageSections';
+import ProgressBar from '../components/form/ProgressBar';
 
 const FormPage: React.FC = () => {
   const [isMedicalProfessional, setIsMedicalProfessional] = useState<
@@ -29,7 +30,7 @@ const FormPage: React.FC = () => {
 
   const [step, setStep] = useState<number>(0);
 
-  const numOfSections = 7;
+  const numOfSections = 8;
 
   const sectionTitles = [
     'Identity Verification',
@@ -73,10 +74,10 @@ const FormPage: React.FC = () => {
     (step === 1 && isValidState === undefined);
 
   const showNextButton =
-    step < numOfSections && !showBranchMedical && !showBranchState;
+    step < numOfSections - 1 && !showBranchMedical && !showBranchState;
 
   const showSubmitButton =
-    isMedicalProfessional && isValidState && step === numOfSections;
+    isMedicalProfessional && isValidState && step === numOfSections - 1;
 
   return (
     <Formik
@@ -89,7 +90,7 @@ const FormPage: React.FC = () => {
       {(form) => (
         <Box>
           <Header />
-          <Container>
+          <Container mb="10">
             <Heading size="md" textAlign="center" fontSize="40px" mb="40px">
               Financial Assistance Form
             </Heading>
@@ -109,30 +110,26 @@ const FormPage: React.FC = () => {
 
               {showBranchMedical && (
                 <FormSection title="">
-                  <Message>
-                    <Text>
-                      You must be a medical professional to fill out this form.
-                    </Text>
-                  </Message>
+                  <Text>
+                    You must be a medical professional to fill out this form.
+                  </Text>
                 </FormSection>
               )}
 
               {showBranchState && (
                 <FormSection title="">
-                  <Message>
-                    <Text>
-                      We apologize we must currently give preference to families
-                      located near us (within the New England area). Below you can
-                      find resources for families from other organizations that
-                      may be able to better assist you at this time:
-                      <a
-                        href="https://cac2.org/impact-areas/family-support/hope-portal"
-                        style={{ color: 'blue', display: 'block' }}
-                      >
-                        VISIT THE HOPE PORTAL NOW
-                      </a>
-                    </Text>
-                  </Message>
+                  <Text>
+                    We apologize we must currently give preference to families
+                    located near us (within the New England area). Below you can
+                    find resources for families from other organizations that
+                    may be able to better assist you at this time:
+                  </Text>
+                  <Text fontWeight="bold">
+                    The Hope Portal (hosted by the Coalition Against Childhood
+                    Cancer) is a searchable database which strives to connect
+                    childhood cancer families to the information and vast array
+                    of support resources they need–faster than ever.
+                  </Text>
                 </FormSection>
               )}
 
@@ -152,9 +149,26 @@ const FormPage: React.FC = () => {
                   />
                 )}
 
+                {showBranchState && (
+                  <Button
+                    style={{
+                      color: '#422669',
+                      backgroundColor: '#ABE92C',
+                      fontWeight: '700',
+                    }}
+                  >
+                    <a href="https://cac2.org/impact-areas/family-support/hope-portal">
+                      VISIT THE HOPE PORTAL NOW
+                    </a>
+                  </Button>
+                )}
+
                 {showSubmitButton && SubmitButton({ form })}
               </Center>
             </Form>
+            {!showBranchMedical && !showBranchState && (
+              <ProgressBar step={step + 1} numSteps={numOfSections} />
+            )}
           </Container>
         </Box>
       )}
