@@ -18,15 +18,16 @@ interface ViewFormsOptionsProps {
   forms: FormData[];
   allForms: FormData[];
   setForms: (data: FormData[]) => void;
+  searchTerm: string;
 }
 
 const ViewFormsOptions: React.FC<ViewFormsOptionsProps> = ({
   forms,
   allForms,
   setForms,
+  searchTerm,
 }) => {
   const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.NAME);
-  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const compareFunction =
     sortBy === SortOptions.NAME
@@ -37,18 +38,20 @@ const ViewFormsOptions: React.FC<ViewFormsOptionsProps> = ({
   const { setHospitalsIncluded, setStatesIncluded } = useFormsListFiltering(
     allForms,
     setForms,
-    searchTerm
+    searchTerm,
   );
 
   return (
     <Box>
       <Box
         display="flex"
-        flexDirection="row"
-        justifyContent="flex-start"
-        columnGap={16}
-        ml={4}
-        mb={8}
+        flexDirection="column"
+        alignItems="start"
+        rowGap="5px"
+        mb="10px"
+        marginLeft="auto"
+        marginRight="auto"
+        width="98%"
       >
         <FilterSelect
           title={'Filter by State'}
@@ -64,25 +67,8 @@ const ViewFormsOptions: React.FC<ViewFormsOptionsProps> = ({
             setHospitalsIncluded(selected)
           }
         />
-
-        <Input
-          width="25%"
-          alignSelf={'flex-end'}
-          placeholder="Search"
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-      </Box>
-
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="flex-start"
-        columnGap={16}
-        ml={4}
-        mb={8}
-      >
         <Select
-          width="25%"
+          width="100%"
           onChange={(event) => setSortBy(event.target.value as SortOptions)}
         >
           <option value={SortOptions.NAME}>Sort by Name</option>
@@ -90,7 +76,7 @@ const ViewFormsOptions: React.FC<ViewFormsOptionsProps> = ({
         </Select>
 
         <Select
-          width="25%"
+          width="100%"
           onChange={(event) => setSortOrder(event.target.value as SortOrder)}
         >
           <option value={SortOrder.ASC}>Ascending</option>
