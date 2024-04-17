@@ -17,63 +17,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
-import { SortOptions } from '../../enums/SortOrder';
-import useFormsListFiltering from '../../hooks/useFormsListFiltering';
-import { useSort } from '../../hooks/useSort';
-import {
-  lastUpdatedCompareFunction,
-  nameCompareFunction,
-} from '../../utils/sortFunctions';
 import CSVImportButton from './CSVImportButton';
 import ViewFormsOptions from './ViewFormsOptions';
 import { formSchema } from '../../types/formSchema';
-
-const testData = {
-  adminNotes: [],
-  medicalForm: {
-    notes: '',
-    socialWorkersEmail: 'email@email.com',
-    date: '1010-10-10T04:56:02.000Z',
-    signature: 'Signature',
-    medicalProfessionalTitle: 'Title',
-    medicalProfessionalName: 'Name',
-    descriptionOfCondition: '',
-    phone: '215-222-2222',
-    address: {
-      zipcode: '12345',
-      state: 'MA',
-      city: 'City',
-      street: 'Address',
-    },
-    otherHospital: '',
-    hospital: 'DANAHOSPITAL',
-    childsPhysician: 'Name',
-    dateOfDiagnosis: '1010-10-10T04:56:02.000Z',
-    otherDiagnosis: '',
-    childsDiagnosis: 'LYMPHOMAS',
-  },
-  guardianForm: {
-    date: '1010-10-10T04:56:02.000Z',
-    signature: 'Signature',
-    intendedUseOfGrant: 'Use of grant',
-    requestedGrantAmount: 3000,
-    email: 'email@email.com',
-    cellPhone: '215-222-2222',
-    phone: '215-222-2222',
-    address: {
-      zipcode: '12345',
-      state: 'ME',
-      city: 'City',
-      street: 'Address',
-    },
-    guardianName: 'Name',
-    gender: 'Male',
-    dob: '1010-10-10T04:56:02.000Z',
-    childsName: 'Name',
-    notes: 'Notes',
-  },
-  id: 'ab0c6c23-0177-454b-aa2a-b56c805ca2bc',
-};
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
