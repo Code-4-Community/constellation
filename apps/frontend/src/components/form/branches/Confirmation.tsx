@@ -33,13 +33,7 @@ const ConfirmationStep = ({
   })();
 
   return (
-    <Container
-      maxW="container.md"
-      p={4}
-      borderWidth="1px"
-      borderRadius="lg"
-      boxShadow="lg"
-    >
+    <>
       <VStack spacing={6}>
         <Heading size="md">{confirmationQuestion}</Heading>
         <Heading size="sm" textAlign="center">
@@ -55,7 +49,7 @@ const ConfirmationStep = ({
           <Radio value={'2'}>No</Radio>
         </RadioGroup>
       </VStack>
-    </Container>
+    </>
   );
 };
 
