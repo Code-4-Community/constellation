@@ -1,6 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import { fetchDocuments } from '../db/utils.js';
-import { formSchema } from '../schema/schema.js';
 import { executeHandler } from '../utils/executeHandler.js';
 import { sanitizeFormList } from '../utils/sanitizeForms.js';
 import { validateMethodType } from '../utils/validateMethodType.js';
