@@ -17,15 +17,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
-import { SortOptions } from '../../enums/SortOrder';
-import useFormsListFiltering from '../../hooks/useFormsListFiltering';
-import { useSort } from '../../hooks/useSort';
-import {
-  lastUpdatedCompareFunction,
-  nameCompareFunction,
-} from '../../utils/sortFunctions';
 import CSVImportButton from './CSVImportButton';
 import ViewFormsOptions from './ViewFormsOptions';
+import { formSchema } from '../../types/formSchema';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
@@ -42,8 +36,22 @@ export default function ViewFormsList() {
 
   const getForms = async () => {
     const allForms = await getAllForms();
-    setForms(allForms);
-    setAllForms(allForms);
+    const validatedForms = await validateForms(allForms);
+    setForms(validatedForms);
+    setAllForms(validatedForms);
+  };
+
+  const validateForms = async (forms: any[]) => {
+    const validatedForms = [] as FormData[];
+    for (const f of forms) {
+      try {
+        await formSchema.validate(f);
+        validatedForms.push(f as any as FormData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return validatedForms;
   };
 
   useEffect(() => {
@@ -66,7 +74,7 @@ export default function ViewFormsList() {
         <Center mb={1}>
           <Heading
             sx={{
-              fontSize: "52px",
+              fontSize: '52px',
             }}
           >
             Submitted Forms
@@ -87,11 +95,11 @@ export default function ViewFormsList() {
           <Tr>
             <Th></Th>
             <Th></Th>
-            <Th sx={{ color: "#000000", fontSize: "23px" }}>Last Updated</Th>
-            <Th sx={{ color: "#000000", fontSize: "23px" }}>Child Name</Th>
-            <Th sx={{ color: "#000000", fontSize: "23px" }}>Date of Birth</Th>
-            <Th sx={{ color: "#000000", fontSize: "23px" }}>Hospital</Th>
-            <Th sx={{ color: "#000000", fontSize: "23px" }}>Location</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px' }}>Last Updated</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px' }}>Child Name</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px' }}>Date of Birth</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px' }}>Hospital</Th>
+            <Th sx={{ color: '#000000', fontSize: '23px' }}>Location</Th>
           </Tr>
         </Thead>
         {forms === null ? (
@@ -107,40 +115,40 @@ export default function ViewFormsList() {
                 key={form.id}
                 onClick={() => navigateToForm(form.id)}
                 sx={{
-                  color: index % 2 === 0 ? "#000000" : "#555555",
+                  color: index % 2 === 0 ? '#000000' : '#555555',
                 }}
               >
-                <Td sx={{ fontSize: "20px" }}>{`${index + 1}.`}</Td>
+                <Td sx={{ fontSize: '20px' }}>{`${index + 1}.`}</Td>
                 <Td
                   style={{
-                    color: "#EA6824",
-                    fontSize: "24pt",
+                    color: '#EA6824',
+                    fontSize: '24pt',
                   }}
                 >
-                  {form.read === undefined || !form.read ? "●" : ""}
+                  {form.read === undefined || !form.read ? '●' : ''}
                 </Td>
-                <Td sx={{ fontSize: "20px" }}>
+                <Td sx={{ fontSize: '20px' }}>
                   {form.adminNotes.length > 0
                     ? new Date(
-                        form.adminNotes[0].updatedAt,
+                        form.adminNotes[0].updatedAt
                       ).toLocaleDateString()
                     : new Date(
-                        form.financialAssistanceForm.date,
+                        form.financialAssistanceForm.date
                       ).toLocaleDateString()}
                 </Td>
-                <Td sx={{ fontSize: "20px" }}>
+                <Td sx={{ fontSize: '20px' }}>
                   {form.financialAssistanceForm.childsName}
                 </Td>
-                <Td sx={{ fontSize: "20px" }}>
+                <Td sx={{ fontSize: '20px' }}>
                   {new Date(
-                    form.financialAssistanceForm.dob,
+                    form.financialAssistanceForm.dob
                   ).toLocaleDateString()}
                 </Td>
-                <Td sx={{ fontSize: "20px" }}>
+                <Td sx={{ fontSize: '20px' }}>
                   {form.financialAssistanceForm.hospital}
                 </Td>
                 <Td
-                  sx={{ fontSize: "20px" }}
+                  sx={{ fontSize: '20px' }}
                 >{`${form.financialAssistanceForm.hospitalAddress.city}, ${form.financialAssistanceForm.hospitalAddress.state}`}</Td>
               </Tr>
             ))}
