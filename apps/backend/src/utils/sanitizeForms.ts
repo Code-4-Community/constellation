@@ -1,5 +1,3 @@
-import { formSchema } from '../schema/schema.js';
-
 export const sanitizeFormList = (forms: any[]) => {
   return forms
     .map((form) => sanitizeForm(form))
@@ -7,10 +5,9 @@ export const sanitizeFormList = (forms: any[]) => {
 };
 
 const sanitizeForm = (form: any) => {
-  try {
-    formSchema.parse(form);
+  if (form.id && form.financialAssistanceForm) {
     return form;
-  } catch {
+  } else {
     return parseForm(form);
   }
 };
