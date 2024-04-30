@@ -38,7 +38,7 @@ const ViewFormsOptions: React.FC<ViewFormsOptionsProps> = ({
   const { setHospitalsIncluded, setStatesIncluded } = useFormsListFiltering(
     allForms,
     setForms,
-    searchTerm,
+    searchTerm
   );
 
   return (
@@ -47,8 +47,9 @@ const ViewFormsOptions: React.FC<ViewFormsOptionsProps> = ({
         display="flex"
         flexDirection="column"
         alignItems="start"
-        rowGap="5px"
+        rowGap="10px"
         mb="10px"
+        mt="10px"
         marginLeft="auto"
         marginRight="auto"
         width="98%"
