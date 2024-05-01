@@ -30,9 +30,7 @@ export const ChildInfoSection: React.FC = () => {
           displayName="Date of Birth"
           isDisabled={isOtherStatesSelected}
         />
-        <Text>
-          The cutoff age for applications is 26 years old.
-        </Text>
+        <Text>The cutoff age for applications is 26 years old.</Text>
       </Box>
 
       <FormField
@@ -61,7 +59,6 @@ export const GrantDetailsSection: React.FC = () => {
         inputVariant="textArea"
         name="financialAssistanceForm.intendedUseOfGrant"
         displayName="Intended Use of Grant"
-        description="Please provide a copy of the bill, if direct payment to a creditor is preferred"
         isDisabled={isOtherStatesSelected}
       />
     </>

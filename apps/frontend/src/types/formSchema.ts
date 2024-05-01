@@ -1,7 +1,7 @@
 import type { Asserts } from 'yup';
 import * as Yup from 'yup';
 
-const addressSchema = Yup.object({
+export const addressSchema = Yup.object({
   street: Yup.string().min(1).required().default(''),
   city: Yup.string().min(1).required().default(''),
   state: Yup.string().min(1).required().default(''),

@@ -113,6 +113,10 @@ const FormPage: React.FC = () => {
                   <Text>
                     You must be a medical professional to fill out this form.
                   </Text>
+                  <Text>
+                    Please contact the medical professional who works with your
+                    child to complete this form.
+                  </Text>
                 </FormSection>
               )}
 
