@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Box,
+  Button,
   Center,
   Flex,
   Heading,
@@ -19,7 +20,10 @@ import { getAllForms, markFormAsRead } from '../../utils/sendRequest';
 import { FormData } from '../../types/formData';
 import CSVImportButton from './CSVImportButton';
 import ViewFormsOptions from './ViewFormsOptions';
-import { formSchema } from '../../types/formSchema';
+import { formSchema, addressSchema, AdminNotes } from '../../types/formSchema';
+import { CSVDownload, CSVLink } from 'react-csv';
+import { Asserts } from 'yup';
+import { convertFormsToCSVFormat } from '../../utils/convertToCsv';
 
 export default function ViewFormsList() {
   const [forms, setForms] = useState<FormData[]>([]);
@@ -62,7 +66,13 @@ export default function ViewFormsList() {
     <Box p={1}>
       <Flex alignItems="center" justifyContent="space-between" mb={8}>
         <Box marginLeft={5}>
-          <CSVImportButton />
+          <Input
+            alignSelf="flex-start"
+            placeholder="Search"
+            marginRight={2}
+            onChange={(event) => setSearchTerm(event.target.value)}
+          />
+
           <ViewFormsOptions
             forms={forms}
             allForms={allForms}
@@ -81,13 +91,30 @@ export default function ViewFormsList() {
           </Heading>
         </Center>
 
-        <Input
-          width="15%"
-          alignSelf="flex-start"
-          placeholder="Search"
-          marginRight={2}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="start"
+          rowGap="5px"
+          mb="10px"
+          marginRight={5}
+        >
+          <CSVImportButton />
+
+          <Button>
+            <CSVLink
+              data={convertFormsToCSVFormat(allForms)}
+              filename="tswgo_all_forms"
+              target="_blank"
+              style={{
+                margin: '10px 0',
+                width: '98%',
+              }}
+            >
+              Download Forms To CSV
+            </CSVLink>
+          </Button>
+        </Box>
       </Flex>
 
       <Table marginLeft="auto" marginRight="auto" width="98%" variant="simple">
