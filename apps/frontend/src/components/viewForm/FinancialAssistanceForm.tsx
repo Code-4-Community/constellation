@@ -94,5 +94,15 @@ export const FinancialAssistanceForm: React.FC<
         value={financialAssistanceForm.intendedUseOfGrant || 'N/A'}
       />
     </Flex>
+    <Flex flexWrap="wrap">
+      <FieldView
+        fieldName="Medical Professional Phone"
+        value={financialAssistanceForm.medicalProfessionalPhone}
+      />
+      <FieldView
+        fieldName="Medical Professional Email"
+        value={financialAssistanceForm.medicalProfessionalEmail}
+      />
+    </Flex>
   </Flex>
 );
